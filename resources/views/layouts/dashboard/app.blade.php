@@ -20,7 +20,8 @@
         />
 
         <!-- Vendor CSS Files -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @vite(['resources/sass/app.scss', 'resources/js/app.js']) @stack('css')
+        @stack('script') @stack('script2')
 
         <link
             href="/assets/vendor/boxicons/css/boxicons.min.css"

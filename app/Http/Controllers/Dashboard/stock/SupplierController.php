@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard\stock;
 
-use App\Http\Controllers\Controller;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\support\Facades\Storage;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class SupplierController extends Controller
 {
@@ -49,7 +51,28 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|unique:suppliers',
+            'slug' => 'required|unique:suppliers',
+            'phone' => 'required',
+            'email' => 'required|unique:suppliers',
+            'address' => 'required',
+        ]);
+
+        $supplier = Supplier::create($validatedData);
+
+        if ($request->file('pic')) {
+            $data = $request->validate([
+                'pic' => 'image|file|max:2048',
+            ]);
+            $data['pic'] = $request->file('pic')->store('supplier-pic');
+            $supplier->image()->create($data);
+        }
+
+        return redirect('/dashboard/stock/supplier')->with(
+            'success',
+            'Data has Been Saved'
+        );
     }
 
     /**
@@ -57,7 +80,10 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+        return view('dashboard.stock.supplier.show', [
+            'title' => 'Detail Data',
+            'data' => $supplier->load('image'),
+        ]);
     }
 
     /**
@@ -65,7 +91,10 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('dashboard.stock.supplier.edit', [
+            'title' => 'Edit Supplier Data',
+            'data' => $supplier->load('image'),
+        ]);
     }
 
     /**
@@ -73,7 +102,40 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        $rules = [
+            'phone' => 'required',
+            'address' => 'required',
+        ];
+
+        if ($request->name != $supplier->name) {
+            $rules['name'] = 'required|unique:suppliers';
+        }
+        if ($request->slug != $supplier->slug) {
+            $rules['slug'] = 'required|unique:suppliers';
+        }
+        if ($request->email != $supplier->email) {
+            $rules['email'] = 'required|unique:suppliers';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        Supplier::where('id', $supplier->id)->update($validatedData);
+
+        if ($request->file('pic')) {
+            $request->validate(['pic' => 'image|file|max:2048']);
+            if ($request->old_pic) {
+                storage::delete($request->old_pic);
+                $supplier->image()->delete();
+            }
+            $supplier->image()->create([
+                'pic' => $request->file('pic')->store('supplier-pic'),
+            ]);
+        }
+
+        return redirect('/dashboard/stock/supplier')->with(
+            'success',
+            'Data Has Been Updated'
+        );
     }
 
     /**
@@ -81,6 +143,25 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        $supplier->destroy($supplier->id);
+        if ($supplier->image) {
+            storage::delete($supplier->image->pic);
+            $supplier->image->delete();
+        }
+
+        return redirect('/dashboard/stock/supplier')->with(
+            'success',
+            'Data Has Been Deleted'
+        );
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(
+            Supplier::class,
+            'slug',
+            $request->name
+        );
+        return response()->json(['slug' => $slug]);
     }
 }

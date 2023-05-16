@@ -26,7 +26,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name(
 );
 
 Route::controller(SupplierController::class)->group(function () {
-    route::get('/dashboard/stock/supplier/checkSlug', 'checkslug');
+    route::get('/dashboard/stock/supplier/checkSlug', 'checkSlug');
 });
 
 Route::resource('/dashboard/stock/supplier', SupplierController::class);

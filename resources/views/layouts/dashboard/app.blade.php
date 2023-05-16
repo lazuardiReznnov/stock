@@ -20,8 +20,8 @@
         />
 
         <!-- Vendor CSS Files -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js']) @stack('css')
-        @stack('script') @stack('script2')
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @stack('css')@stack('script')
 
         <link
             href="/assets/vendor/boxicons/css/boxicons.min.css"
@@ -73,6 +73,7 @@
             ><i class="bi bi-arrow-up-short"></i
         ></a>
 
+        @stack('script2')
         <!-- Vendor JS Files -->
         <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
 

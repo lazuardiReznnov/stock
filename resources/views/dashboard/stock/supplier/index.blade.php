@@ -1,4 +1,4 @@
-<x-dashboard>
+<x-dashboard title="{{ $title }}">
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
@@ -10,31 +10,31 @@
     <div class="row">
         <div class="col-md-8">
             @if(session()->has('success'))
-            <x-card>
-                <!-- pesan -->
 
-                <div
-                    class="alert alert-success alert-dismissible fade show"
-                    role="alert"
-                >
-                    {{ session("success") }}
+            <!-- pesan -->
 
-                    <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="alert"
-                        aria-label="close"
-                    ></button>
-                </div>
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
 
-                <!-- endpesan -->
-            </x-card>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
             @endif
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard/stock">
                     Back
@@ -46,7 +46,29 @@
                     Add
                 </x-button-link>
             </x-button-group>
-
+        </div>
+        <div class="col-md-6">
+            <div class="search-bar">
+                <form
+                    class="search-form d-flex align-items-center"
+                    method="GET"
+                    action="/dashboard/stock/supplier"
+                >
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search"
+                        title="Enter search keyword"
+                    />
+                    <button type="submit" title="Search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <x-card>
                 <x-card-title> Supplier List </x-card-title>
 

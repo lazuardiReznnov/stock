@@ -1,3 +1,4 @@
-<section class="section">
+<section {{ $attributes->
+    class('section') }}>
     {{ $slot }}
 </section>

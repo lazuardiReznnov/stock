@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\stock\CategoryController;
 use App\Http\Controllers\Dashboard\stock\SupplierController;
 
 /*
@@ -25,8 +26,20 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name(
     'dashboard'
 );
 
+// category
+Route::controller(CategoryController::class)->group(function () {
+    route::get('/dashboard/stock/category/checkSlug', 'checkSlug');
+});
+
+Route::resource('/dashboard/stock/category', CategoryController::class)->except(
+    'show'
+);
+// end Category
+
+// Supplier
 Route::controller(SupplierController::class)->group(function () {
     route::get('/dashboard/stock/supplier/checkSlug', 'checkSlug');
 });
 
 Route::resource('/dashboard/stock/supplier', SupplierController::class);
+// end Supplier

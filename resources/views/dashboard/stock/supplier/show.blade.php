@@ -6,7 +6,54 @@
             <x-breadcrumb-item link="" name="Supplier" />
         </x-breadcrumb>
     </x-pagetitle>
-
+    <div class="row">
+        <div class="col-md-6">
+            <x-button-group>
+                <x-button-link
+                    class="btn-primary"
+                    href="/dashboard/stock/supplier"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Back"
+                >
+                    Back
+                </x-button-link>
+                <x-button-link
+                    class="btn-primary"
+                    href="/dashboard/stock/supplier/create"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Create Supplier"
+                >
+                    Add
+                </x-button-link>
+                <x-button-link
+                    href="/dashboard/stock/supplier/{{ $data->slug }}/edit"
+                    class="btn btn-warning"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Edit Supplier"
+                    ><i class="bi bi-pencil-square"></i>
+                </x-button-link>
+                <form
+                    action="/dashboard/stock/supplier/{{ $data->slug }}"
+                    method="post"
+                    class="d-inline"
+                >
+                    @method('delete') @csrf
+                    <button
+                        class="btn btn-danger border-0 rounded-0"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Delete Suppler"
+                        onclick="return confirm('are You sure ??')"
+                    >
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </form>
+            </x-button-group>
+        </div>
+    </div>
     <x-section class="profile">
         <div class="row">
             <div class="col-xl-4">

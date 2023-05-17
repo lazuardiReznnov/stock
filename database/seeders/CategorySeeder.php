@@ -16,42 +16,42 @@ class CategorySeeder extends Seeder
         Category::create([
             'name' => 'Kelistrikan',
             'slug' => 'kelistrikan',
-            'Description' => 'Stock Bagian Kelistrikan',
+            'Description' => 'Stock Barang Kelistrikan',
         ]);
 
         Category::create([
             'name' => 'Mesin',
             'slug' => 'mesin',
-            'Description' => 'Stock Bagian mesin',
+            'Description' => 'Stock Barang mesin',
         ]);
 
         Category::create([
             'name' => 'Pengereman',
             'slug' => 'rem',
-            'Description' => 'Stock Bagian Pengereman',
+            'Description' => 'Stock Barang Pengereman',
         ]);
 
         Category::create([
             'name' => 'Drive Train',
             'slug' => 'drive-train',
-            'Description' => 'Stock Bagian drive-train',
+            'Description' => 'Stock Barang drive-train',
         ]);
 
         Category::create([
             'name' => 'Pelumas',
             'slug' => 'pelumas',
-            'Description' => 'Stock Bagian pelumas',
+            'Description' => 'Stock Barang pelumas',
         ]);
 
         Category::create([
             'name' => 'Steering',
             'slug' => 'stir',
-            'Description' => 'Stock Bagian stir',
+            'Description' => 'Stock Barang stir',
         ]);
         Category::create([
             'name' => 'Ban',
             'slug' => 'ban',
-            'Description' => 'Stock Bagian ban',
+            'Description' => 'Stock Barang ban',
         ]);
     }
 }

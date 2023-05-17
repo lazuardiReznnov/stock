@@ -41,6 +41,9 @@
             <x-nav-content-item link="/dashboard/stock/category">
                 Category Data
             </x-nav-content-item>
+            <x-nav-content-item link="/dashboard/stock/sparepart">
+                sparepart Data
+            </x-nav-content-item>
         </x-nav-content>
     </x-nav-item>
 </x-sidebar-nav>

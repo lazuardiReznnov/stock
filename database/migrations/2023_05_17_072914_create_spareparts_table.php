@@ -22,8 +22,8 @@ return new class extends Migration {
                 ->constrained('types')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->string('name');
+            $table->string('slug');
             $table->string('code')->unique();
             $table->string('description');
             $table->timestamps();

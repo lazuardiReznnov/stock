@@ -31,4 +31,9 @@ class Category extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    public function sparepart()
+    {
+        return $this->hasMany(Sparepart::class);
+    }
 }

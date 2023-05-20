@@ -35,4 +35,9 @@ class Sparepart extends Model
     {
         return $this->belongsTo(Type::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

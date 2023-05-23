@@ -31,7 +31,7 @@ class SparepartController extends Controller
         return view('dashboard.stock.sparepart.index', [
             'title' => 'Sparepart Data',
             'datas' => $sparepart
-                ->with('type', 'category')
+                ->with('type', 'category', 'image')
                 ->paginate(10)
                 ->withQueryString(),
         ]);
@@ -91,7 +91,12 @@ class SparepartController extends Controller
      */
     public function edit(Sparepart $sparepart)
     {
-        //
+        return view('dashboard.stock.sparepart.edit', [
+            'title' => 'Edit data',
+            'types' => Type::all(),
+            'categories' => Category::All(),
+            'data' => $sparepart->load('image'),
+        ]);
     }
 
     /**
@@ -99,7 +104,35 @@ class SparepartController extends Controller
      */
     public function update(Request $request, Sparepart $sparepart)
     {
-        //
+        $rules = [
+            'category_id' => 'required',
+            'type_id' => 'required',
+            'name' => 'required',
+            'slug' => 'required',
+            'description' => 'required',
+        ];
+        if ($request->code != $sparepart->name) {
+            $rules['code'] = 'required|unique:spareparts';
+        }
+
+        $validatedData = $request->validate($rules);
+        Sparepart::where('id', $sparepart->id)->update($validatedData);
+
+        if ($request->file('pic')) {
+            $request->validate(['pic' => 'image|file|max:2048']);
+            if ($request->old_pic) {
+                storage::delete($request->old_pic);
+                $sparepart->image()->delete();
+            }
+            $sparepart->image()->create([
+                'pic' => $request->file('pic')->store('sparepart-pic'),
+            ]);
+        }
+
+        return redirect('/dashboard/stock/sparepart')->with(
+            'success',
+            'Data has Been Saved'
+        );
     }
 
     /**

@@ -5,7 +5,6 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\stock\CategoryController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
 use App\Http\Controllers\Dashboard\stock\SupplierController;
-use App\Models\Sparepart;
 
 /*
 |--------------------------------------------------------------------------

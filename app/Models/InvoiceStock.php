@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Supplier extends Model
+class InvoiceStock extends Model
 {
     use HasFactory, Sluggable;
 
@@ -31,8 +31,8 @@ class Supplier extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function invoiceStock()
+    public function supplier()
     {
-        return $this->hasMany(InvoiceStock::class);
+        return $this->belongsTo(Supplier::class);
     }
 }

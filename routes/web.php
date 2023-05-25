@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\stock\CategoryController;
+use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
+use App\Http\Controllers\Dashboard\stock\stockController;
 use App\Http\Controllers\Dashboard\stock\SupplierController;
 
 /*
@@ -52,3 +54,12 @@ Route::controller(SupplierController::class)->group(function () {
 
 Route::resource('/dashboard/stock/supplier', SupplierController::class);
 // end Supplier
+
+Route::controller(InvoiceStockController::class)->group(function () {
+    route::get('/dashboard/stock/invoiceStock/checkSlug', 'checkSlug');
+});
+Route::resource('/dashboard/stock/invoiceStock', InvoiceStockController::class);
+
+Route::controller(stockController::class)->group(function () {
+    Route::get('/dashboard/stock', 'index');
+});

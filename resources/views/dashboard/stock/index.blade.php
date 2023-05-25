@@ -15,7 +15,7 @@
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
-                    href="/dashboard/stock/invoice-stock"
+                    href="/dashboard/stock/invoiceStock"
                 >
                     Add
                 </x-button-link>
@@ -25,66 +25,67 @@
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Category List </x-card-title>
+                <x-card-title> Stock List </x-card-title>
+                <div class="accordion accordion-flush" id="sparepart">
+                    @foreach($datas as $data)
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#{{ $data->slug }}"
+                                aria-expanded="false"
+                                aria-controls="{{ $data->slug }}"
+                            >
+                                {{ $data->name }}
+                            </button>
+                        </h2>
+                        <div
+                            id="{{ $data->slug }}"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#sparepart"
+                        >
+                            <div class="accordion-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-
-                            <th scope="col">Name</th>
-
-                            <th scope="col">description</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($datas->count()) @foreach($datas as $data)
-                        <tr>
-                            <th scope="row">
-                                {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
-                            </th>
-                            <td>{{ $data->name }}</td>
-
-                            <td>{!! $data->description !!}</td>
-
-                            <td>
-                                <a
-                                    href="/dashboard/stock/category/{{ $data->slug }}/edit"
-                                    class="badge bg-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Edit stock"
-                                    ><i class="bi bi-pencil-square"></i
-                                ></a>
-
-                                <form
-                                    action="/dashboard/stock/category/{{ $data->slug }}"
-                                    method="post"
-                                    class="d-inline"
-                                >
-                                    @method('delete') @csrf
-                                    <button
-                                        class="badge bg-danger border-0"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Delete stock"
-                                        onclick="return confirm('are You sure ??')"
-                                    >
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach @else
-                        <tr>
-                            <td colspan="4" class="text-center">
-                                Data Not Found
-                            </td>
-                        </tr>
-                        @endif
-                    </tbody>
-                </table>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">type</th>
+                                            <th scope="col">Qty</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if($data->sparepart->count())
+                                        @foreach($data->sparepart as $sparepart)
+                                        <tr>
+                                            <td scope="row">
+                                                {{ $loop->iteration }}
+                                            </td>
+                                            <td scope="col">
+                                                Name
+                                                {{ $sparepart->name }}
+                                            </td>
+                                            <td scope="col">
+                                                Type
+                                                {{ $sparepart->type->name }}
+                                            </td>
+                                            <td scope="col">0</td>
+                                        </tr>
+                                        @endforeach @else
+                                        <tr>
+                                            <td colspan="4">Empty</td>
+                                        </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
             </x-card>
         </div>
     </div>

@@ -40,13 +40,13 @@
                     class="btn-primary"
                     href="/dashboard/stock/invoiceStock"
                 >
-                    Back
+                    <i class="bi bi-arrow-left-circle"></i> Back
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
                     href="/dashboard/stock/invoiceStock/stock-in/{{ $data->slug }}"
                 >
-                    Add
+                    <i class="bi bi-plus-circle"></i> Add Item
                 </x-button-link>
             </x-button-group>
         </div>
@@ -90,11 +90,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                                $jml = 0;
+                                $sum = 0;
+                            ?>
                         @if($stocks->count()) @foreach($stocks as $stock)
                         <tr>
-                            <?php
-                                $jml = 0;
-                            ?>
                             <th scope="row">
                                 {{ ($stocks->currentpage()-1) * $stocks->perpage() + $loop->index + 1 }}
                             </th>
@@ -108,18 +109,11 @@
                                     $jml = $stock->qty*$stock->price; ?>
                                 @currency($jml)
                             </td>
+                            @php $sum = $sum+$jml; @endphp
 
                             <td>
                                 <a
-                                    href="/dashboard/stock/invoiceStock/{{ $data->slug }}"
-                                    class="badge bg-success"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Detail Invoice"
-                                    ><i class="bi bi-eye"></i
-                                ></a>
-                                <a
-                                    href="/dashboard/stock/invoiceStock/{{ $data->slug }}/edit"
+                                    href="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
@@ -128,7 +122,7 @@
                                 ></a>
 
                                 <form
-                                    action="/dashboard/stock/invoiceStock/{{ $data->slug }}"
+                                    action="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}"
                                     method="post"
                                     class="d-inline"
                                 >
@@ -144,12 +138,15 @@
                                     </button>
                                 </form>
                             </td>
+
                             <!-- Modal Image -->
                         </tr>
                         @endforeach
-                        <!-- Modal -->
-
-                        <!-- End Modal Image -->
+                        <tr class="fw-bold">
+                            <td colspan="6">Total</td>
+                            <td>@currency($sum)</td>
+                            <td></td>
+                        </tr>
                         @else
                         <tr>
                             <td colspan="8" class="text-center">

@@ -35,15 +35,6 @@
             <x-nav-content-item link="/dashboard/stock">
                 Stock
             </x-nav-content-item>
-            <x-nav-content-item link="/dashboard/stock/supplier">
-                Supplier Data
-            </x-nav-content-item>
-            <x-nav-content-item link="/dashboard/stock/category">
-                Category Data
-            </x-nav-content-item>
-            <x-nav-content-item link="/dashboard/stock/sparepart">
-                sparepart Data
-            </x-nav-content-item>
         </x-nav-content>
     </x-nav-item>
 </x-sidebar-nav>

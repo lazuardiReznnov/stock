@@ -7,22 +7,22 @@
                 link="/dashboard/stock/invoiceStock"
                 name="invoice"
             />
-            <x-breadcrumb-item link="" name="Stock In " />
+            <x-breadcrumb-item link="" name=" Edit Stock In " />
         </x-breadcrumb>
     </x-pagetitle>
 
     <div class="row">
         <div class="col-md-8">
             <x-card>
-                <x-card-title> Form Sparepart </x-card-title>
+                <x-card-title> Form </x-card-title>
 
                 <form
                     class="row g-3"
-                    action="/dashboard/stock/invoiceStock/stock-in"
+                    action="/dashboard/stock/invoiceStock/stock-in/{{ $data->slug }}"
                     method="post"
                     enctype="multipart/form-data"
                 >
-                    @csrf
+                    @csrf @method('put')
 
                     <input
                         type="hidden"
@@ -41,7 +41,7 @@
                             class="form-control @error('name') is-invalid @enderror"
                             name="name"
                             placeholder="Description"
-                            value="{{ old('name') }}"
+                            value="{{ old('name', $data->name) }}"
                         />
 
                         @error('name')
@@ -57,7 +57,7 @@
                             class="form-control @error('slug') is-invalid @enderror"
                             placeholder="Slug "
                             name="slug"
-                            value="{{ old('slug') }}"
+                            value="{{ old('slug', $data->slug) }}"
                         />
                         @error('slug')
                         <span class="invalid-feedback" role="alert">
@@ -73,7 +73,7 @@
                             class="form-control @error('brand') is-invalid @enderror"
                             placeholder="Brand "
                             name="brand"
-                            value="{{ old('brand') }}"
+                            value="{{ old('brand', $data->brand) }}"
                         />
                         @error('brand')
                         <span class="invalid-feedback" role="alert">
@@ -89,7 +89,8 @@
                         >
                             <option selected>Choose Sparepart ...</option>
                             @foreach($spareparts as $sparepart)
-                            @if(old('sparepart_id')==$sparepart->id)
+                            @if(old('sparepart_id',
+                            $data->sparepart_id)==$sparepart->id)
                             <option value="{{ $sparepart->id }}" selected>
                                 {{ $sparepart->type->name }} -
                                 {{ $sparepart->name }}
@@ -116,7 +117,7 @@
                             class="form-control @error('qty') is-invalid @enderror"
                             placeholder="qty"
                             name="qty"
-                            value="{{ old('qty') }}"
+                            value="{{ old('qty', $data->qty) }}"
                         />
                         @error('qty')
                         <span class="invalid-feedback" role="alert">
@@ -131,7 +132,7 @@
                             class="form-control @error('price') is-invalid @enderror"
                             placeholder="price"
                             name="price"
-                            value="{{ old('price') }}"
+                            value="{{ old('price', $data->price) }}"
                         />
                         @error('price')
                         <span class="invalid-feedback" role="alert">
@@ -142,7 +143,7 @@
 
                     <div class="">
                         <button type="submit" class="btn btn-primary">
-                            Save
+                            Update
                         </button>
                     </div>
                 </form>

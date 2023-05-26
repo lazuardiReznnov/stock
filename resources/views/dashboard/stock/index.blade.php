@@ -2,24 +2,50 @@
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
-            <x-breadcrumb-item link="/stock" name="Stock" />
-            <x-breadcrumb-item link="" name="Category" />
+            <x-breadcrumb-item link="" name="Stock" />
         </x-breadcrumb>
     </x-pagetitle>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard">
-                    Back
+                    <i class="bi bi-arrow-left-circle"></i> Back
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
                     href="/dashboard/stock/invoiceStock"
                 >
-                    Add
+                    <i class="bi bi-plus-circle"></i> Stock-In
                 </x-button-link>
             </x-button-group>
+        </div>
+        <div class="col-md-6">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        aria-current="page"
+                        href="/dashboard/stock/supplier"
+                        >Supplier</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/stock/category"
+                        >Categories</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/stock/sparepart"
+                        >Sparepart</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/stock/report"
+                        >Report</a
+                    >
+                </li>
+            </ul>
         </div>
     </div>
     <div class="row">

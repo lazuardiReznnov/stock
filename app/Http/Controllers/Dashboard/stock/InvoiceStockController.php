@@ -27,7 +27,7 @@ class InvoiceStockController extends Controller
         return view('dashboard.stock.invoice.index', [
             'title' => 'Invoice Stock Data',
             'datas' => InvoiceStock::latest()
-                ->with('Supplier')
+                ->with('Supplier', 'stock')
                 ->paginate(10)
                 ->withQueryString(),
         ]);
@@ -193,7 +193,52 @@ class InvoiceStockController extends Controller
         Stock::create($validatedData);
 
         return redirect(
-            '/dashboard/stock/invoiceStock/' . $request->invoce_slug
+            '/dashboard/stock/invoiceStock/' . $request->invoice_slug
         )->with('success', 'Data Has Been Added.!');
+    }
+
+    public function destroystock(Stock $stock)
+    {
+        $stock->destroy($stock->id);
+
+        return redirect(
+            '/dashboard/stock/invoiceStock/' . $stock->invoiceStock->slug
+        )->with('success', 'Data Hasbeen Deleted');
+    }
+
+    public function editstock(Stock $stock)
+    {
+        return view('dashboard.stock.invoice.edit-stock-in', [
+            'title' => 'edit Stock item',
+            'data' => $stock,
+            'spareparts' => Sparepart::with('category', 'type')->get(),
+            'invoice' => $stock->invoiceStock,
+        ]);
+    }
+
+    public function updatestock(Request $request, Stock $stock)
+    {
+        $rules = [
+            'sparepart_id' => 'required',
+            'invoice_stock_id' => 'required',
+            'brand' => 'required',
+            'qty' => 'required',
+            'price' => 'required',
+        ];
+
+        if ($request->name != $stock->name) {
+            $rules['name'] = 'required|unique:stocks';
+        }
+        if ($request->slug != $stock->slug) {
+            $rules['slug'] = 'required|unique:stocks';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        Stock::where('id', $stock->id)->update($validatedData);
+
+        return redirect(
+            '/dashboard/stock/invoiceStock/' . $request->invoice_slug
+        )->with('success', 'Data Has Been Updated');
     }
 }

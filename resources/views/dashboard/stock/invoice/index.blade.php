@@ -37,13 +37,13 @@
         <div class="col-md-6">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard/stock">
-                    Back
+                    <i class="bi bi-arrow-left-circle"></i> Back
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
                     href="/dashboard/stock/invoiceStock/create"
                 >
-                    Add
+                    <i class="bi bi-plus-circle"></i> Add Invoice
                 </x-button-link>
             </x-button-group>
         </div>
@@ -90,7 +90,13 @@
                             </th>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->supplier->name }}</td>
-                            <td></td>
+                            <td>
+                                <?php $sum=0 ?>
+                                @foreach($data->stock as $stock)
+                                <?php 
+                                        $ttl = $stock->qty*$stock->price; $sum =
+                                $sum+$ttl; ?> @endforeach @currency($sum)
+                            </td>
 
                             <td>
                                 <a

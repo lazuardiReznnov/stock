@@ -58,6 +58,15 @@ Route::resource('/dashboard/stock/supplier', SupplierController::class);
 Route::controller(InvoiceStockController::class)->group(function () {
     Route::get('/dashboard/stock/invoiceStock/stock-in/checkSlug', 'slug');
     Route::post('/dashboard/stock/invoiceStock/stock-in', 'storestock');
+    Route::get(
+        '/dashboard/stock/invoiceStock/stock-in/{stock}/edit',
+        'editstock'
+    );
+    Route::put('/dashboard/stock/invoiceStock/stock-in/{stock}', 'updatestock');
+    Route::delete(
+        '/dashboard/stock/invoiceStock/stock-in/{stock}',
+        'destroystock'
+    );
     route::get('/dashboard/stock/invoiceStock/checkSlug', 'checkSlug');
     route::get(
         '/dashboard/stock/invoiceStock/stock-in/{invoiceStock}',

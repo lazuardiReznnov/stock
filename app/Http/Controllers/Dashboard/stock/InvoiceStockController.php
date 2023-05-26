@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard\stock;
 
+use App\Models\Type;
+use App\Models\Stock;
+use App\Models\Category;
+use App\Models\Supplier;
 use App\Models\InvoiceStock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Supplier;
-use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\support\Facades\Storage;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class InvoiceStockController extends Controller
 {
@@ -73,6 +76,14 @@ class InvoiceStockController extends Controller
      */
     public function show(InvoiceStock $invoiceStock)
     {
+        return view('dashboard.stock.invoice.show', [
+            'title' => 'Detail Invoice - ' . $invoiceStock->name,
+            'data' => $invoiceStock,
+            'stocks' => Stock::where('invoice_stock_id', $invoiceStock->id)
+                ->with('sparepart')
+                ->paginate(10)
+                ->withQueryString(),
+        ]);
     }
 
     /**
@@ -149,5 +160,15 @@ class InvoiceStockController extends Controller
             $request->name
         );
         return response()->json(['slug' => $slug]);
+    }
+
+    public function stockin(InvoiceStock $invoiceStock)
+    {
+        return view('dashboard.stock.invoice.stock-in', [
+            'title' => 'Stock In',
+            'categories' => Category::all(),
+            'type' => Type::all(),
+            'invoice' => $invoiceStock,
+        ]);
     }
 }

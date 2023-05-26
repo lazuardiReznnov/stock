@@ -57,6 +57,10 @@ Route::resource('/dashboard/stock/supplier', SupplierController::class);
 
 Route::controller(InvoiceStockController::class)->group(function () {
     route::get('/dashboard/stock/invoiceStock/checkSlug', 'checkSlug');
+    route::get(
+        '/dashboard/stock/invoiceStock/stock-in/{invoiceStock}',
+        'stockin'
+    );
 });
 Route::resource('/dashboard/stock/invoiceStock', InvoiceStockController::class);
 

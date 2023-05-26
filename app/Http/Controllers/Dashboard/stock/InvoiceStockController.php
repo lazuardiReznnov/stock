@@ -9,6 +9,7 @@ use App\Models\Supplier;
 use App\Models\InvoiceStock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Sparepart;
 use Illuminate\support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -166,9 +167,33 @@ class InvoiceStockController extends Controller
     {
         return view('dashboard.stock.invoice.stock-in', [
             'title' => 'Stock In',
-            'categories' => Category::all(),
-            'type' => Type::all(),
+            'spareparts' => Sparepart::with('category', 'type')->get(),
             'invoice' => $invoiceStock,
         ]);
+    }
+
+    public function slug(Request $request)
+    {
+        $slug = SlugService::createSlug(Stock::class, 'slug', $request->name);
+        return response()->json(['slug' => $slug]);
+    }
+
+    public function storestock(Request $request)
+    {
+        $validatedData = $request->validate([
+            'sparepart_id' => 'required',
+            'invoice_stock_id' => 'required',
+            'name' => 'required|unique:stocks',
+            'slug' => 'required|unique:stocks',
+            'brand' => 'required',
+            'qty' => 'required',
+            'price' => 'required',
+        ]);
+
+        Stock::create($validatedData);
+
+        return redirect(
+            '/dashboard/stock/invoiceStock/' . $request->invoce_slug
+        )->with('success', 'Data Has Been Added.!');
     }
 }

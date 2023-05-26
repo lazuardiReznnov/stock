@@ -24,6 +24,7 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->string('brand');
             $table->integer('qty');
             $table->integer('price');
             $table->timestamps();

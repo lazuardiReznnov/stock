@@ -56,6 +56,8 @@ Route::resource('/dashboard/stock/supplier', SupplierController::class);
 // end Supplier
 
 Route::controller(InvoiceStockController::class)->group(function () {
+    Route::get('/dashboard/stock/invoiceStock/stock-in/checkSlug', 'slug');
+    Route::post('/dashboard/stock/invoiceStock/stock-in', 'storestock');
     route::get('/dashboard/stock/invoiceStock/checkSlug', 'checkSlug');
     route::get(
         '/dashboard/stock/invoiceStock/stock-in/{invoiceStock}',

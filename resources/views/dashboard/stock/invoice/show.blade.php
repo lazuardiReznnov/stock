@@ -99,6 +99,7 @@
                                 {{ ($stocks->currentpage()-1) * $stocks->perpage() + $loop->index + 1 }}
                             </th>
                             <td>{{ $stock->sparepart->name }}</td>
+                            <td>{{ $stock->sparepart->category->name }}</td>
                             <td>{{ $stock->sparepart->type->name }}</td>
                             <td>{{ $stock->qty }}</td>
                             <td>@currency($stock->price)</td>

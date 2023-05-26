@@ -35,4 +35,9 @@ class InvoiceStock extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    public function stock()
+    {
+        return $this->hasMany(Stock::class);
+    }
 }

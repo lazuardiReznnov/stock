@@ -41,6 +41,7 @@
                                 {{ $data->name }}
                             </button>
                         </h2>
+
                         <div
                             id="{{ $data->slug }}"
                             class="accordion-collapse collapse"

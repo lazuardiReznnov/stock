@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class Sparepart extends Model
+class Stock extends Model
 {
     use HasFactory, Sluggable;
 
@@ -21,6 +21,7 @@ class Sparepart extends Model
             ],
         ];
     }
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -31,18 +32,13 @@ class Sparepart extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function type()
+    public function invoiceStock()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(InvoiceStock::class);
     }
 
-    public function category()
+    public function sparepart()
     {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function stock()
-    {
-        return $this->belongsTo(Stock::class);
+        return $this->hasMany(Sparepart::class);
     }
 }

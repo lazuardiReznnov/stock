@@ -94,6 +94,14 @@
 
                             <td>
                                 <a
+                                    href="/dashboard/stock/invoiceStock/{{ $data->slug }}"
+                                    class="badge bg-success"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Detail Invoice"
+                                    ><i class="bi bi-eye"></i
+                                ></a>
+                                <a
                                     href="/dashboard/stock/invoiceStock/{{ $data->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="tooltip"

@@ -7,12 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Supplier;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\support\Facades\Storage;
 
 class InvoiceStockController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('dashboard.stock.invoice.index', [
@@ -42,8 +47,8 @@ class InvoiceStockController extends Controller
     {
         $validatedData = $request->validate([
             'supplier_id' => 'required',
-            'name' => 'required|unique:suppliers',
-            'slug' => 'required|unique:suppliers',
+            'name' => 'required|unique:invoice_stocks',
+            'slug' => 'required|unique:invoice_stocks',
             'tgl' => 'required',
         ]);
 
@@ -68,7 +73,6 @@ class InvoiceStockController extends Controller
      */
     public function show(InvoiceStock $invoiceStock)
     {
-        //
     }
 
     /**
@@ -76,7 +80,11 @@ class InvoiceStockController extends Controller
      */
     public function edit(InvoiceStock $invoiceStock)
     {
-        //
+        return view('dashboard.stock.invoice.edit', [
+            'title' => 'Edit Invoice',
+            'data' => $invoiceStock->load('image'),
+            'suppliers' => Supplier::all(),
+        ]);
     }
 
     /**
@@ -84,7 +92,36 @@ class InvoiceStockController extends Controller
      */
     public function update(Request $request, InvoiceStock $invoiceStock)
     {
-        //
+        $rules = [
+            'supplier_id' => 'required',
+            'tgl' => 'required',
+        ];
+
+        if ($request->name != $invoiceStock->name) {
+            $rules['name'] = 'required|unique:invoice_stocks';
+        }
+        if ($request->slug != $invoiceStock->slug) {
+            $rules['slug'] = 'required|unique:invoice_stocks';
+        }
+
+        $validatedData = $request->validate($rules);
+        InvoiceStock::where('id', $invoiceStock->id)->update($validatedData);
+
+        if ($request->file('pic')) {
+            $request->validate(['pic' => 'image|file|max:2048']);
+            if ($request->old_pic) {
+                storage::delete($request->old_pic);
+                $invoiceStock->image()->delete();
+            }
+            $invoiceStock->image()->create([
+                'pic' => $request->file('pic')->store('invoiceStock-pic'),
+            ]);
+        }
+
+        return redirect('/dashboard/stock/invoiceStock')->with(
+            'success',
+            'Data has Been Saved'
+        );
     }
 
     /**
@@ -92,7 +129,16 @@ class InvoiceStockController extends Controller
      */
     public function destroy(InvoiceStock $invoiceStock)
     {
-        //
+        $invoiceStock->destroy($invoiceStock->id);
+        if ($invoiceStock->image) {
+            storage::delete($invoiceStock->image->pic);
+            $invoiceStock->image->delete();
+        }
+
+        return redirect('/dashboard/stock/invoiceStock')->with(
+            'success',
+            'Data Has Been Deleted'
+        );
     }
 
     public function checkSlug(Request $request)

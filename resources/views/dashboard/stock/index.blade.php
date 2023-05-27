@@ -99,7 +99,9 @@
                                                 Type
                                                 {{ $sparepart->type->name }}
                                             </td>
-                                            <td scope="col">0</td>
+                                            <td scope="col">
+                                                {{ $sparepart->stock->sum('qty') }}
+                                            </td>
                                         </tr>
                                         @endforeach @else
                                         <tr>

@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->date('tgl');
+            $table->string('state')->default('lunas');
+            $table->string('method')->default('cash');
             $table->timestamps();
         });
     }

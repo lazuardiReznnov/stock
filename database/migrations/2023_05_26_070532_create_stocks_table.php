@@ -22,7 +22,7 @@ return new class extends Migration {
                 ->constrained('invoice_stocks')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('slug')->unique();
             $table->string('brand');
             $table->integer('qty');

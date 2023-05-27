@@ -76,28 +76,40 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Date</th>
+
                             <th scope="col">Invoice Number</th>
                             <th scope="col">Supplier Name</th>
-                            <th scope="col">Summary</th>
+                            <th scope="col" class="text-center">Summary</th>
+                            <th scope="col">Method</th>
+                            <th scope="col">State</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php 
+                            $gttl=0;
+                        ?>
                         @if($datas->count()) @foreach($datas as $data)
                         <tr>
                             <th scope="row">
                                 {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
+                            <td>
+                                {{ \Carbon\Carbon::parse($data->tgl)->format('d/m/Y') }}
+                            </td>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->supplier->name }}</td>
-                            <td>
+                            <td class="text-end">
                                 <?php $sum=0 ?>
+
                                 @foreach($data->stock as $stock)
                                 <?php 
                                         $ttl = $stock->qty*$stock->price; $sum =
                                 $sum+$ttl; ?> @endforeach @currency($sum)
                             </td>
-
+                            <td>{{ $data->method }}</td>
+                            <td>{{ $data->state }}</td>
                             <td>
                                 <a
                                     href="/dashboard/stock/invoiceStock/{{ $data->slug }}"
@@ -135,13 +147,18 @@
                             </td>
                             <!-- Modal Image -->
                         </tr>
+                        <?php 
+                        $gttl = $gttl+$sum;
+                        ?>
                         @endforeach
-                        <!-- Modal -->
-
-                        <!-- End Modal Image -->
+                        <tr class="fw-bold">
+                            <td class="text-end" colspan="4">Grandtotal</td>
+                            <td class="text-end">@currency($gttl)</td>
+                            <td colspan="3"></td>
+                        </tr>
                         @else
                         <tr>
-                            <td colspan="5" class="text-center">
+                            <td colspan="8" class="text-center">
                                 Data Not Found
                             </td>
                         </tr>

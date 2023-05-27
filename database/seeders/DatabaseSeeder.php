@@ -35,6 +35,7 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             TypeSeeder::class,
             SparepartSeeder::class,
+            StockSeeder::class,
         ]);
     }
 }

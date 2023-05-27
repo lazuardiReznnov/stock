@@ -3,54 +3,15 @@
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
             <x-breadcrumb-item link="/dashboard/stock" name="Stock" />
-            <x-breadcrumb-item
-                link="/dashboard/stock/invoiceStock"
-                name="Invoice"
-            />
-            <x-breadcrumb-item link="" name="{{ $data->name }}" />
+            <x-breadcrumb-item link="" name="Report" />
         </x-breadcrumb>
     </x-pagetitle>
 
     <div class="row">
-        <div class="col-md-8">
-            @if(session()->has('success'))
-
-            <!-- pesan -->
-
-            <div
-                class="alert alert-success alert-dismissible fade show"
-                role="alert"
-            >
-                {{ session("success") }}
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                    aria-label="close"
-                ></button>
-            </div>
-
-            <!-- endpesan -->
-
-            @endif
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <x-button-group>
-                <x-button-link
-                    class="btn-primary"
-                    href="/dashboard/stock/invoiceStock"
-                >
+                <x-button-link class="btn-primary" href="/dashboard">
                     <i class="bi bi-arrow-left-circle"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    href="/dashboard/stock/invoiceStock/stock-in/{{ $data->slug }}"
-                >
-                    <i class="bi bi-plus-circle"></i> Add Item
                 </x-button-link>
             </x-button-group>
         </div>
@@ -59,10 +20,10 @@
                 <form
                     class="search-form d-flex align-items-center"
                     method="GET"
-                    action="/dashboard/stock/invoiceStock"
+                    action="/dashboard/stock/report"
                 >
                     <input
-                        type="text"
+                        type="month"
                         name="search"
                         placeholder="Search"
                         title="Enter search keyword"
@@ -74,50 +35,65 @@
             </div>
         </div>
     </div>
+    <?php 
+        $date_now = date('M Y')
+    
+    ?>
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Item {{ $data->name }} </x-card-title>
-
+                <x-card-title>
+                    Report payment Stock {{ $date_now }}</x-card-title
+                >
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Sparepart Name</th>
-                            <th scope="col">categories</th>
-                            <th scope="col">type</th>
-                            <th scope="col">qty</th>
-                            <th scope="col">price</th>
-                            <th scope="col">sum</th>
+                            <th scope="col">Date</th>
 
+                            <th scope="col">Invoice Number</th>
+                            <th scope="col">Supplier Name</th>
+                            <th scope="col" class="text-center">Summary</th>
+                            <th scope="col">Method</th>
+                            <th scope="col">State</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                                $jml = 0;
-                                $sum = 0;
-                            ?>
-                        @if($stocks->count()) @foreach($stocks as $stock)
+                        <?php 
+                            $gttl=0;
+                        ?>
+                        @if($datas->count()) @foreach($datas as $data)
                         <tr>
                             <th scope="row">
-                                {{ ($stocks->currentpage()-1) * $stocks->perpage() + $loop->index + 1 }}
+                                {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
-                            <td>{{ $stock->sparepart->name }}</td>
-                            <td>{{ $stock->sparepart->category->name }}</td>
-                            <td>{{ $stock->sparepart->type->name }}</td>
-                            <td>{{ $stock->qty }}</td>
-                            <td>@currency($stock->price)</td>
                             <td>
-                                <?php
-                                    $jml = $stock->qty*$stock->price; ?>
-                                @currency($jml)
+                                {{ \Carbon\Carbon::parse($data->tgl)->format('d/m/Y') }}
                             </td>
-                            @php $sum = $sum+$jml; @endphp
+                            <td>{{ $data->name }}</td>
+                            <td>{{ $data->supplier->name }}</td>
+                            <td class="text-end">
+                                <?php $sum=0 ?>
 
+                                @foreach($data->stock as $stock)
+                                <?php 
+                                        $ttl = $stock->qty*$stock->price; $sum =
+                                $sum+$ttl; ?> @endforeach @currency($sum)
+                            </td>
+                            <td>{{ $data->method }}</td>
+                            <td>{{ $data->state }}</td>
                             <td>
                                 <a
-                                    href="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}/edit"
+                                    href="/dashboard/stock/invoiceStock/{{ $data->slug }}"
+                                    class="badge bg-success"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Detail Invoice"
+                                    ><i class="bi bi-eye"></i
+                                ></a>
+                                <a
+                                    href="/dashboard/stock/invoiceStock/{{ $data->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
@@ -126,7 +102,7 @@
                                 ></a>
 
                                 <form
-                                    action="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}"
+                                    action="/dashboard/stock/invoiceStock/{{ $data->slug }}"
                                     method="post"
                                     class="d-inline"
                                 >
@@ -142,14 +118,16 @@
                                     </button>
                                 </form>
                             </td>
-
                             <!-- Modal Image -->
                         </tr>
+                        <?php 
+                        $gttl = $gttl+$sum;
+                        ?>
                         @endforeach
                         <tr class="fw-bold">
-                            <td colspan="6">Total</td>
-                            <td>@currency($sum)</td>
-                            <td></td>
+                            <td class="text-end" colspan="4">Grandtotal</td>
+                            <td class="text-end">@currency($gttl)</td>
+                            <td colspan="3"></td>
                         </tr>
                         @else
                         <tr>

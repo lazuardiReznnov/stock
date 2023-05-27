@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\stock;
 
-use App\Models\Type;
 use App\Models\Stock;
-use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\InvoiceStock;
 use Illuminate\Http\Request;

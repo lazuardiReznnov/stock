@@ -77,4 +77,5 @@ Route::resource('/dashboard/stock/invoiceStock', InvoiceStockController::class);
 
 Route::controller(stockController::class)->group(function () {
     Route::get('/dashboard/stock', 'index');
+    Route::get('/dashboard/stock/report', 'report');
 });

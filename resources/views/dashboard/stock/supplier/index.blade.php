@@ -2,7 +2,7 @@
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
-            <x-breadcrumb-item link="/stock" name="Stock" />
+            <x-breadcrumb-item link="/dashboard/stock" name="Stock" />
             <x-breadcrumb-item link="" name="Supplier" />
         </x-breadcrumb>
     </x-pagetitle>

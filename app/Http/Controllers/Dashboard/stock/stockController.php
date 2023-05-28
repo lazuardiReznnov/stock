@@ -33,10 +33,13 @@ class stockController extends Controller
                     ->whereYear('tgl', '=', $pisah[0]);
             });
         }
+        $date = $request->search ? $request->search : date('M Y');
         return view('dashboard.stock.report', [
-            'title' => 'Payment Report',
-            'datas' => $report
+            'title' => 'Payment Report ' . $date,
+
+            'cashes' => $report
                 ->with('supplier', 'stock')
+
                 ->whereMonth('tgl', '=', $datem)
                 ->whereYear('tgl', '=', $datey)
                 ->paginate(10)

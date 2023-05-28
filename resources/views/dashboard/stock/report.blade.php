@@ -42,9 +42,7 @@
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title>
-                    Report payment Stock {{ $date_now }}</x-card-title
-                >
+                <x-card-title> Summary Cash</x-card-title>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -54,76 +52,74 @@
                             <th scope="col">Invoice Number</th>
                             <th scope="col">Supplier Name</th>
                             <th scope="col" class="text-center">Summary</th>
-                            <th scope="col">Method</th>
+
                             <th scope="col">State</th>
-                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
                             $gttl=0;
                         ?>
-                        @if($datas->count()) @foreach($datas as $data)
+                        @if($cashes->count()) @foreach($cashes as $cash)
+                        @if($cash->method == 'Cash')
+                        <tr>
+                            <td>CAsh</td>
+                        </tr>
                         <tr>
                             <th scope="row">
-                                {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
+                                {{ ($cashes->currentpage()-1) * $cashes->perpage() + $loop->index + 1 }}
                             </th>
                             <td>
-                                {{ \Carbon\Carbon::parse($data->tgl)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($cash->tgl)->format('d/m/Y') }}
                             </td>
-                            <td>{{ $data->name }}</td>
-                            <td>{{ $data->supplier->name }}</td>
+                            <td>{{ $cash->name }}</td>
+                            <td>{{ $cash->supplier->name }}</td>
                             <td class="text-end">
                                 <?php $sum=0 ?>
 
-                                @foreach($data->stock as $stock)
+                                @foreach($cash->stock as $stock)
                                 <?php 
                                         $ttl = $stock->qty*$stock->price; $sum =
                                 $sum+$ttl; ?> @endforeach @currency($sum)
                             </td>
-                            <td>{{ $data->method }}</td>
-                            <td>{{ $data->state }}</td>
-                            <td>
-                                <a
-                                    href="/dashboard/stock/invoiceStock/{{ $data->slug }}"
-                                    class="badge bg-success"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Detail Invoice"
-                                    ><i class="bi bi-eye"></i
-                                ></a>
-                                <a
-                                    href="/dashboard/stock/invoiceStock/{{ $data->slug }}/edit"
-                                    class="badge bg-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Edit stock"
-                                    ><i class="bi bi-pencil-square"></i
-                                ></a>
 
-                                <form
-                                    action="/dashboard/stock/invoiceStock/{{ $data->slug }}"
-                                    method="post"
-                                    class="d-inline"
-                                >
-                                    @method('delete') @csrf
-                                    <button
-                                        class="badge bg-danger border-0"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Delete stock"
-                                        onclick="return confirm('are You sure ??')"
-                                    >
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
-                                </form>
-                            </td>
+                            <td>{{ $cash->state }}</td>
+
                             <!-- Modal Image -->
                         </tr>
                         <?php 
                         $gttl = $gttl+$sum;
                         ?>
-                        @endforeach
+                        @elseif($cash->method == 'debt')
+                        <tr>
+                            <td>Debt</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                {{ ($cashes->currentpage()-1) * $cashes->perpage() + $loop->index + 1 }}
+                            </th>
+                            <td>
+                                {{ \Carbon\Carbon::parse($cash->tgl)->format('d/m/Y') }}
+                            </td>
+                            <td>{{ $cash->name }}</td>
+                            <td>{{ $cash->supplier->name }}</td>
+                            <td class="text-end">
+                                <?php $sum=0 ?>
+
+                                @foreach($cash->stock as $stock)
+                                <?php 
+                                        $ttl = $stock->qty*$stock->price; $sum =
+                                $sum+$ttl; ?> @endforeach @currency($sum)
+                            </td>
+
+                            <td>{{ $cash->state }}</td>
+
+                            <!-- Modal Image -->
+                        </tr>
+                        <?php 
+                        $gttl = $gttl+$sum;
+                        ?>
+                        @endif @endforeach
                         <tr class="fw-bold">
                             <td class="text-end" colspan="4">Grandtotal</td>
                             <td class="text-end">@currency($gttl)</td>

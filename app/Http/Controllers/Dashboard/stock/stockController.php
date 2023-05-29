@@ -22,12 +22,18 @@ class stockController extends Controller
         $datey = date('Y');
         $datem = date('m');
 
-        $report = InvoiceStock::query();
+        $report1 = InvoiceStock::latest();
+        $report2 = InvoiceStock::latest();
 
         if ($request->search) {
             $pisah = explode('-', $request->search);
 
-            $report->when($request->search, function ($query) use ($pisah) {
+            $report1->when($request->search, function ($query) use ($pisah) {
+                return $query
+                    ->whereMonth('tgl', '=', $pisah[1])
+                    ->whereYear('tgl', '=', $pisah[0]);
+            });
+            $report2->when($request->search, function ($query) use ($pisah) {
                 return $query
                     ->whereMonth('tgl', '=', $pisah[1])
                     ->whereYear('tgl', '=', $pisah[0]);
@@ -37,9 +43,16 @@ class stockController extends Controller
         return view('dashboard.stock.report', [
             'title' => 'Payment Report ' . $date,
 
-            'cashes' => $report
+            'cashes' => $report1
                 ->with('supplier', 'stock')
-
+                ->where('method', '=', 'Cash')
+                ->whereMonth('tgl', '=', $datem)
+                ->whereYear('tgl', '=', $datey)
+                ->paginate(10)
+                ->withQueryString(),
+            'debts' => $report2
+                ->with('supplier', 'stock')
+                ->where('method', '=', 'debt')
                 ->whereMonth('tgl', '=', $datem)
                 ->whereYear('tgl', '=', $datey)
                 ->paginate(10)

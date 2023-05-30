@@ -125,7 +125,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-8">
                         <input
                             type="text"
                             class="form-control @error('price') is-invalid @enderror"
@@ -138,6 +138,28 @@
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
+                    </div>
+
+                    <div class="col-md-8">
+                        <select
+                            class="form-select @error('tag_id') is-invalid @enderror js-example-basic-multiple"
+                            id="tag_id"
+                            aria-label="tag"
+                            name="tag_id[]"
+                            multiple="multiple"
+                            placeholder="Tags"
+                        >
+                            @foreach($tags as $tag) @if(old('tag_id'
+                            )==$tag->id)
+                            <option value="{{ $tag->id }}" selected>
+                                {{ $tag->name }}
+                            </option>
+                            @else
+                            <option value="{{ $tag->id }}">
+                                {{ $tag->name }}
+                            </option>
+                            @endif @endforeach
+                        </select>
                     </div>
 
                     <div class="">
@@ -157,7 +179,7 @@
 
         const name = document.querySelector("#name");
         const slug = document.querySelector("#slug");
-        const pic = document.getElementById("#pic");
+
         const link = "/dashboard/stock/invoiceStock/stock-in/checkSlug?name=";
 
         makeslug(name, slug, link);
@@ -166,5 +188,23 @@
     @endpush @push('script')
     <script src="/assets/js/lazuardicode.js"></script>
 
+    @endpush @push('css')
+    <link
+        href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+        rel="stylesheet"
+    />
+    @endpush @push('script2')
+
+    <script
+        src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
+        crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".js-example-basic-multiple").select2({ placeholder: "Tags" });
+        });
+    </script>
     @endpush
 </x-dashboard>

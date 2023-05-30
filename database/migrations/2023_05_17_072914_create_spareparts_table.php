@@ -23,8 +23,8 @@ return new class extends Migration {
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->string('slug');
-            $table->string('code')->unique();
+            $table->string('slug')->unique();
+            $table->string('code');
             $table->string('description');
             $table->timestamps();
         });

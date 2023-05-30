@@ -126,7 +126,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-8">
                         <input
                             type="text"
                             class="form-control @error('price') is-invalid @enderror"
@@ -141,6 +141,27 @@
                         @enderror
                     </div>
 
+                    <div class="col-md-8">
+                        <select
+                            class="form-select @error('tag_id') is-invalid @enderror js-example-basic-multiple"
+                            id="tag_id"
+                            aria-label="acount"
+                            name="tag_id[]"
+                            multiple="multiple"
+                            placeholder="Tags"
+                        >
+                            @foreach($tags as $tag) @foreach($data->tags as $tg)
+                            @if(old('tag_id', $tg->id)==$tag->id)
+                            <option value="{{ $tag->id }}" selected>
+                                {{ $tag->name }}
+                            </option>
+                            @else
+                            <option value="{{ $tag->id }}">
+                                {{ $tag->name }}
+                            </option>
+                            @endif @endforeach @endforeach
+                        </select>
+                    </div>
                     <div class="">
                         <button type="submit" class="btn btn-primary">
                             Update
@@ -158,7 +179,7 @@
 
         const name = document.querySelector("#name");
         const slug = document.querySelector("#slug");
-        const pic = document.getElementById("#pic");
+
         const link = "/dashboard/stock/invoiceStock/stock-in/checkSlug?name=";
 
         makeslug(name, slug, link);

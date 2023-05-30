@@ -34,8 +34,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             BrandSeeder::class,
             TypeSeeder::class,
-            SparepartSeeder::class,
-            StockSeeder::class,
+            TagSeeder::class,
         ]);
     }
 }

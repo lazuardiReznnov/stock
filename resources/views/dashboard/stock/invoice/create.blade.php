@@ -115,6 +115,22 @@
                         </span>
                         @enderror
                     </div>
+
+                    <div class="col-md-8">
+                        <input
+                            id="method"
+                            type="text"
+                            class="form-control @error('method') is-invalid @enderror"
+                            placeholder="method "
+                            name="method"
+                            value="{{ old('method') }}"
+                        />
+                        @error('method')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                     <div class="">
                         <button type="submit" class="btn btn-primary">
                             Save

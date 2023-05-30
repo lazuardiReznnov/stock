@@ -6,7 +6,9 @@ use App\Models\Type;
 use App\Models\Category;
 use App\Models\Sparepart;
 use Illuminate\Http\Request;
+use App\Imports\SparepartImport;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -32,7 +34,7 @@ class SparepartController extends Controller
             'title' => 'Sparepart Data',
             'datas' => $sparepart
                 ->with('type', 'category', 'image')
-                ->paginate(10)
+                ->paginate(20)
                 ->withQueryString(),
         ]);
     }
@@ -160,5 +162,27 @@ class SparepartController extends Controller
             $request->name
         );
         return response()->json(['slug' => $slug]);
+    }
+
+    public function createexcl()
+    {
+        return view('dashboard.stock.sparepart.create-excel', [
+            'title' => 'File Import Via Excel',
+        ]);
+    }
+
+    public function storeexcl(Request $request)
+    {
+        $validatedData = $request->validate([
+            'excl' => 'required:mimes:xlsx,xls,csv|max:2048',
+        ]);
+
+        if ($request->file('excl')) {
+            Excel::import(new SparepartImport(), $validatedData['excl']);
+            return redirect('/dashboard/stock/sparepart')->with(
+                'success',
+                'New Data Has Been Aded.!'
+            );
+        }
     }
 }

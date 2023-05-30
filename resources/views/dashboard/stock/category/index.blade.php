@@ -130,6 +130,11 @@
                         @endif
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ $datas->onEachside(2)->links() }}
+                    </div>
+                </div>
             </x-card>
         </div>
     </div>

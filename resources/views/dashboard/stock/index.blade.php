@@ -92,11 +92,9 @@
                                                 {{ $loop->iteration }}
                                             </td>
                                             <td scope="col">
-                                                Name
                                                 {{ $sparepart->name }}
                                             </td>
                                             <td scope="col">
-                                                Type
                                                 {{ $sparepart->type->name }}
                                             </td>
                                             <td scope="col">

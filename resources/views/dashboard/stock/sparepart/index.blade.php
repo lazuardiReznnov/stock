@@ -37,13 +37,19 @@
         <div class="col-md-6">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard/stock">
-                    Back
+                    <i class="bi bi-arrow-left-square"></i> Back
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
                     href="/dashboard/stock/sparepart/create"
                 >
-                    Add
+                    <i class="bi bi-file-earmark-plus"></i> Add
+                </x-button-link>
+                <x-button-link
+                    class="btn-primary"
+                    href="/dashboard/stock/sparepart/create-excl"
+                >
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Upload Excel
                 </x-button-link>
             </x-button-group>
         </div>
@@ -70,7 +76,7 @@
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Supplier List </x-card-title>
+                <x-card-title> Sparepart List </x-card-title>
 
                 <table class="table table-striped">
                     <thead>
@@ -130,13 +136,18 @@
                         <!-- End Modal Image -->
                         @else
                         <tr>
-                            <td colspan="4" class="text-center">
+                            <td colspan="6" class="text-center">
                                 Data Not Found
                             </td>
                         </tr>
                         @endif
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ $datas->onEachside(2)->links() }}
+                    </div>
+                </div>
             </x-card>
         </div>
     </div>

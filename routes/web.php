@@ -32,6 +32,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name(
 // sparepart
 Route::controller(SparepartController::class)->group(function () {
     Route::get('/dashboard/stock/sparepart/checkSlug', 'checkSlug');
+    Route::get('/dashboard/stock/sparepart/create-excl', 'createexcl');
+    Route::post('/dashboard/stock/sparepart/store-excl', 'storeexcl');
 });
 
 Route::resource('/dashboard/stock/sparepart', SparepartController::class);

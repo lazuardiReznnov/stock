@@ -53,5 +53,10 @@ class CategorySeeder extends Seeder
             'slug' => 'ban',
             'Description' => 'Stock Barang ban',
         ]);
+        Category::create([
+            'name' => 'Suspension',
+            'slug' => 'suspenstion',
+            'Description' => 'Stock Barang ban',
+        ]);
     }
 }

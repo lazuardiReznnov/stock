@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard\stock;
 
+use App\Models\Tag;
 use App\Models\Stock;
 use App\Models\Supplier;
+use App\Models\Sparepart;
 use App\Models\InvoiceStock;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Sparepart;
 use Illuminate\support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -52,7 +53,14 @@ class InvoiceStockController extends Controller
             'name' => 'required|unique:invoice_stocks',
             'slug' => 'required|unique:invoice_stocks',
             'tgl' => 'required',
+            'method' => 'required',
         ]);
+
+        if ($request->method == 'Cash') {
+            $validatedData['state'] = 'Paid';
+        } elseif ($request->method == 'Debt') {
+            $validatedData['state'] = 'Unpaid';
+        }
 
         $invoice = InvoiceStock::create($validatedData);
 
@@ -105,6 +113,7 @@ class InvoiceStockController extends Controller
         $rules = [
             'supplier_id' => 'required',
             'tgl' => 'required',
+            'method' => 'required',
         ];
 
         if ($request->name != $invoiceStock->name) {
@@ -115,6 +124,11 @@ class InvoiceStockController extends Controller
         }
 
         $validatedData = $request->validate($rules);
+        if ($request->method == 'Cash') {
+            $validatedData['state'] = 'Paid';
+        } elseif ($request->method == 'Debt') {
+            $validatedData['state'] = 'Unpaid';
+        }
         InvoiceStock::where('id', $invoiceStock->id)->update($validatedData);
 
         if ($request->file('pic')) {
@@ -167,6 +181,7 @@ class InvoiceStockController extends Controller
             'title' => 'Stock In',
             'spareparts' => Sparepart::with('category', 'type')->get(),
             'invoice' => $invoiceStock,
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -188,7 +203,11 @@ class InvoiceStockController extends Controller
             'price' => 'required',
         ]);
 
-        Stock::create($validatedData);
+        $stock = Stock::create($validatedData);
+
+        if ($request->tag_id) {
+            $stock->tags()->sync($request->tag_id);
+        }
 
         return redirect(
             '/dashboard/stock/invoiceStock/' . $request->invoice_slug
@@ -211,6 +230,7 @@ class InvoiceStockController extends Controller
             'data' => $stock,
             'spareparts' => Sparepart::with('category', 'type')->get(),
             'invoice' => $stock->invoiceStock,
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -234,6 +254,9 @@ class InvoiceStockController extends Controller
         $validatedData = $request->validate($rules);
 
         Stock::where('id', $stock->id)->update($validatedData);
+        if ($request->tag_id) {
+            $stock->tags()->sync($request->tag_id);
+        }
 
         return redirect(
             '/dashboard/stock/invoiceStock/' . $request->invoice_slug

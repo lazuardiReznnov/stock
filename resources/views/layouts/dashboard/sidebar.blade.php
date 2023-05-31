@@ -12,7 +12,7 @@
             data-bs-target="#user-nav"
             data-bs-toggle="collapse"
         >
-            <i class="bi bi-menu-button-wide"></i><span>User Management</span
+            <i class="bi bi-person-badge"></i><span>User Management</span
             ><i class="bi bi-chevron-down ms-auto"></i>
         </x-nav-link>
         <x-nav-content id="user-nav">
@@ -28,11 +28,27 @@
             data-bs-target="#stock-nav"
             data-bs-toggle="collapse"
         >
-            <i class="bi bi-menu-button-wide"></i><span>stock Management</span
+            <i class="bi bi-box"></i><span>stock Management</span
             ><i class="bi bi-chevron-down ms-auto"></i>
         </x-nav-link>
         <x-nav-content id="stock-nav">
             <x-nav-content-item link="/dashboard/stock">
+                Stock
+            </x-nav-content-item>
+        </x-nav-content>
+    </x-nav-item>
+
+    <x-nav-item>
+        <x-nav-link
+            href="#"
+            data-bs-target="#unit-nav"
+            data-bs-toggle="collapse"
+        >
+            <i class="bi bi-menu-button-wide"></i><span>unit Management</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+        </x-nav-link>
+        <x-nav-content id="unit-nav">
+            <x-nav-content-item link="/dashboard/unit">
                 Stock
             </x-nav-content-item>
         </x-nav-content>

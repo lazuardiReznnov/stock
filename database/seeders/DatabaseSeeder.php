@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\CategoryUnit;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
             SupplierSeeder::class,
             CategorySeeder::class,
             BrandSeeder::class,
+            CategoryUnitSeeder::class,
             TypeSeeder::class,
             TagSeeder::class,
         ]);

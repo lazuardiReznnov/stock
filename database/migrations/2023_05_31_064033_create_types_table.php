@@ -17,9 +17,14 @@ return new class extends Migration {
                 ->constrained('brands')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table
+                ->foreignId('category_unit_id')
+                ->constrained('category_units')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

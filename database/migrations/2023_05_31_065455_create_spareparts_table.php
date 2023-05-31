@@ -13,19 +13,19 @@ return new class extends Migration {
         Schema::create('spareparts', function (Blueprint $table) {
             $table->id();
             $table
-                ->foreignId('category_id')
-                ->constrained('categories')
+                ->foreignId('type_id')
+                ->constrained('types')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table
-                ->foreignId('type_id')
-                ->constrained('types')
+                ->foreignId('category_id')
+                ->constrained('categories')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('code');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
         });
     }

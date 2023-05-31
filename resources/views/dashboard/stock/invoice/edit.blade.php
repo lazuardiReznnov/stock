@@ -124,22 +124,23 @@
 
                             @endif @endforeach
                         </select>
-                        <div class="col-md-8">
-                            <input
-                                id="method"
-                                type="text"
-                                class="form-control @error('method') is-invalid @enderror"
-                                placeholder="method "
-                                name="method"
-                                value="{{ old('method', $data->method) }}"
-                            />
-                            @error('method')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
+
                         @error('supplier_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-8">
+                        <input
+                            id="method"
+                            type="text"
+                            class="form-control @error('method') is-invalid @enderror"
+                            placeholder="method "
+                            name="method"
+                            value="{{ old('method', $data->method) }}"
+                        />
+                        @error('method')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

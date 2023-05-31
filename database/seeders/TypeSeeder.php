@@ -15,6 +15,7 @@ class TypeSeeder extends Seeder
     {
         Type::create([
             'brand_id' => 1,
+            'category_unit_id' => 2,
             'name' => 'Dutro 110 HD',
             'slug' => 'dutro-110-hd',
             'description' =>
@@ -23,6 +24,7 @@ class TypeSeeder extends Seeder
 
         Type::create([
             'brand_id' => 1,
+            'category_unit_id' => 2,
             'name' => 'Dutro 130 HD',
             'slug' => 'dutro-130-hd',
             'description' =>
@@ -31,6 +33,7 @@ class TypeSeeder extends Seeder
 
         Type::create([
             'brand_id' => 1,
+            'category_unit_id' => 4,
             'name' => 'Ranger 250',
             'slug' => 'ranger-250-l',
             'description' =>
@@ -39,6 +42,7 @@ class TypeSeeder extends Seeder
 
         Type::create([
             'brand_id' => 2,
+            'category_unit_id' => 2,
             'name' => 'Canter Super Speed 110',
             'slug' => 'canter-super-speed-110',
             'description' =>
@@ -47,6 +51,7 @@ class TypeSeeder extends Seeder
 
         Type::create([
             'brand_id' => 2,
+            'category_unit_id' => 2,
             'name' => 'Canter Super Speed 130',
             'slug' => 'canter-super-speed-130',
             'description' =>
@@ -55,6 +60,7 @@ class TypeSeeder extends Seeder
 
         Type::create([
             'brand_id' => 2,
+            'category_unit_id' => 4,
             'name' => 'Fuso',
             'slug' => 'fuso',
             'description' =>
@@ -63,6 +69,8 @@ class TypeSeeder extends Seeder
 
         Type::create([
             'brand_id' => 3,
+            'category_unit_id' => 2,
+            'category_unit_id' => 2,
             'name' => 'Dyna 110 HD',
             'slug' => 'dyna-110-hd',
             'description' =>
@@ -70,6 +78,7 @@ class TypeSeeder extends Seeder
         ]);
         Type::create([
             'brand_id' => 6,
+            'category_unit_id' => 5,
             'name' => 'universal',
             'slug' => 'universal',
             'description' =>

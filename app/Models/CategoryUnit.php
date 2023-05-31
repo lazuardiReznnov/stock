@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class Type extends Model
+class CategoryUnit extends Model
 {
     use HasFactory, Sluggable;
 
@@ -21,6 +21,7 @@ class Type extends Model
             ],
         ];
     }
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -31,18 +32,8 @@ class Type extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function brand()
+    public function type()
     {
-        return $this->belongsTo(Brand::class);
-    }
-
-    public function sparepart()
-    {
-        return $this->hasMany(Sparepart::class);
-    }
-
-    public function categoryUnit()
-    {
-        return $this->belongsTo(CategoryUnit::class);
+        return $this->hasMany(Type::class);
     }
 }

@@ -49,7 +49,7 @@
         </x-nav-link>
         <x-nav-content id="unit-nav">
             <x-nav-content-item link="/dashboard/unit">
-                Stock
+                Unit List
             </x-nav-content-item>
         </x-nav-content>
     </x-nav-item>

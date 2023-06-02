@@ -81,3 +81,8 @@ Route::controller(stockController::class)->group(function () {
     Route::get('/dashboard/stock', 'index');
     Route::get('/dashboard/stock/report', 'report');
 });
+
+// Unit
+// Brand
+//
+// end Unit

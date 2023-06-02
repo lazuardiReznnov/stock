@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
             CategoryUnitSeeder::class,
             TypeSeeder::class,
             TagSeeder::class,
+            GroupSeeder::class,
+            UnitSeeder::class,
         ]);
     }
 }

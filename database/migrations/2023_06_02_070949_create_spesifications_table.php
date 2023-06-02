@@ -24,6 +24,8 @@ return new class extends Migration {
             $table->year('year');
             $table->string('color');
             $table->string('model');
+            $table->string('fuel');
+            $table->string('cylinder');
             $table->timestamps();
         });
     }

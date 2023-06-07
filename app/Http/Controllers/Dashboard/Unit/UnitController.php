@@ -17,9 +17,22 @@ class UnitController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $unit = Unit::query();
+
+        $unit->when($request->search, function ($query) use ($request) {
+            return $query->where('name', 'like', '%' . $request->search . '%');
+        });
+
+        return view('dashboard.unit.index', [
+            'title' => 'Unit Management',
+            'datas' => $unit
+                ->with('type', 'group', 'image', 'spesification')
+                ->latest()
+                ->paginate(10)
+                ->withQueryString(),
+        ]);
     }
 
     /**
@@ -43,7 +56,10 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        //
+        return view('dashboard.unit.show', [
+            'title' => 'Detail ' . $unit->name,
+            'data' => $unit->load('type', 'group', 'image', 'spesification'),
+        ]);
     }
 
     /**

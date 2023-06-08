@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Dashboard\Unit;
 
-use App\Http\Controllers\Controller;
+use App\Models\Type;
 use App\Models\Unit;
+use App\Models\Brand;
+use App\Models\Group;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\support\Facades\Storage;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class UnitController extends Controller
 {
@@ -40,7 +45,11 @@ class UnitController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.unit.create', [
+            'title' => 'Create Unit',
+            'brands' => Brand::all(),
+            'groups' => Group::all(),
+        ]);
     }
 
     /**
@@ -83,6 +92,27 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
-        //
+        $unit->destroy($unit->id);
+        if ($unit->image) {
+            storage::delete($unit->image->pic);
+            $unit->image->delete();
+        }
+
+        return redirect('/dashboard/unit')->with(
+            'success',
+            'Data Has Been Deleted'
+        );
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Unit::class, 'slug', $request->name);
+        return response()->json(['slug' => $slug]);
+    }
+
+    public function getType(Request $request)
+    {
+        $type = Type::where('brand_id', '=', $request->brand)->get();
+        return response()->json($type);
     }
 }

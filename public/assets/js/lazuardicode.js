@@ -21,7 +21,7 @@ function makeslug(name, slug, link) {
 
 function makeBrand(brand, type, link) {
     brand.addEventListener("change", function () {
-        fetch(link + brand.value + "&category=" + category.value)
+        fetch(link + brand.value)
             .then((response) => response.json())
             .then((response) => {
                 const m = response;

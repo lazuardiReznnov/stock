@@ -158,6 +158,9 @@ class InvoiceStockController extends Controller
             storage::delete($invoiceStock->image->pic);
             $invoiceStock->image->delete();
         }
+        if ($invoiceStock->tag) {
+            $invoiceStock->tag->delete();
+        }
 
         return redirect('/dashboard/stock/invoiceStock')->with(
             'success',

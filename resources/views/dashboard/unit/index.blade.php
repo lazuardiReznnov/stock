@@ -35,7 +35,7 @@
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
-                    href="/dashboard/stock/invoiceStock"
+                    href="/dashboard/unit/create"
                 >
                     <i class="bi bi-plus-circle"></i> Stock-In
                 </x-button-link>

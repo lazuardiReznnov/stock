@@ -88,6 +88,7 @@ Route::controller(stockController::class)->group(function () {
 //Group
 Route::controller(UnitController::class)->group(function () {
     Route::get('/dashboard/unit/checkSlug', 'checkSlug');
+    route::get('dashboard/unit/getType', 'getType');
 });
 
 Route::resource('/dashboard/unit', UnitController::class);

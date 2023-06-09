@@ -99,7 +99,12 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        //
+        return view('dashboard.unit.edit', [
+            'title' => 'Edit' . $unit->name,
+            'data' => $unit,
+            'brands' => Brand::all(),
+            'groups' => Group::all(),
+        ]);
     }
 
     /**
@@ -107,7 +112,37 @@ class UnitController extends Controller
      */
     public function update(Request $request, Unit $unit)
     {
-        //
+        $rules = [
+            'type_id' => 'required',
+            'group_id' => 'required',
+            'description' => 'required',
+        ];
+
+        if ($request->name != $unit->name) {
+            $rules['name'] = 'required|unique:units';
+        }
+        if ($request->slug != $unit->slug) {
+            $rules['slug'] = 'required|unique:units';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $unit->update($validatedData);
+
+        if ($request->file('pic')) {
+            $request->validate(['pic' => 'image|file|max:2048']);
+            if ($request->old_pic) {
+                storage::delete($request->old_pic);
+                $unit->image()->delete();
+            }
+            $unit->image()->create([
+                'pic' => $request->file('pic')->store('unit-pic'),
+            ]);
+        }
+        return redirect('dashboard/unit')->with(
+            'Success',
+            'data Has Been Updated'
+        );
     }
 
     /**

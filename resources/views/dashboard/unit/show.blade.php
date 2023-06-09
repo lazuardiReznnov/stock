@@ -6,7 +6,7 @@
             <x-breadcrumb-item link="" name="{{ $title }}" />
         </x-breadcrumb>
     </x-pagetitle>
-    <div class="row">
+    <div class="row my-4">
         <div class="col-md-6">
             <x-button-group>
                 <x-button-link
@@ -21,19 +21,19 @@
 
                 <x-button-link
                     href="/dashboard/unit/{{ $data->slug }}/edit"
-                    class="btn btn-warning"
+                    class="btn-warning"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Edit unit"
-                    ><i class="bi bi-pencil-square"></i>
+                    ><i class="bi bi-pencil-square"></i> Edit Unit
                 </x-button-link>
                 <x-button-link
                     href="/dashboard/unit/spesification/{{ $data->slug }}"
-                    class="btn btn-warning"
+                    class="btn-warning"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Edit Spesification unit"
-                    ><i class="bi bi-pencil-square"></i>
+                    ><i class="bi bi-pencil-square"> Edit Spesification</i>
                 </x-button-link>
                 <form
                     action="/dashboard/unit/{{ $data->slug }}"

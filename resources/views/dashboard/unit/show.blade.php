@@ -27,6 +27,14 @@
                     title="Edit unit"
                     ><i class="bi bi-pencil-square"></i>
                 </x-button-link>
+                <x-button-link
+                    href="/dashboard/unit/spesification/{{ $data->slug }}"
+                    class="btn btn-warning"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Edit Spesification unit"
+                    ><i class="bi bi-pencil-square"></i>
+                </x-button-link>
                 <form
                     action="/dashboard/unit/{{ $data->slug }}"
                     method="post"
@@ -103,7 +111,7 @@
                             >
                                 <x-card-title>About</x-card-title>
                                 <p class="small fst-italic">
-                                    {{ $data->description }}
+                                    {!! $data->description !!}
                                 </p>
                                 <x-card-title> Spesification </x-card-title>
                                 <div class="profile-overview">
@@ -153,7 +161,7 @@
                                             Year
                                         </div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->en }}
+                                            {{ $data->spesification->year }}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -162,14 +170,6 @@
                                         </div>
                                         <div class="col-lg-9 col-md-8">
                                             {{ $data->spesification->color }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Fuel
-                                        </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->fuel }}
                                         </div>
                                     </div>
                                     <div class="row">

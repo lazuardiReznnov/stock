@@ -47,8 +47,6 @@ class UnitSeeder extends Seeder
         ]);
 
         $unit1->spesification()->create([
-            'name' => 'B 9054 EDB spesification',
-            'slug' => 'a-9054-edb-spesification',
             'vin' => 'MJEC1JG41J5162722',
             'en' => 'W04DTPJ75786',
             'year' => 2017,
@@ -58,8 +56,6 @@ class UnitSeeder extends Seeder
             'cylinder' => 4009,
         ]);
         $unit2->spesification()->create([
-            'name' => 'B 9055 EDB spesification',
-            'slug' => 'a-9055-edb-spesification',
             'vin' => 'MJEC1JG41J5162724',
             'en' => 'W04DTPJ75788',
             'year' => 2017,
@@ -69,8 +65,6 @@ class UnitSeeder extends Seeder
             'cylinder' => 4009,
         ]);
         $unit3->spesification()->create([
-            'name' => 'B 9056 EDB spesification',
-            'slug' => 'a-9056-edb-spesification',
             'vin' => 'MJEC1JG41J5162619',
             'en' => 'W04DTPJ75778',
             'year' => 2017,
@@ -80,8 +74,6 @@ class UnitSeeder extends Seeder
             'cylinder' => 4009,
         ]);
         $unit4->spesification()->create([
-            'name' => 'B 9057 EDB spesification',
-            'slug' => 'a-9057-edb-spesification',
             'vin' => 'MJEC1JG41J5162721',
             'en' => 'W04DTPJ75785',
             'year' => 2017,

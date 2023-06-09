@@ -17,15 +17,14 @@ return new class extends Migration {
                 ->constrained('units')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
-            $table->string('vin');
-            $table->string('en');
-            $table->year('year');
-            $table->string('color');
-            $table->string('model');
-            $table->string('fuel');
-            $table->string('cylinder');
+
+            $table->string('vin')->nullable();
+            $table->string('en')->nullable();
+            $table->year('year')->nullable();
+            $table->string('color')->nullable();
+            $table->string('model')->nullable();
+            $table->string('fuel')->nullable();
+            $table->string('cylinder')->nullable();
             $table->timestamps();
         });
     }

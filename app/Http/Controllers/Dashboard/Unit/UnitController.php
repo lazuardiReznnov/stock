@@ -11,6 +11,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
+use function PHPSTORM_META\map;
+
 class UnitController extends Controller
 {
     /**
@@ -57,7 +59,28 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'type_id' => 'required',
+            'group_id' => 'required',
+            'name' => 'required|unique:units',
+            'slug' => 'required|unique:units',
+            'description' => 'required',
+        ]);
+
+        $unit = Unit::create($validatedData);
+        if ($request->file('pic')) {
+            $data = $request->validate([
+                'pic' => 'image|file|max:2048',
+            ]);
+            $data['pic'] = $request->file('pic')->store('unit-pic');
+            $unit->image()->create($data);
+        }
+        $unit->spesification()->create();
+
+        return redirect('dashboard/unit')->with(
+            'Success',
+            'data Has Been added'
+        );
     }
 
     /**
@@ -114,5 +137,33 @@ class UnitController extends Controller
     {
         $type = Type::where('brand_id', '=', $request->brand)->get();
         return response()->json($type);
+    }
+
+    public function editspesification(Unit $unit)
+    {
+        return view('dashboard.unit.edit-spesification', [
+            'title' => 'Edit Spesification',
+            'data' => $unit->load('spesification'),
+        ]);
+    }
+
+    public function updatespesification(Request $request, Unit $unit)
+    {
+        $validatedData = $request->validate([
+            'vin' => 'required',
+            'en' => 'required',
+            'year' => 'required',
+            'color' => 'required',
+            'model' => 'required',
+            'fuel' => 'required',
+            'cylinder' => 'required',
+        ]);
+
+        $unit->spesification()->update($validatedData);
+
+        return redirect('dashboard/unit/' . $unit->slug)->with(
+            'success',
+            'Data Has Been Updated'
+        );
     }
 }

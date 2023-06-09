@@ -89,6 +89,8 @@ Route::controller(stockController::class)->group(function () {
 Route::controller(UnitController::class)->group(function () {
     Route::get('/dashboard/unit/checkSlug', 'checkSlug');
     route::get('dashboard/unit/getType', 'getType');
+    Route::get('/dashboard/unit/spesification/{unit}', 'editspesification');
+    Route::put('/dashboard/unit/spesification/{unit}', 'updatespesification');
 });
 
 Route::resource('/dashboard/unit', UnitController::class);

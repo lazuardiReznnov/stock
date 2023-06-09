@@ -112,7 +112,11 @@
                     </div>
 
                     <div class="col-md-8">
-                        <select id="brand" class="form-select" name="brand">
+                        <select
+                            id="group_id"
+                            class="form-select"
+                            name="group_id"
+                        >
                             <option selected>Choose Group ...</option>
                             @foreach($groups as $group)
                             @if(old('group_id')==$group->id)
@@ -134,6 +138,20 @@
                         @enderror
                     </div>
 
+                    <div class="col-12">
+                        <textarea
+                            class="form-control tinymce-editor"
+                            id="descriptions"
+                            name="description"
+                            rows="3"
+                            >{{ old("description") }}</textarea
+                        >
+                        @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
                     <div class="">
                         <button type="submit" class="btn btn-primary">
                             Save

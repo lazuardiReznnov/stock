@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
 use App\Http\Controllers\Dashboard\stock\stockController;
 use App\Http\Controllers\Dashboard\stock\SupplierController;
+use App\Http\Controllers\Dashboard\Unit\BrandController;
 use App\Http\Controllers\Dashboard\Unit\UnitController;
 
 /*
@@ -85,6 +86,12 @@ Route::controller(stockController::class)->group(function () {
 
 // Unit
 // Brand
+Route::controller(BrandController::class)->group(function(){
+    Route::get('/dashboard/unit/brand/checkSlug', 'checkSlug');
+});
+
+
+Route::resource('/dashboard/unit/brand', BrandController::class);
 //Group
 Route::controller(UnitController::class)->group(function () {
     Route::get('/dashboard/unit/checkSlug', 'checkSlug');

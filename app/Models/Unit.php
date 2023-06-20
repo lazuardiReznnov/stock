@@ -47,4 +47,14 @@ class Unit extends Model
     {
         return $this->belongsTo(Type::class);
     }
+
+    public function vrc()
+    {
+        return $this->hasOne(Vrc::class);
+    }
+
+    public function vpic()
+    {
+        return $this->hasOne(Vpic::class);
+    }
 }

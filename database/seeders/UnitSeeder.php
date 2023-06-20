@@ -82,5 +82,15 @@ class UnitSeeder extends Seeder
             'fuel' => 'solar',
             'cylinder' => 4009,
         ]);
+
+        $unit1->vrc()->create();
+        $unit2->vrc()->create();
+        $unit3->vrc()->create();
+        $unit4->vrc()->create();
+
+        $unit1->vpic()->create();
+        $unit2->vpic()->create();
+        $unit3->vpic()->create();
+        $unit4->vpic()->create();
     }
 }

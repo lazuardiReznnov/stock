@@ -10,23 +10,18 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('spesifications', function (Blueprint $table) {
+        Schema::create('vrcs', function (Blueprint $table) {
             $table->id();
             $table
                 ->foreignId('unit_id')
                 ->constrained('units')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
-            $table->string('vin')->nullable();
-            $table->string('en')->nullable();
-            $table->year('year')->nullable();
-            $table->string('color')->nullable();
-            $table->string('model')->nullable();
-            $table->string('fuel')->nullable();
-            $table->string('cylinder')->nullable();
-            $table->string('lpc')->nullable();
-            $table->string('vodm')->nullable();
+            $table->string('owner')->nullable();
+            $table->string('address')->nullable();
+            $table->string('region')->nullable();
+            $table->date('tax')->nullable();
+            $table->date('expire')->nullable();
             $table->timestamps();
         });
     }
@@ -36,6 +31,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('spesifications');
+        Schema::dropIfExists('vrcs');
     }
 };

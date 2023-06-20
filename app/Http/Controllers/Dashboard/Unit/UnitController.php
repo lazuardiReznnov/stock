@@ -90,7 +90,14 @@ class UnitController extends Controller
     {
         return view('dashboard.unit.show', [
             'title' => 'Detail ' . $unit->name,
-            'data' => $unit->load('type', 'group', 'image', 'spesification'),
+            'data' => $unit->load(
+                'type',
+                'group',
+                'image',
+                'spesification',
+                'vpic',
+                'vrc'
+            ),
         ]);
     }
 

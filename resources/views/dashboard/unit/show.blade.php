@@ -199,7 +199,76 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade letter pt-3" id="letter">
-                                <x-card-title>Letter</x-card-title>
+                                <x-card-title
+                                    >Vehicle Registration
+                                    Certificate</x-card-title
+                                >
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">
+                                        Owner
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $data->vrc->owner }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">
+                                        Address
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $data->vrc->address }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">
+                                        Tax Expire
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $data->vrc->tax }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">
+                                        Expire Date
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $data->vrc->expire }}
+                                    </div>
+                                </div>
+
+                                <x-card-title>Inspection Card</x-card-title>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">
+                                        Owner
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $data->vpic->owner }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">
+                                        Address
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $data->vpic->address }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">
+                                        Registration Date
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $data->vpic->tgl_reg }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label">
+                                        Expire Date
+                                    </div>
+                                    <div class="col-lg-9 col-md-8">
+                                        {{ $data->vpic->expire }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </x-card-body>

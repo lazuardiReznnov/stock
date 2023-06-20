@@ -83,10 +83,30 @@ class UnitSeeder extends Seeder
             'cylinder' => 4009,
         ]);
 
-        $unit1->vrc()->create();
-        $unit2->vrc()->create();
-        $unit3->vrc()->create();
-        $unit4->vrc()->create();
+        $unit1->vrc()->create([
+            'owner' => 'PT. Indomultimas Perkasa',
+            'address' => 'Depok',
+            'region' => 'Depok',
+            'tax' => '2024/06/23',
+        ]);
+        $unit2->vrc()->create([
+            'owner' => 'PT. Indomultimas Perkasa',
+            'address' => 'Depok',
+            'region' => 'Depok',
+            'tax' => '2024/06/23',
+        ]);
+        $unit3->vrc()->create([
+            'owner' => 'PT. Indomultimas Perkasa',
+            'address' => 'Depok',
+            'region' => 'Depok',
+            'tax' => '2024/06/23',
+        ]);
+        $unit4->vrc()->create([
+            'owner' => 'PT. Indomultimas Perkasa',
+            'address' => 'Depok',
+            'region' => 'Depok',
+            'tax' => '2024/06/23',
+        ]);
 
         $unit1->vpic()->create();
         $unit2->vpic()->create();

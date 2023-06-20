@@ -2,11 +2,8 @@
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
-            <x-breadcrumb-item link="/dashboard/unit" name="unit" />
-            <x-breadcrumb-item
-                link="/dashboard/unit/brand"
-                name="Brand Type/Model"
-            />
+            <x-breadcrumb-item link="/dashboard/unit" name="Unit" />
+            <x-breadcrumb-item link="/dashboard/type" name="type" />
             <x-breadcrumb-item link="" name="Form " />
         </x-breadcrumb>
     </x-pagetitle>
@@ -14,11 +11,11 @@
     <div class="row">
         <div class="col-md-8">
             <x-card>
-                <x-card-title> Form Input Brand</x-card-title>
+                <x-card-title> Form input Type Unit</x-card-title>
 
                 <form
                     class="row g-3"
-                    action="/dashboard/unit/brand"
+                    action="/dashboard/unit/type"
                     method="post"
                     enctype="multipart/form-data"
                 >
@@ -51,7 +48,7 @@
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
                             name="name"
-                            placeholder="Brand Name"
+                            placeholder="Type Name"
                             value="{{ old('name') }}"
                         />
 
@@ -71,6 +68,56 @@
                             value="{{ old('slug') }}"
                         />
                         @error('slug')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-8">
+                        <select id="brand" class="form-select" name="brand_id">
+                            <option selected>Choose brand ...</option>
+                            @foreach($brands as $brand)
+                            @if(old('brand_id')==$brand->id)
+                            <option value="{{ $brand->id }}" selected>
+                                {{ $brand->name }}
+                            </option>
+                            @else
+                            <option value="{{ $brand->id }}">
+                                {{ $brand->name }}
+                            </option>
+
+                            @endif @endforeach
+                        </select>
+
+                        @error('brand_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-8">
+                        <select
+                            id="brand"
+                            class="form-select"
+                            name="category_unit_id"
+                        >
+                            <option selected>Choose Category ...</option>
+                            @foreach($categories as $category)
+                            @if(old('category_unit_id')==$category->id)
+                            <option value="{{ $category->id }}" selected>
+                                {{ $category->name }}
+                            </option>
+                            @else
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+
+                            @endif @endforeach
+                        </select>
+
+                        @error('category_unit_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -109,7 +156,7 @@
         const name = document.querySelector("#name");
         const slug = document.querySelector("#slug");
 
-        const link = "/dashboard/unit/brand/checkSlug?name=";
+        const link = "/dashboard/unit/type/checkSlug?name=";
 
         makeslug(name, slug, link);
     </script>

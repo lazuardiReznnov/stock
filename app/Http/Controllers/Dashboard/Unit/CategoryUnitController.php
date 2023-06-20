@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Dashboard\Unit;
 
 use App\Http\Controllers\Controller;
-use App\Models\Brand;
+use App\Models\CategoryUnit;
+use Illuminate\Http\Request;
 use Illuminate\support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
-use Illuminate\Http\Request;
-
-class BrandController extends Controller
+class CategoryUnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,15 +21,15 @@ class BrandController extends Controller
 
     public function index(Request $request)
     {
-        $brand = Brand::query();
+        $categoryUnit = CategoryUnit::query();
 
-        $brand->when($request->search, function ($query) use ($request) {
+        $categoryUnit->when($request->search, function ($query) use ($request) {
             return $query->where('name', 'like', '%' . $request->search . '%');
         });
 
-        return view('dashboard.unit.brand.index', [
-            'title' => 'Brand Model',
-            'datas' => $brand
+        return view('dashboard.unit.category-unit.index', [
+            'title' => 'category Unit Model',
+            'datas' => $categoryUnit
                 ->latest()
                 ->paginate(10)
                 ->withQueryString(),
@@ -42,8 +41,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('dashboard.unit.brand.create', [
-            'title' => 'Input New Brand Model',
+        return view('dashboard.unit.category-unit.create', [
+            'title' => 'Input New Category Model',
         ]);
     }
 
@@ -53,21 +52,21 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:brands',
-            'slug' => 'required|unique:brands',
+            'name' => 'required|unique:category_units',
+            'slug' => 'required|unique:category_units',
             'description' => 'required',
         ]);
 
-        $brand = brand::create($validatedData);
+        $brand = CategoryUnit::create($validatedData);
         if ($request->file('pic')) {
             $data = $request->validate([
                 'pic' => 'image|file|max:2048',
             ]);
-            $data['pic'] = $request->file('pic')->store('brand-pic');
+            $data['pic'] = $request->file('pic')->store('categoryunit-pic');
             $brand->image()->create($data);
         }
 
-        return redirect('dashboard/unit/brand')->with(
+        return redirect('dashboard/unit/categoryUnit')->with(
             'Success',
             'data Has Been added'
         );
@@ -76,7 +75,7 @@ class BrandController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Brand $brand)
+    public function show(CategoryUnit $categoryUnit)
     {
         //
     }
@@ -84,45 +83,45 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Brand $brand)
+    public function edit(CategoryUnit $categoryUnit)
     {
-        return view('dashboard.unit.brand.edit', [
-            'title' => 'Edit Brand Model',
-            'data' => $brand->load('image'),
+        return view('dashboard.unit.category-unit.edit', [
+            'title' => 'Category Unit',
+            'data' => $categoryUnit->load('image'),
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, CategoryUnit $categoryUnit)
     {
         $rules = [
             'description' => 'required',
         ];
 
-        if ($request->name != $brand->name) {
-            $rules['name'] = 'required|unique:brands';
+        if ($request->name != $categoryUnit->name) {
+            $rules['name'] = 'required|unique:category_units';
         }
-        if ($request->slug != $brand->slug) {
-            $rules['slug'] = 'required|unique:brands';
+        if ($request->slug != $categoryUnit->slug) {
+            $rules['slug'] = 'required|unique:category_units';
         }
 
         $validatedData = $request->validate($rules);
 
-        $brand->update($validatedData);
+        $categoryUnit->update($validatedData);
 
         if ($request->file('pic')) {
             $request->validate(['pic' => 'image|file|max:2048']);
             if ($request->old_pic) {
                 storage::delete($request->old_pic);
-                $brand->image()->delete();
+                $categoryUnit->image()->delete();
             }
-            $brand->image()->create([
-                'pic' => $request->file('pic')->store('brand-pic'),
+            $categoryUnit->image()->create([
+                'pic' => $request->file('pic')->store('categoryUnit-pic'),
             ]);
         }
-        return redirect('dashboard/unit/brand')->with(
+        return redirect('dashboard/unit/categoryUnit')->with(
             'Success',
             'data Has Been Updated'
         );
@@ -131,15 +130,15 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Brand $brand)
+    public function destroy(CategoryUnit $categoryUnit)
     {
-        $brand->destroy($brand->id);
-        if ($brand->image) {
-            storage::delete($brand->image->pic);
-            $brand->image->delete();
+        $categoryUnit->destroy($categoryUnit->id);
+        if ($categoryUnit->image) {
+            storage::delete($categoryUnit->image->pic);
+            $categoryUnit->image->delete();
         }
 
-        return redirect('/dashboard/unit/brand')->with(
+        return redirect('/dashboard/unit/categoryUnit')->with(
             'success',
             'Data Has Been Deleted'
         );
@@ -147,7 +146,11 @@ class BrandController extends Controller
 
     public function checkSlug(Request $request)
     {
-        $slug = SlugService::createSlug(Brand::class, 'slug', $request->name);
+        $slug = SlugService::createSlug(
+            CategoryUnit::class,
+            'slug',
+            $request->name
+        );
         return response()->json(['slug' => $slug]);
     }
 }

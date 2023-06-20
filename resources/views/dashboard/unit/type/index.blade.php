@@ -3,7 +3,7 @@
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
             <x-breadcrumb-item link="/dashboard/unit" name="Unit" />
-            <x-breadcrumb-item link="" name="Brnad" />
+            <x-breadcrumb-item link="" name="Type" />
         </x-breadcrumb>
     </x-pagetitle>
 
@@ -39,7 +39,7 @@
                 <form
                     class="search-form d-flex align-items-center"
                     method="GET"
-                    action="/dashboard/unit/brand"
+                    action="/dashboard/unit/type"
                 >
                     <input
                         type="text"
@@ -57,14 +57,14 @@
     <div class="row my-2">
         <div class="col-md-4">
             <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard/unit">
+                <x-button-link class="btn-primary" href="/dashboard/unit/type">
                     <i class="bi bi-arrow-left-circle"></i> Back
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
-                    href="/dashboard/unit/brand/create"
+                    href="/dashboard/unit/type/create"
                 >
-                    <i class="bi bi-plus-circle"></i> Brand Model
+                    <i class="bi bi-plus-circle"></i> Type Model
                 </x-button-link>
             </x-button-group>
         </div>
@@ -73,13 +73,15 @@
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Unit List </x-card-title>
+                <x-card-title> Type Unit List </x-card-title>
 
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Pic</th>
+                            <th scope="col">Brand</th>
+                            <th scope="col">Category</th>
                             <th scope="col">Name</th>
                             <th scope="col">Descrtiption</th>
                             <th scope="col">Action</th>
@@ -109,13 +111,15 @@
                                 />
                                 @endif
                             </td>
+                            <td>{{ $data->brand->name }}</td>
+                            <td>{{ $data->categoryUnit->name }}</td>
                             <td>{{ $data->name }}</td>
 
                             <td>{!! $data->description !!}</td>
 
                             <td>
                                 <a
-                                    href="/dashboard/unit/brand/{{ $data->slug }}/edit"
+                                    href="/dashboard/unit/type/{{ $data->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
@@ -124,7 +128,7 @@
                                 ></a>
 
                                 <form
-                                    action="/dashboard/unit/brand/{{ $data->slug }}"
+                                    action="/dashboard/unit/type/{{ $data->slug }}"
                                     method="post"
                                     class="d-inline"
                                 >

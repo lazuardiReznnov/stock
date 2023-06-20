@@ -3,7 +3,7 @@
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
             <x-breadcrumb-item link="/dashboard/unit" name="Unit" />
-            <x-breadcrumb-item link="" name="Brnad" />
+            <x-breadcrumb-item link="" name="Category Unit" />
         </x-breadcrumb>
     </x-pagetitle>
 
@@ -39,7 +39,7 @@
                 <form
                     class="search-form d-flex align-items-center"
                     method="GET"
-                    action="/dashboard/unit/brand"
+                    action="/dashboard/unit/categoryUnit"
                 >
                     <input
                         type="text"
@@ -62,9 +62,9 @@
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
-                    href="/dashboard/unit/brand/create"
+                    href="/dashboard/unit/categoryUnit/create"
                 >
-                    <i class="bi bi-plus-circle"></i> Brand Model
+                    <i class="bi bi-plus-circle"></i> Category Model
                 </x-button-link>
             </x-button-group>
         </div>
@@ -73,7 +73,7 @@
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Unit List </x-card-title>
+                <x-card-title> Category Unit List </x-card-title>
 
                 <table class="table table-striped">
                     <thead>
@@ -115,7 +115,7 @@
 
                             <td>
                                 <a
-                                    href="/dashboard/unit/brand/{{ $data->slug }}/edit"
+                                    href="/dashboard/unit/categoryUnit/{{ $data->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
@@ -124,7 +124,7 @@
                                 ></a>
 
                                 <form
-                                    action="/dashboard/unit/brand/{{ $data->slug }}"
+                                    action="/dashboard/unit/categoryUnit/{{ $data->slug }}"
                                     method="post"
                                     class="d-inline"
                                 >

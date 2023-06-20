@@ -4,8 +4,12 @@
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
             <x-breadcrumb-item link="/dashboard/unit" name="unit" />
             <x-breadcrumb-item
-                link="/dashboard/unit/brand"
-                name="Brand Type/Model"
+                link="/dashboard/unit/categoryUnit"
+                name="Category unit"
+            />
+            <x-breadcrumb-item
+                link="/dashboard/unit/categoryUnit"
+                name="Category Model"
             />
             <x-breadcrumb-item link="" name="Form " />
         </x-breadcrumb>
@@ -14,11 +18,11 @@
     <div class="row">
         <div class="col-md-8">
             <x-card>
-                <x-card-title> Form Input Brand</x-card-title>
+                <x-card-title> Add Category</x-card-title>
 
                 <form
                     class="row g-3"
-                    action="/dashboard/unit/brand"
+                    action="/dashboard/unit/categoryUnit"
                     method="post"
                     enctype="multipart/form-data"
                 >
@@ -51,7 +55,7 @@
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
                             name="name"
-                            placeholder="Brand Name"
+                            placeholder="category Name"
                             value="{{ old('name') }}"
                         />
 
@@ -109,7 +113,7 @@
         const name = document.querySelector("#name");
         const slug = document.querySelector("#slug");
 
-        const link = "/dashboard/unit/brand/checkSlug?name=";
+        const link = "/dashboard/unit/categoryUnit/checkSlug?name=";
 
         makeslug(name, slug, link);
     </script>

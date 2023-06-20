@@ -4,8 +4,8 @@
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
             <x-breadcrumb-item link="/dashboard/unit" name="unit" />
             <x-breadcrumb-item
-                link="/dashboard/unit/brand"
-                name="Brand Type/Model"
+                link="/dashboard/unit/categoryUnit"
+                name="Category"
             />
             <x-breadcrumb-item link="" name="Form " />
         </x-breadcrumb>
@@ -14,21 +14,36 @@
     <div class="row">
         <div class="col-md-8">
             <x-card>
-                <x-card-title> Form Input Brand</x-card-title>
+                <x-card-title> Form Edit Brand</x-card-title>
 
                 <form
                     class="row g-3"
-                    action="/dashboard/unit/brand"
+                    action="/dashboard/unit/categoryUnit/{{ $data->slug }}"
                     method="post"
                     enctype="multipart/form-data"
                 >
-                    @csrf
+                    @csrf @method('put')
                     <div class="col-md-8">
+                        @if($data->image)
+                        <img
+                            width="200"
+                            class="img-fluid mb-2"
+                            alt=""
+                            src="{{ asset('storage/'. $data->image->pic) }}"
+                        />
+                        <input
+                            type="hidden"
+                            name="old_pic"
+                            value="{{ $data->image->pic }}"
+                        />
+
+                        @else
                         <img
                             width="200"
                             class="img-preview img-fluid mb-2"
                             alt=""
                         />
+                        @endif
 
                         <input
                             type="file"
@@ -52,7 +67,7 @@
                             class="form-control @error('name') is-invalid @enderror"
                             name="name"
                             placeholder="Brand Name"
-                            value="{{ old('name') }}"
+                            value="{{ old('name', $data->name) }}"
                         />
 
                         @error('name')
@@ -68,7 +83,7 @@
                             class="form-control @error('slug') is-invalid @enderror"
                             placeholder="Slug "
                             name="slug"
-                            value="{{ old('slug') }}"
+                            value="{{ old('slug', $data->slug) }}"
                         />
                         @error('slug')
                         <span class="invalid-feedback" role="alert">
@@ -83,7 +98,7 @@
                             id="descriptions"
                             name="description"
                             rows="3"
-                            >{{ old("description") }}</textarea
+                            >{{ old("description", $data->description) }}</textarea
                         >
                         @error('description')
                         <span class="invalid-feedback" role="alert">
@@ -93,7 +108,7 @@
                     </div>
                     <div class="">
                         <button type="submit" class="btn btn-primary">
-                            Save
+                            Update
                         </button>
                     </div>
                 </form>
@@ -109,7 +124,7 @@
         const name = document.querySelector("#name");
         const slug = document.querySelector("#slug");
 
-        const link = "/dashboard/unit/brand/checkSlug?name=";
+        const link = "/dashboard/unit/checkSlug?name=";
 
         makeslug(name, slug, link);
     </script>

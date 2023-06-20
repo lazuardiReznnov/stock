@@ -8,6 +8,8 @@ use App\Http\Controllers\Dashboard\stock\SparepartController;
 use App\Http\Controllers\Dashboard\stock\stockController;
 use App\Http\Controllers\Dashboard\stock\SupplierController;
 use App\Http\Controllers\Dashboard\Unit\BrandController;
+use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
+use App\Http\Controllers\Dashboard\Unit\TypeController;
 use App\Http\Controllers\Dashboard\Unit\UnitController;
 
 /*
@@ -85,13 +87,29 @@ Route::controller(stockController::class)->group(function () {
 });
 
 // Unit
+// category Unit
+
+Route::controller(CategoryUnitController::class)->group(function () {
+    Route::get('/dashboard/unit/categoryUnit/checkSlug', 'checkSlug');
+});
+
+Route::resource('/dashboard/unit/categoryUnit', CategoryUnitController::class);
+// End Category Unit
+
+// type
+Route::controller(TypeController::class)->group(function () {
+    Route::get('/dashboard/unit/type/checkSlug', 'checkSlug');
+});
+
+Route::resource('/dashboard/unit/type', TypeController::class);
+// endType
 // Brand
-Route::controller(BrandController::class)->group(function(){
+Route::controller(BrandController::class)->group(function () {
     Route::get('/dashboard/unit/brand/checkSlug', 'checkSlug');
 });
 
-
 Route::resource('/dashboard/unit/brand', BrandController::class);
+// end Brand
 //Group
 Route::controller(UnitController::class)->group(function () {
     Route::get('/dashboard/unit/checkSlug', 'checkSlug');

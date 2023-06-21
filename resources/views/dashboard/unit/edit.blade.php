@@ -90,6 +90,34 @@
                     </div>
 
                     <div class="col-md-8">
+                        <select
+                            id="category"
+                            class="form-select"
+                            name="category_unit_id"
+                        >
+                            <option selected>Choose Category Unit ...</option>
+                            @foreach($categories as $category)
+                            @if(old('category_unit_id',
+                            $data->type->category_unit_id)==$category->id)
+                            <option value="{{ $category->id }}" selected>
+                                {{ $category->name }}
+                            </option>
+                            @else
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+
+                            @endif @endforeach
+                        </select>
+
+                        @error('category_unit_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-8">
                         <select id="brand" class="form-select" name="brand">
                             <option selected>Choose brand ...</option>
                             @foreach($brands as $brand) @if(old('brand_id',
@@ -189,6 +217,7 @@
         const slug = document.querySelector("#slug");
         const pic = document.getElementById("#pic");
         const brand = document.querySelector("#brand");
+        const category = document.querySelector("#category");
         const type = document.querySelector("#type");
         const link = "/dashboard/unit/checkSlug?name=";
         const link2 = "/dashboard/unit/getType?brand=";

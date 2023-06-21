@@ -27,14 +27,7 @@
                     title="Edit unit"
                     ><i class="bi bi-pencil-square"></i> Edit Unit
                 </x-button-link>
-                <x-button-link
-                    href="/dashboard/unit/spesification/{{ $data->slug }}"
-                    class="btn-warning"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    title="Edit Spesification unit"
-                    ><i class="bi bi-pencil-square"> Edit Spesification</i>
-                </x-button-link>
+
                 <form
                     action="/dashboard/unit/{{ $data->slug }}"
                     method="post"
@@ -196,6 +189,16 @@
                                             {{ $data->updated_at->diffforhumans() }}
                                         </div>
                                     </div>
+                                    <x-button-link
+                                        href="/dashboard/unit/spesification/{{ $data->slug }}"
+                                        class="btn-warning"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Edit Spesification unit"
+                                        ><i class="bi bi-pencil-square">
+                                            Edit Spesification</i
+                                        >
+                                    </x-button-link>
                                 </div>
                             </div>
                             <div class="tab-pane fade letter pt-3" id="letter">

@@ -6,12 +6,13 @@ use App\Models\Type;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Group;
+use App\Models\CategoryUnit;
 use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
+
 use Illuminate\support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-
-use function PHPSTORM_META\map;
 
 class UnitController extends Controller
 {
@@ -51,6 +52,7 @@ class UnitController extends Controller
             'title' => 'Create Unit',
             'brands' => Brand::all(),
             'groups' => Group::all(),
+            'categories' => CategoryUnit::all(),
         ]);
     }
 
@@ -112,6 +114,7 @@ class UnitController extends Controller
             'data' => $unit,
             'brands' => Brand::all(),
             'groups' => Group::all(),
+            'categories' => CategoryUnit::all(),
         ]);
     }
 
@@ -178,7 +181,11 @@ class UnitController extends Controller
 
     public function getType(Request $request)
     {
-        $type = Type::where('brand_id', '=', $request->brand)->get();
+        $type = Type::where([
+            ['brand_id', $request->brand],
+            ['category_unit_id', $request->category],
+        ])->get();
+        return response()->json($type);
         return response()->json($type);
     }
 

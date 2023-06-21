@@ -224,7 +224,7 @@
                                         Tax Expire
                                     </div>
                                     <div class="col-lg-9 col-md-8">
-                                        {{ $data->vrc->tax }}
+                                        {{ \Carbon\Carbon::parse($data->vrc->tax)->format('d/m/Y') }}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -232,11 +232,41 @@
                                         Expire Date
                                     </div>
                                     <div class="col-lg-9 col-md-8">
-                                        {{ $data->vrc->expire }}
+                                        {{ \Carbon\Carbon::parse($data->vrc->expire)->format('d/m/Y') }}
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md">
+                                        @if($data->vrc->image)
+                                        <img
+                                            width="100"
+                                            class="rounded img-fluid mb-2"
+                                            alt=""
+                                            src="{{ asset('storage/'. $data->vrc->image->pic) }}"
+                                        />
+
+                                        @else
+                                        <img
+                                            width="50"
+                                            class="rounded img-fluid mb-2"
+                                            alt=""
+                                            src="http://source.unsplash.com/50x50?smartphones"
+                                        />
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md">
+                                        <a
+                                            href="/dashboard/unit/vrc/{{ $data->slug }}"
+                                            class="btn btn-warning"
+                                            >Edit Data</a
+                                        >
                                     </div>
                                 </div>
 
                                 <x-card-title>Inspection Card</x-card-title>
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">
                                         Owner
@@ -258,7 +288,7 @@
                                         Registration Date
                                     </div>
                                     <div class="col-lg-9 col-md-8">
-                                        {{ $data->vpic->tgl_reg }}
+                                        {{ \Carbon\Carbon::parse($data->vpic->tgl_reg)->format('d/m/Y') }}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -266,7 +296,37 @@
                                         Expire Date
                                     </div>
                                     <div class="col-lg-9 col-md-8">
-                                        {{ $data->vpic->expire }}
+                                        {{ \Carbon\Carbon::parse($data->vpic->expire)->format('d/m/Y') }}
+                                    </div>
+                                </div>
+
+                                <div class="row my-3">
+                                    <div class="col-md">
+                                        @if($data->vpic->image)
+                                        <img
+                                            width="100"
+                                            class="rounded img-fluid mb-2"
+                                            alt=""
+                                            src="{{ asset('storage/'. $data->vpic->image->pic) }}"
+                                        />
+
+                                        @else
+                                        <img
+                                            width="50"
+                                            class="rounded img-fluid mb-2"
+                                            alt=""
+                                            src="http://source.unsplash.com/50x50?smartphones"
+                                        />
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row my-3">
+                                    <div class="col-md">
+                                        <a
+                                            href="/dashboard/unit/vpic/{{ $data->slug }}"
+                                            class="btn btn-warning"
+                                            >Edit Data</a
+                                        >
                                     </div>
                                 </div>
                             </div>

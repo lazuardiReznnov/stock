@@ -76,6 +76,7 @@ class UnitController extends Controller
             $unit->image()->create($data);
         }
         $unit->spesification()->create();
+        $unit->vpic()->create();
 
         return redirect('dashboard/unit')->with(
             'Success',
@@ -202,6 +203,82 @@ class UnitController extends Controller
         ]);
 
         $unit->spesification()->update($validatedData);
+
+        return redirect('dashboard/unit/' . $unit->slug)->with(
+            'success',
+            'Data Has Been Updated'
+        );
+    }
+
+    public function editvpic(Unit $unit)
+    {
+        return view('dashboard.unit.editvipc', [
+            'title' => 'Edit Inspection Card Data',
+            'data' => $unit->load('vpic'),
+        ]);
+    }
+
+    public function updatevpic(Request $request, Unit $unit)
+    {
+        $validatedData = $request->validate([
+            'regnumber' => 'required',
+            'owner' => 'required',
+            'address' => 'required',
+            'region' => 'required',
+            'tgl_reg' => 'required',
+            'expire' => 'required',
+        ]);
+
+        if ($request->file('pic')) {
+            $request->validate(['pic' => 'image|file|max:2048']);
+            if ($request->old_pic) {
+                storage::delete($request->old_pic);
+                $unit->vpic->image()->delete();
+            }
+            $unit->vpic->image()->create([
+                'pic' => $request->file('pic')->store('unit-vpic-pic'),
+            ]);
+        }
+
+        $unit->vpic()->update($validatedData);
+
+        return redirect('dashboard/unit/' . $unit->slug)->with(
+            'success',
+            'Data Has Been Updated'
+        );
+    }
+
+    public function editvrc(Unit $unit)
+    {
+        return view('dashboard.unit.editvrc', [
+            'title' => 'Edit Vihicle Registration Data Data',
+            'data' => $unit->load('vrc'),
+        ]);
+    }
+
+    public function updatevrc(Request $request, Unit $unit)
+    {
+        $validatedData = $request->validate([
+            'regnumber' => 'required',
+            'owner' => 'required',
+            'address' => 'required',
+            'region' => 'required',
+            'tax' => 'required',
+            'expire' => 'required',
+        ]);
+
+        if ($request->file('pic')) {
+            $request->validate(['pic' => 'image|file|max:2048']);
+            if ($request->old_pic) {
+                storage::delete($request->old_pic);
+                $unit->vrc->image()->delete();
+            }
+            $unit->vrc->image()->create([
+                'pic' => $request->file('pic')->store('unit-vrc-pic'),
+            ]);
+        }
+
+        $unit->vrc()->update($validatedData);
 
         return redirect('dashboard/unit/' . $unit->slug)->with(
             'success',

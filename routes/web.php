@@ -116,6 +116,10 @@ Route::controller(UnitController::class)->group(function () {
     route::get('dashboard/unit/getType', 'getType');
     Route::get('/dashboard/unit/spesification/{unit}', 'editspesification');
     Route::put('/dashboard/unit/spesification/{unit}', 'updatespesification');
+    Route::get('/dashboard/unit/vpic/{unit}', 'editvpic');
+    Route::put('/dashboard/unit/vpic/{unit}', 'updatevpic');
+    Route::get('/dashboard/unit/vrc/{unit}', 'editvrc');
+    Route::put('/dashboard/unit/vrc/{unit}', 'updatevrc');
 });
 
 Route::resource('/dashboard/unit', UnitController::class);

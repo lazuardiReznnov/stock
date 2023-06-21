@@ -17,6 +17,7 @@ return new class extends Migration {
                 ->constrained('units')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+            $table->string('regnumber')->nullable();
             $table->string('owner')->nullable();
             $table->string('address')->nullable();
             $table->string('region')->nullable();

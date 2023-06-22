@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class Sparepart extends Model
+class Maintenance extends Model
 {
     use HasFactory, Sluggable;
 
@@ -26,28 +26,18 @@ class Sparepart extends Model
         return 'slug';
     }
 
-    public function image(): MorphOne
+    public function image(): MorphMany
     {
-        return $this->morphOne(Image::class, 'imageable');
+        return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function type()
+    public function unit()
     {
-        return $this->belongsTo(Type::class);
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function stock()
-    {
-        return $this->hasMany(Stock::class);
+        return $this->belongsTo(Unit::class);
     }
 
     public function maintenancePart()
     {
-        return $this->belongsTo(MaintenancePart::class);
+        return $this->hasMany(MaintenancePart::class);
     }
 }

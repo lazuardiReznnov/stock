@@ -112,5 +112,42 @@ class UnitSeeder extends Seeder
         $unit2->vpic()->create();
         $unit3->vpic()->create();
         $unit4->vpic()->create();
+
+        $unit1->maintenance()->create([
+            'name' => '2023062201b9054edb',
+            'slug' => '2023-06-22-01-b9054edb',
+            'tgl' => '2023/06/22',
+            'estimate' => 1,
+            'mekanik' => 'ali',
+            'description' => 'Service Berkala',
+            'instruction' => 'Service Berkala',
+        ]);
+        $unit2->maintenance()->create([
+            'name' => '2023062201b9055edb',
+            'slug' => '2023-06-22-01-b9055edb',
+            'tgl' => '2023/06/22',
+            'estimate' => 1,
+            'mekanik' => 'nurdin',
+            'description' => 'Service Berkala',
+            'instruction' => 'Service Berkala',
+        ]);
+        $unit3->maintenance()->create([
+            'name' => '2023062201b9056edb',
+            'slug' => '2023-06-22-01-b9056edb',
+            'tgl' => '2023/06/22',
+            'estimate' => 1,
+            'mekanik' => 'Komarudin',
+            'description' => 'Service Berkala',
+            'instruction' => 'Service Berkala',
+        ]);
+        $unit4->maintenance()->create([
+            'name' => '2023062201b9057edb',
+            'slug' => '2023-06-22-01-b9057edb',
+            'tgl' => '2023/06/22',
+            'estimate' => 1,
+            'mekanik' => 'supi',
+            'description' => 'Service Berkala',
+            'instruction' => 'Service Berkala',
+        ]);
     }
 }

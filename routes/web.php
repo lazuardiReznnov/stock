@@ -2,15 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\stock\CategoryController;
-use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
-use App\Http\Controllers\Dashboard\stock\SparepartController;
-use App\Http\Controllers\Dashboard\stock\stockController;
-use App\Http\Controllers\Dashboard\stock\SupplierController;
-use App\Http\Controllers\Dashboard\Unit\BrandController;
-use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
+use App\Http\Controllers\Dashboard\Maintenance\MaintenanceController;
 use App\Http\Controllers\Dashboard\Unit\TypeController;
 use App\Http\Controllers\Dashboard\Unit\UnitController;
+use App\Http\Controllers\Dashboard\Unit\BrandController;
+use App\Http\Controllers\Dashboard\stock\stockController;
+use App\Http\Controllers\Dashboard\stock\CategoryController;
+use App\Http\Controllers\Dashboard\stock\SupplierController;
+use App\Http\Controllers\Dashboard\stock\SparepartController;
+use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
+use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,3 +125,14 @@ Route::controller(UnitController::class)->group(function () {
 
 Route::resource('/dashboard/unit', UnitController::class);
 // end Unit
+
+// Maintenance
+Route::controller(MaintenanceController::class)->group(function () {
+    Route::get(
+        '/dashboard/maintenanceCoMaintenanceController/checkSlug',
+        'checkSlug'
+    );
+});
+
+Route::resource('/dashboard/maintenance', MaintenanceController::class);
+// end Maintenance

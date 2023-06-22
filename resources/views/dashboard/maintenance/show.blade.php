@@ -94,9 +94,27 @@
                                 <button
                                     class="nav-link"
                                     data-bs-toggle="tab"
-                                    data-bs-target="#letter"
+                                    data-bs-target="#sparepart"
                                 >
                                     Sparepart
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button
+                                    class="nav-link"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#progres"
+                                >
+                                    Maintenance Progress
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button
+                                    class="nav-link"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#documents"
+                                >
+                                    Document
                                 </button>
                             </li>
                         </ul>
@@ -129,6 +147,14 @@
                                 <div class="profile-overview">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">
+                                            Date
+                                        </div>
+                                        <div class="col-lg-9 col-md-8">
+                                            {{ \Carbon\Carbon::parse($data->tgl)->format('d M Y') }}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">
                                             Description
                                         </div>
                                         <div class="col-lg-9 col-md-8">
@@ -154,9 +180,33 @@
                                 </div>
                             </div>
                             <div
-                                class="tab-pane fade letter pt-3"
-                                id="letter"
+                                class="tab-pane fade spareparts pt-3"
+                                id="spareparts"
                             ></div>
+
+                            <div
+                                class="tab-pane fade documents pt-3"
+                                id="documents"
+                            >
+                                Document
+                            </div>
+                            <div
+                                class="tab-pane fade progres pt-3"
+                                id="progres"
+                            >
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: 25%"
+                                        aria-valuenow="25"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                    >
+                                        25%
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </x-card-body>
                 </x-card2>

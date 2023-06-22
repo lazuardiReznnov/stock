@@ -93,7 +93,9 @@
                             <th scope="row">
                                 {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
-                            <td>{{ $data->tgl }}</td>
+                            <td>
+                                {{ \Carbon\Carbon::parse($data->tgl)->format('d M Y') }}
+                            </td>
                             <td>{{ $data->name }}</td>
                             <td>
                                 {{ $data->unit->name }}

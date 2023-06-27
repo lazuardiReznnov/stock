@@ -56,7 +56,7 @@ class MaintenanceController extends Controller
     {
         return view('dashboard.maintenance.show', [
             'title' => 'Maintenance data',
-            'data' => $maintenance->load('unit', 'maintenancePart'),
+            'data' => $maintenance->load('unit', 'maintenancePart', 'statelog'),
         ]);
     }
 

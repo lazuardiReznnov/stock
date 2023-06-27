@@ -132,6 +132,8 @@ Route::controller(MaintenanceController::class)->group(function () {
         '/dashboard/maintenanceCoMaintenanceController/checkSlug',
         'checkSlug'
     );
+    Route::get('/dashboard/maintenance/logstate/{maintenance}', 'createlog');
+    Route::post('/dashboard/maintenance/logstate/{maintenance}', 'storelog');
 });
 
 Route::resource('/dashboard/maintenance', MaintenanceController::class);

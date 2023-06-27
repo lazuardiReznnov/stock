@@ -206,6 +206,44 @@
                                         25%
                                     </div>
                                 </div>
+                                <div class="row my-3">
+                                    <div class="col">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">
+                                                        State Name
+                                                    </th>
+                                                    <th scope="col">
+                                                        Description
+                                                    </th>
+
+                                                    <th scope="col">Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Brandon Jacob</td>
+                                                    <td>Designer</td>
+                                                    <td>28</td>
+                                                    <td>2016-05-25</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <x-button-link
+                                            href="/dashboard/maintenance/logstate/{{ $data->slug }}"
+                                            class="btn-success"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Progress maintenance"
+                                        >
+                                            Update Progress
+                                        </x-button-link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </x-card-body>

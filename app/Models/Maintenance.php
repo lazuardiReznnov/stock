@@ -40,4 +40,9 @@ class Maintenance extends Model
     {
         return $this->hasMany(MaintenancePart::class);
     }
+
+    public function statelog()
+    {
+        return $this->hasMany(statelog::class);
+    }
 }

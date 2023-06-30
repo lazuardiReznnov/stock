@@ -50,6 +50,32 @@
             </x-button-group>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-8">
+            @if(session()->has('success'))
+
+            <!-- pesan -->
+
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
+            @endif
+        </div>
+    </div>
+
     <x-section class="profile">
         <div class="row">
             <div class="col-xl-4">
@@ -194,45 +220,31 @@
                                 class="tab-pane fade progres pt-3"
                                 id="progres"
                             >
-                                <div class="progress">
-                                    <div
-                                        class="progress-bar"
-                                        role="progressbar"
-                                        style="width: 25%"
-                                        aria-valuenow="25"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    >
-                                        25%
-                                    </div>
-                                </div>
                                 <div class="row my-3">
                                     <div class="col">
-                                        <table class="table table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">
-                                                        State Name
-                                                    </th>
-                                                    <th scope="col">
-                                                        Description
-                                                    </th>
-
-                                                    <th scope="col">Date</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">1</th>
-                                                    <td>Brandon Jacob</td>
-                                                    <td>Designer</td>
-                                                    <td>28</td>
-                                                    <td>2016-05-25</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
+                                        <ul class="list-group my-3">
+                                            @foreach($data->statelog as $sl)
+                                            <li class="list-group-item">
+                                                {{ $sl->description }} <br />
+                                                <span
+                                                    class="text-muted"
+                                                    >{{ $sl->updated_at->diffForHumans() }}</span
+                                                >
+                                                <div class="progress">
+                                                    <div
+                                                        class="progress-bar"
+                                                        role="progressbar"
+                                                        style="width: {{ $sl->progress }}%"
+                                                        aria-valuenow="25"
+                                                        aria-valuemin="0"
+                                                        aria-valuemax="100"
+                                                    >
+                                                        {{ $sl->progress }}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            @endforeach
+                                        </ul>
                                         <x-button-link
                                             href="/dashboard/maintenance/logstate/{{ $data->slug }}"
                                             class="btn-success"

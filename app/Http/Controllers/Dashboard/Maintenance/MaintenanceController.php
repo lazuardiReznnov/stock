@@ -83,4 +83,28 @@ class MaintenanceController extends Controller
     {
         //
     }
+
+    public function createlog(Maintenance $maintenance)
+    {
+        return view('dashboard.maintenance.createlog', [
+            'title' => 'Update Log',
+            'data' => $maintenance,
+        ]);
+    }
+
+    public function storelog(Request $request, Maintenance $maintenance)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'progress' => 'required',
+        ]);
+
+        $maintenance->statelog()->create($validatedData);
+
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been added.!!'
+        );
+    }
 }

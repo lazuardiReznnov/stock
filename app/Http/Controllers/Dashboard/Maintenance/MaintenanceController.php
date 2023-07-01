@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Dashboard\Maintenance;
 
-use App\Http\Controllers\Controller;
+use App\Models\Unit;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class MaintenanceController extends Controller
 {
@@ -38,7 +40,10 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.maintenance.create', [
+            'title' => 'Maintenance Create',
+            'units' => Unit::all(),
+        ]);
     }
 
     /**
@@ -46,7 +51,12 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $date = date('Ymd');
+        $unit_name = $request->unit_id;
+        $rand = rand(0, 100);
+
+        $name = $date . $unit_name . $rand;
+        $slug = Str::of($name)->slug('-');
     }
 
     /**

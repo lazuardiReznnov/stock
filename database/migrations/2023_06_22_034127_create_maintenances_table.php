@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->integer('estimate');
             $table->string('mekanik');
             $table->text('description');
+            $table->integer('progress')->default(0);
             $table->text('instruction');
             $table->timestamps();
         });

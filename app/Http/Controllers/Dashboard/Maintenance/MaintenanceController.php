@@ -55,7 +55,7 @@ class MaintenanceController extends Controller
     public function show(Maintenance $maintenance)
     {
         return view('dashboard.maintenance.show', [
-            'title' => 'Maintenance data',
+            'title' => 'Maintenance data - ' . $maintenance->unit->name,
             'data' => $maintenance->load('unit', 'maintenancePart', 'statelog'),
         ]);
     }
@@ -97,10 +97,10 @@ class MaintenanceController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'progress' => 'required',
         ]);
 
         $maintenance->statelog()->create($validatedData);
+        $maintenance->update(['progress' => $request->progress]);
 
         return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
             'success',

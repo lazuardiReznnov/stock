@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-8">
             <x-card>
-                <x-card-title> Form Category </x-card-title>
+                <x-card-title> Log State </x-card-title>
 
                 <form
                     class="row g-3"

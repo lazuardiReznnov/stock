@@ -222,26 +222,26 @@
                             >
                                 <div class="row my-3">
                                     <div class="col">
+                                        <div class="progress">
+                                            <div
+                                                class="progress-bar"
+                                                role="progressbar"
+                                                style="width: {{ $data->progress }}%"
+                                                aria-valuenow="25"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                            >
+                                                {{ $data->progress }}%
+                                            </div>
+                                        </div>
                                         <ul class="list-group my-3">
                                             @foreach($data->statelog as $sl)
                                             <li class="list-group-item">
                                                 {{ $sl->description }} <br />
-                                                <span
+                                                <small
                                                     class="text-muted"
-                                                    >{{ $sl->updated_at->diffForHumans() }}</span
+                                                    >{{ $sl->updated_at->diffForHumans() }}</small
                                                 >
-                                                <div class="progress">
-                                                    <div
-                                                        class="progress-bar"
-                                                        role="progressbar"
-                                                        style="width: {{ $sl->progress }}%"
-                                                        aria-valuenow="25"
-                                                        aria-valuemin="0"
-                                                        aria-valuemax="100"
-                                                    >
-                                                        {{ $sl->progress }}
-                                                    </div>
-                                                </div>
                                             </li>
                                             @endforeach
                                         </ul>

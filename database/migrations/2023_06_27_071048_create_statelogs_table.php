@@ -20,7 +20,7 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('name');
             $table->text('description');
-            $table->integer('progress');
+
             $table->timestamps();
         });
     }

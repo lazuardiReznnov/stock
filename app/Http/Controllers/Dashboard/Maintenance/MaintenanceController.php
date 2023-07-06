@@ -201,4 +201,29 @@ class MaintenanceController extends Controller
             'dashboard/maintenance/' . $maintenancePart->maintenance->slug
         )->with('success', 'Data Has Been Added..!!');
     }
+
+    public function editpart(MaintenancePart $maintenancePart)
+    {
+        return view('dashboard.maintenance.editpart', [
+            'title' => 'Edit Replacing Part',
+            'data' => $maintenancePart,
+            'spareparts' => Sparepart::all(),
+        ]);
+    }
+
+    public function updatepart(
+        Request $request,
+        MaintenancePart $maintenancePart
+    ) {
+        $validatedData = $request->validate([
+            'sparepart_id' => 'required',
+            'qty' => 'required',
+        ]);
+
+        $maintenancePart->update($validatedData);
+
+        return redirect(
+            'dashboard/maintenance/' . $maintenancePart->maintenance->slug
+        )->with('success', 'Data Has Been Added..!!');
+    }
 }

@@ -120,7 +120,7 @@
                                 <button
                                     class="nav-link"
                                     data-bs-toggle="tab"
-                                    data-bs-target="#sparepart"
+                                    data-bs-target="#spareparts"
                                 >
                                     Sparepart
                                 </button>
@@ -184,7 +184,7 @@
                                             Description
                                         </div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{ $data->description }}
+                                            {!! $data->description !!}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -192,7 +192,7 @@
                                             Instruction
                                         </div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{ $data->instruction }}
+                                            {!! $data->instruction !!}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -208,7 +208,114 @@
                             <div
                                 class="tab-pane fade spareparts pt-3"
                                 id="spareparts"
-                            ></div>
+                            >
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <x-card>
+                                            <x-card-title>
+                                                Replacing Sparepart
+                                            </x-card-title>
+
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+
+                                                        <th scope="col">
+                                                            Sparepart Name
+                                                        </th>
+                                                        <th scope="col">
+                                                            code
+                                                        </th>
+                                                        <th scope="col">Qty</th>
+
+                                                        <th scope="col">
+                                                            Action
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if($data->maintenancePart->count())
+                                                    @foreach($data->maintenancePart
+                                                    as $part)
+                                                    <tr>
+                                                        <th scope="row">
+                                                            {{ $loop->iteration }}
+                                                        </th>
+                                                        <td>
+                                                            {{ $part->sparepart->name }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $part->sparepart->code }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $part->qty }}
+                                                        </td>
+
+                                                        <td>
+                                                            <a
+                                                                href="/dashboard/maintenance/sparepart/{{ $part->id }}/edit"
+                                                                class="badge bg-warning"
+                                                                data-bs-toggle="tooltip"
+                                                                data-bs-placement="top"
+                                                                title="Edit maintenance/sparepart"
+                                                                ><i
+                                                                    class="bi bi-pencil-square"
+                                                                ></i
+                                                            ></a>
+
+                                                            <form
+                                                                action="/dashboard/maintenance/sparepart/{{ $part->id }}"
+                                                                method="post"
+                                                                class="d-inline"
+                                                            >
+                                                                @method('delete')
+                                                                @csrf
+                                                                <button
+                                                                    class="badge bg-danger border-0"
+                                                                    data-bs-toggle="tooltip"
+                                                                    data-bs-placement="top"
+                                                                    title="Delete Unit"
+                                                                    onclick="return confirm('are You sure ??')"
+                                                                >
+                                                                    <i
+                                                                        class="bi bi-x-lg"
+                                                                    ></i>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                        <!-- Modal Image -->
+                                                    </tr>
+                                                    @endforeach
+                                                    <!-- Modal -->
+
+                                                    <!-- End Modal Image -->
+                                                    @else
+                                                    <tr>
+                                                        <td
+                                                            colspan="6"
+                                                            class="text-center"
+                                                        >
+                                                            Data Not Found
+                                                        </td>
+                                                    </tr>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </x-card>
+
+                                        <x-button-link
+                                            href="/dashboard/maintenance/sparepart/{{ $data->slug }}"
+                                            class="btn-success"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Sparepart maintenance"
+                                        >
+                                            add Sparepart
+                                        </x-button-link>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div
                                 class="tab-pane fade documents pt-3"

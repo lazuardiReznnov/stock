@@ -101,7 +101,7 @@
                                 {{ $data->unit->name }}
                             </td>
 
-                            <td>{{ $data->description }}</td>
+                            <td>{!! $data->description !!}</td>
                             <td>{{ $data->estimate }}</td>
 
                             <td>

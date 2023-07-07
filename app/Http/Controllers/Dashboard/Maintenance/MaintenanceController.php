@@ -88,7 +88,12 @@ class MaintenanceController extends Controller
     {
         return view('dashboard.maintenance.show', [
             'title' => 'Maintenance data - ' . $maintenance->unit->name,
-            'data' => $maintenance->load('unit', 'maintenancePart', 'statelog'),
+            'data' => $maintenance->load(
+                'unit',
+                'maintenancePart',
+                'statelog',
+                'image'
+            ),
         ]);
     }
 
@@ -225,5 +230,44 @@ class MaintenanceController extends Controller
         return redirect(
             'dashboard/maintenance/' . $maintenancePart->maintenance->slug
         )->with('success', 'Data Has Been Added..!!');
+    }
+
+    public function createupload(Maintenance $maintenance)
+    {
+        return view('dashboard.maintenance.createupload', [
+            'title' => 'Upload Image',
+            'data' => $maintenance,
+        ]);
+    }
+
+    public function storeupload(Request $request, Maintenance $maintenance)
+    {
+        $this->validate($request, [
+            'pic[]' => 'image|file|max:2048',
+        ]);
+
+        if ($request->file('pic')) {
+            foreach ($request->file('pic') as $pic) {
+                $maintenance
+                    ->image()
+                    ->create(['pic' => $pic->store('maintenance-pic')]);
+            }
+        }
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been Added..!!'
+        );
+    }
+
+    public function destroyupload(Maintenance $maintenance, Request $request)
+    {
+        $data = $maintenance->image->find($request->id);
+        storage::delete($data->pic);
+        $data->delete();
+
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been Added..!!'
+        );
     }
 }

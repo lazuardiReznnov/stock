@@ -321,7 +321,56 @@
                                 class="tab-pane fade documents pt-3"
                                 id="documents"
                             >
-                                Document
+                                @if($data->image)
+                                <div class="row">
+                                    @foreach($data->image as $pic)
+                                    <div class="col">
+                                        <x-card2>
+                                            <x-card-body class="my-2">
+                                                <img
+                                                    width="300"
+                                                    class=""
+                                                    alt=""
+                                                    src="{{ asset('storage/'. $pic->pic) }}"
+                                                />
+                                                <form
+                                                    action="/dashboard/maintenance/upload/{{ $data->slug }}"
+                                                    method="post"
+                                                    class="d-inline"
+                                                >
+                                                    <input
+                                                        type="hidden"
+                                                        name="id"
+                                                        value="{{ $pic->id }}"
+                                                    />
+                                                    @method('delete') @csrf
+                                                    <button
+                                                        class="badge bg-danger"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="top"
+                                                        title="Delete Image Unit"
+                                                        onclick="return confirm('are You sure ??')"
+                                                    >
+                                                        <i
+                                                            class="bi bi-file-x-fill"
+                                                        ></i>
+                                                    </button>
+                                                </form>
+                                            </x-card-body>
+                                        </x-card2>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                @endif
+                                <x-button-link
+                                    href="/dashboard/maintenance/upload/{{ $data->slug }}"
+                                    class="btn-success"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Image"
+                                >
+                                    Upload Image
+                                </x-button-link>
                             </div>
                             <div
                                 class="tab-pane fade progres pt-3"

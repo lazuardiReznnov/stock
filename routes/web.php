@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\stock\SupplierController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
 use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
+use App\Models\Maintenance;
 
 /*
 |--------------------------------------------------------------------------
@@ -148,6 +149,12 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::delete(
         '/dashboard/maintenance/sparepart/{maintenancePart}',
         'destroypart'
+    );
+    Route::get('/dashboard/maintenance/upload/{maintenance}', 'createupload');
+    Route::post('/dashboard/maintenance/upload/{maintenance}', 'storeupload');
+    Route::delete(
+        '/dashboard/maintenance/upload/{maintenance}',
+        'destroyupload'
     );
 });
 

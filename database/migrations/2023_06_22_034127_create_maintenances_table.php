@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->date('tgl');
             $table->integer('estimate');
-            $table->string('mekanik');
+            $table->string('mechanic');
             $table->text('description');
             $table->integer('progress')->default(0);
             $table->text('instruction');

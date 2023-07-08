@@ -51,12 +51,30 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'unit_id' => 'required',
+            'tgl' => 'required',
+            'estimate' => 'required',
+            'mechanic' => 'required',
+            'description' => 'required',
+            'instruction' => 'required',
+        ]);
+
         $date = date('Ymd');
         $unit_name = $request->unit_id;
         $rand = rand(0, 100);
 
         $name = $date . $unit_name . $rand;
-        $slug = Str::of($name)->slug('-');
+        $slug = $unit_name . '-' . $date . '-' . $rand;
+        $validatedData['name'] = $name;
+        $validatedData['slug'] = $slug;
+
+        Maintenance::create($validatedData);
+
+        return redirect('/dashboard/maintenance')->with(
+            'success',
+            'Data Has Been added.!'
+        );
     }
 
     /**

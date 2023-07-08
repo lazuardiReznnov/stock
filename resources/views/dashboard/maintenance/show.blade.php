@@ -184,7 +184,7 @@
                                             Description
                                         </div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{ $data->description }}
+                                            {!! $data->description !!}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -192,7 +192,7 @@
                                             Instruction
                                         </div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{ $data->instruction }}
+                                            {!! $data->instruction !!}
                                         </div>
                                     </div>
                                     <div class="row">

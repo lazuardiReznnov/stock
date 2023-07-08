@@ -118,7 +118,7 @@ class UnitSeeder extends Seeder
             'slug' => '2023-06-22-01-b9054edb',
             'tgl' => '2023/06/22',
             'estimate' => 1,
-            'mekanik' => 'ali',
+            'mechanic' => 'ali',
             'description' => 'Service Berkala',
             'instruction' => 'Service Berkala',
         ]);
@@ -127,7 +127,7 @@ class UnitSeeder extends Seeder
             'slug' => '2023-06-22-01-b9055edb',
             'tgl' => '2023/06/22',
             'estimate' => 1,
-            'mekanik' => 'nurdin',
+            'mechanic' => 'nurdin',
             'description' => 'Service Berkala',
             'instruction' => 'Service Berkala',
         ]);
@@ -136,7 +136,7 @@ class UnitSeeder extends Seeder
             'slug' => '2023-06-22-01-b9056edb',
             'tgl' => '2023/06/22',
             'estimate' => 1,
-            'mekanik' => 'Komarudin',
+            'mechanic' => 'Komarudin',
             'description' => 'Service Berkala',
             'instruction' => 'Service Berkala',
         ]);
@@ -145,7 +145,7 @@ class UnitSeeder extends Seeder
             'slug' => '2023-06-22-01-b9057edb',
             'tgl' => '2023/06/22',
             'estimate' => 1,
-            'mekanik' => 'supi',
+            'mechanic' => 'supi',
             'description' => 'Service Berkala',
             'instruction' => 'Service Berkala',
         ]);

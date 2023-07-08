@@ -6,7 +6,10 @@ use App\Models\Unit;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\MaintenancePart;
+use App\Models\Sparepart;
 use Illuminate\Support\Str;
+use Illuminate\support\Facades\Storage;
 
 class MaintenanceController extends Controller
 {
@@ -65,7 +68,8 @@ class MaintenanceController extends Controller
         $rand = rand(0, 100);
 
         $name = $date . $unit_name . $rand;
-        $slug = $unit_name . '-' . $date . '-' . $rand;
+        $slug = $date . '-' . $unit_name . '-' . $rand;
+
         $validatedData['name'] = $name;
         $validatedData['slug'] = $slug;
 
@@ -73,7 +77,7 @@ class MaintenanceController extends Controller
 
         return redirect('/dashboard/maintenance')->with(
             'success',
-            'Data Has Been added.!'
+            'Data Has Been Added.!!'
         );
     }
 
@@ -84,7 +88,12 @@ class MaintenanceController extends Controller
     {
         return view('dashboard.maintenance.show', [
             'title' => 'Maintenance data - ' . $maintenance->unit->name,
-            'data' => $maintenance->load('unit', 'maintenancePart', 'statelog'),
+            'data' => $maintenance->load(
+                'unit',
+                'maintenancePart',
+                'statelog',
+                'image'
+            ),
         ]);
     }
 
@@ -93,7 +102,11 @@ class MaintenanceController extends Controller
      */
     public function edit(Maintenance $maintenance)
     {
-        //
+        return view('dashboard.maintenance.edit', [
+            'title' => 'Maintenance Edit',
+            'data' => $maintenance,
+            'units' => Unit::all(),
+        ]);
     }
 
     /**
@@ -101,7 +114,21 @@ class MaintenanceController extends Controller
      */
     public function update(Request $request, Maintenance $maintenance)
     {
-        //
+        $validatedData = $request->validate([
+            'unit_id' => 'required',
+            'tgl' => 'required',
+            'estimate' => 'required',
+            'mechanic' => 'required',
+            'description' => 'required',
+            'instruction' => 'required',
+        ]);
+
+        $maintenance->update($validatedData);
+
+        return redirect('/dashboard/maintenance')->with(
+            'success',
+            'Data Has Been Added.!!'
+        );
     }
 
     /**
@@ -109,7 +136,18 @@ class MaintenanceController extends Controller
      */
     public function destroy(Maintenance $maintenance)
     {
-        //
+        $maintenance->destroy($maintenance->id);
+        if ($maintenance->image) {
+            foreach ($maintenance->image as $image) {
+                storage::delete($image->pic);
+                $image->delete();
+            }
+        }
+
+        return redirect('/dashboard/maintenance')->with(
+            'success',
+            'Data Has Been Deleted'
+        );
     }
 
     public function createlog(Maintenance $maintenance)
@@ -133,6 +171,103 @@ class MaintenanceController extends Controller
         return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
             'success',
             'Data Has Been added.!!'
+        );
+    }
+
+    public function createpart(Maintenance $maintenance)
+    {
+        return view('dashboard.maintenance.createpart', [
+            'title' => 'Replacing Sparepart',
+            'data' => $maintenance,
+            'spareparts' => Sparepart::all(),
+        ]);
+    }
+
+    public function storepart(Request $request, Maintenance $maintenance)
+    {
+        $validatedData = $request->validate([
+            'sparepart_id' => 'required',
+            'qty' => 'required',
+        ]);
+
+        $maintenance->maintenancePart()->create($validatedData);
+
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been Added..!!'
+        );
+    }
+
+    public function destroypart(MaintenancePart $maintenancePart)
+    {
+        $maintenancePart->destroy($maintenancePart->id);
+
+        return redirect(
+            'dashboard/maintenance/' . $maintenancePart->maintenance->slug
+        )->with('success', 'Data Has Been Added..!!');
+    }
+
+    public function editpart(MaintenancePart $maintenancePart)
+    {
+        return view('dashboard.maintenance.editpart', [
+            'title' => 'Edit Replacing Part',
+            'data' => $maintenancePart,
+            'spareparts' => Sparepart::all(),
+        ]);
+    }
+
+    public function updatepart(
+        Request $request,
+        MaintenancePart $maintenancePart
+    ) {
+        $validatedData = $request->validate([
+            'sparepart_id' => 'required',
+            'qty' => 'required',
+        ]);
+
+        $maintenancePart->update($validatedData);
+
+        return redirect(
+            'dashboard/maintenance/' . $maintenancePart->maintenance->slug
+        )->with('success', 'Data Has Been Added..!!');
+    }
+
+    public function createupload(Maintenance $maintenance)
+    {
+        return view('dashboard.maintenance.createupload', [
+            'title' => 'Upload Image',
+            'data' => $maintenance,
+        ]);
+    }
+
+    public function storeupload(Request $request, Maintenance $maintenance)
+    {
+        $this->validate($request, [
+            'pic[]' => 'image|file|max:2048',
+        ]);
+
+        if ($request->file('pic')) {
+            foreach ($request->file('pic') as $pic) {
+                $maintenance
+                    ->image()
+                    ->create(['pic' => $pic->store('maintenance-pic')]);
+            }
+        }
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been Added..!!'
+        );
+    }
+
+    public function destroyupload(Maintenance $maintenance, Request $request)
+    {
+        $data = $maintenance->image->find($request->id);
+        storage::delete($data->pic);
+        $data->delete();
+
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been Added..!!'
         );
     }
 }

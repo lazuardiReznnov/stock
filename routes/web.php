@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\Maintenance\MaintenanceController;
+use App\Http\Controllers\Dashboard\Report\ReportController;
 use App\Http\Controllers\Dashboard\Unit\TypeController;
 use App\Http\Controllers\Dashboard\Unit\UnitController;
 use App\Http\Controllers\Dashboard\Unit\BrandController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Dashboard\stock\SupplierController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
 use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
+use App\Models\Maintenance;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,7 +136,33 @@ Route::controller(MaintenanceController::class)->group(function () {
     );
     Route::get('/dashboard/maintenance/logstate/{maintenance}', 'createlog');
     Route::post('/dashboard/maintenance/logstate/{maintenance}', 'storelog');
+    Route::get('/dashboard/maintenance/sparepart/{maintenance}', 'createpart');
+    Route::post('/dashboard/maintenance/sparepart/{maintenance}', 'storepart');
+    Route::get(
+        '/dashboard/maintenance/sparepart/{maintenancePart}/edit',
+        'editpart'
+    );
+    Route::put(
+        '/dashboard/maintenance/sparepart/{maintenancePart}',
+        'updatepart'
+    );
+
+    Route::delete(
+        '/dashboard/maintenance/sparepart/{maintenancePart}',
+        'destroypart'
+    );
+    Route::get('/dashboard/maintenance/upload/{maintenance}', 'createupload');
+    Route::post('/dashboard/maintenance/upload/{maintenance}', 'storeupload');
+    Route::delete(
+        '/dashboard/maintenance/upload/{maintenance}',
+        'destroyupload'
+    );
 });
 
 Route::resource('/dashboard/maintenance', MaintenanceController::class);
+
+Route::controller(ReportController::class)->group(function () {
+    Route::get('/dashboard/report', 'index');
+    Route::get('/dashboard/report/vrc', 'vrc');
+});
 // end Maintenance

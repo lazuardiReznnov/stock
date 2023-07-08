@@ -70,4 +70,19 @@
             </x-nav-content-item>
         </x-nav-content>
     </x-nav-item>
+    <x-nav-item>
+        <x-nav-link
+            href="#"
+            data-bs-target="#report-nav"
+            data-bs-toggle="collapse"
+        >
+            <i class="bi bi-menu-button-wide"></i><span>report Management</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+        </x-nav-link>
+        <x-nav-content id="report-nav">
+            <x-nav-content-item link="/dashboard/report">
+                report Data
+            </x-nav-content-item>
+        </x-nav-content>
+    </x-nav-item>
 </x-sidebar-nav>

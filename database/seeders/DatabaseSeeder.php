@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             GroupSeeder::class,
             UnitSeeder::class,
+            SparepartSeeder::class,
         ]);
     }
 }

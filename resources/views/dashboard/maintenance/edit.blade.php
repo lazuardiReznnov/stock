@@ -18,17 +18,17 @@
 
                 <form
                     class="row g-3"
-                    action="/dashboard/maintenance"
+                    action="/dashboard/maintenance/{{ $data->slug }}"
                     method="post"
                     enctype="multipart/form-data"
                 >
-                    @csrf
+                    @csrf @method('put')
 
                     <div class="col-md-8">
                         <select id="unit" class="form-select" name="unit_id">
                             <option selected>Choose unit ...</option>
-                            @foreach($units as $unit)
-                            @if(old('unit_id')==$unit->id)
+                            @foreach($units as $unit) @if(old('unit_id',
+                            $data->unit_id)==$unit->id)
                             <option value="{{ $unit->id }}" selected>
                                 {{ $unit->name }}
                             </option>
@@ -53,7 +53,7 @@
                             class="form-control @error('tgl') is-invalid @enderror"
                             placeholder="Date"
                             name="tgl"
-                            value="{{ old('tgl') }}"
+                            value="{{ old('tgl',$data->tgl) }}"
                         />
                         @error('tgl')
                         <span class="invalid-feedback" role="alert">
@@ -68,7 +68,7 @@
                             id="descriptions"
                             name="description"
                             rows="3"
-                            >{{ old("description") }}</textarea
+                            >{{ old("description", $data->description) }}</textarea
                         >
                         @error('description')
                         <span class="invalid-feedback" role="alert">
@@ -83,7 +83,7 @@
                             id="instruction"
                             name="instruction"
                             rows="3"
-                            >{{ old("instruction") }}</textarea
+                            >{{ old("instruction", $data->instruction) }}</textarea
                         >
                         @error('instruction')
                         <span class="invalid-feedback" role="alert">
@@ -98,7 +98,7 @@
                             class="form-control @error('mechanic') is-invalid @enderror"
                             placeholder="Mechanic"
                             name="mechanic"
-                            value="{{ old('mechanic') }}"
+                            value="{{ old('mechanic', $data->mechanic) }}"
                         />
                         @error('mechanic')
                         <span class="invalid-feedback" role="alert">
@@ -111,9 +111,9 @@
                             id="estimate"
                             type="text"
                             class="form-control @error('estimate') is-invalid @enderror"
-                            placeholder="estimate Per Day"
+                            placeholder="estimate "
                             name="estimate"
-                            value="{{ old('estimate') }}"
+                            value="{{ old('estimate', $data->estimate) }}"
                         />
                         @error('estimate')
                         <span class="invalid-feedback" role="alert">
@@ -121,24 +121,10 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="col-md-8">
-                        <input
-                            id="mechanic"
-                            type="text"
-                            class="form-control @error('mechanic') is-invalid @enderror"
-                            placeholder="Mechanic "
-                            name="mechanic"
-                            value="{{ old('mechanic') }}"
-                        />
-                        @error('mechanic')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
+
                     <div class="">
                         <button type="submit" class="btn btn-primary">
-                            Save
+                            Update
                         </button>
                     </div>
                 </form>

@@ -18,6 +18,6 @@ class MaintenancePart extends Model
 
     public function sparepart()
     {
-        return $this->hasMany(Sparepart::class);
+        return $this->belongsTo(Sparepart::class);
     }
 }

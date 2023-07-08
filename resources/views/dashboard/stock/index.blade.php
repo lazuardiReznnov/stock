@@ -98,7 +98,10 @@
                                                 {{ $sparepart->type->name }}
                                             </td>
                                             <td scope="col">
-                                                {{ $sparepart->stock->sum('qty') }}
+                                                <?php 
+                                                    $qty = $sparepart->stock->sum('qty')-$sparepart->maintenancePart->sum('qty')
+                                                ?>
+                                                {{ $qty }}
                                             </td>
                                         </tr>
                                         @endforeach @else

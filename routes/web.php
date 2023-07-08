@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\Maintenance\MaintenanceController;
+use App\Http\Controllers\Dashboard\Report\ReportController;
 use App\Http\Controllers\Dashboard\Unit\TypeController;
 use App\Http\Controllers\Dashboard\Unit\UnitController;
 use App\Http\Controllers\Dashboard\Unit\BrandController;
@@ -159,4 +160,9 @@ Route::controller(MaintenanceController::class)->group(function () {
 });
 
 Route::resource('/dashboard/maintenance', MaintenanceController::class);
+
+Route::controller(ReportController::class)->group(function () {
+    Route::get('/dashboard/report', 'index');
+    Route::get('/dashboard/report/vrc', 'vrc');
+});
 // end Maintenance

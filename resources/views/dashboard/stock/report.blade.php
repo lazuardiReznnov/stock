@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-4">
             <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard">
+                <x-button-link class="btn-primary" href="/dashboard/stock">
                     <i class="bi bi-arrow-left-circle"></i> Back
                 </x-button-link>
             </x-button-group>

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard\Report;
 
-use App\Http\Controllers\Controller;
+use App\Models\Vrc;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ReportController extends Controller
 {
@@ -16,6 +17,33 @@ class ReportController extends Controller
     {
         return view('dashboard.report.index', [
             'title' => 'Report Data',
+        ]);
+    }
+
+    public function vrc(Request $request)
+    {
+        $datey = date('Y');
+        $datem = date('m');
+
+        $report = Vrc::latest();
+
+        if ($request->search) {
+            $pisah = explode('-', $request->search);
+
+            $report->when($request->search, function ($query) use ($pisah) {
+                return $query
+                    ->whereMonth('tgl', '=', $pisah[1])
+                    ->whereYear('tgl', '=', $pisah[0]);
+            });
+        }
+        return view('dashboard.report.vrc', [
+            'title' => 'Vehicle Registration Certificate Data',
+            'datas' => $report
+                ->with('unit')
+                // ->whereMonth('tax', '=', $datem)
+                // ->whereYear('tax', '=', $datey)
+                ->paginate(10)
+                ->withQueryString(),
         ]);
     }
 }

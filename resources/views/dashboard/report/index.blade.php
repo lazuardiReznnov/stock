@@ -20,13 +20,13 @@
                     <x-button-group>
                         <x-button-link
                             class="btn-primary"
-                            href="/dashboard/report/letter/vrc"
+                            href="/dashboard/report/vrc"
                         >
                             Vehicle Registration Certificate
                         </x-button-link>
                         <x-button-link
                             class="btn-primary"
-                            href="/dashboard/report/letter/vpic"
+                            href="/dashboard/report/vpic"
                         >
                             VEHICLE PER'ODICAL IN SPECII ON CARD
                         </x-button-link>

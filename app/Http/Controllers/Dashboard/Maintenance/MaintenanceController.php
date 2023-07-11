@@ -270,4 +270,12 @@ class MaintenanceController extends Controller
             'Data Has Been Added..!!'
         );
     }
+
+    public function print(Maintenance $maintenance)
+    {
+        return view('dashboard.maintenance.print-wo', [
+            'title' => 'Work Order Letter',
+            'data' => $maintenance->load('unit', 'maintenancePart'),
+        ]);
+    }
 }

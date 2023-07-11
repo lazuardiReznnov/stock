@@ -157,6 +157,7 @@ Route::controller(MaintenanceController::class)->group(function () {
         '/dashboard/maintenance/upload/{maintenance}',
         'destroyupload'
     );
+    Route::get('/dashboard/maintenance/print/{maintenance}', 'print');
 });
 
 Route::resource('/dashboard/maintenance', MaintenanceController::class);

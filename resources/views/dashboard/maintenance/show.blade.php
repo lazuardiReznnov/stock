@@ -23,12 +23,12 @@
                 </x-button-link>
 
                 <x-button-link
-                    href="/dashboard/maintenance/{{ $data->slug }}/edit"
-                    class="btn-warning"
+                    href="/dashboard/maintenance/print/{{ $data->slug }}"
+                    class="btn-success"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
-                    title="Edit maintenance"
-                    ><i class="bi bi-pencil-square"></i> Edit maintenance
+                    title="Print SPK"
+                    ><i class="bi bi-printer"></i> Print
                 </x-button-link>
 
                 <form
@@ -37,15 +37,15 @@
                     class="d-inline"
                 >
                     @method('delete') @csrf
-                    <button
-                        class="btn btn-danger border-0 rounded-0"
+                    <x-button-link
+                        class="btn btn-danger"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title="Delete data"
                         onclick="return confirm('are You sure ??')"
                     >
                         <i class="bi bi-x-lg"></i>
-                    </button>
+                    </x-button-link>
                 </form>
             </x-button-group>
         </div>

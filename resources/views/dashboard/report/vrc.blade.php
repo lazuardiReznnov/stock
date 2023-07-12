@@ -7,6 +7,9 @@
         </x-breadcrumb>
     </x-pagetitle>
 
+    <?php 
+        $date_now = date('dd M Y')
+    ?>
     <div class="row my-4">
         <div class="col-md">
             <x-button-group>
@@ -36,13 +39,16 @@
         </div>
     </div>
     <?php 
-        $date_now = date('M Y')
+        $date_now = date("Y/m/d")
     
     ?>
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> {{ $title }}</x-card-title>
+                <x-card-title>
+                    VRC Data List -
+                    {{ \Carbon\Carbon::parse($date_now)->format('d M Y') }}</x-card-title
+                >
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -67,10 +73,23 @@
                             </td>
 
                             <td>
-                                {{ \Carbon\Carbon::parse($data->tax)->format('d/m/Y') }}
+                                <span
+                                    class="text-{{ \Lazuardicode::expire($data->tax,$date_now) }}"
+                                >
+                                    {{ \Carbon\Carbon::parse($data->tax)->format('d/m/Y') }}
+                                </span>
                             </td>
                             <td>
-                                {{ \Carbon\Carbon::parse($data->expire)->format('d/m/Y') }}
+                                <a
+                                    href="/dashboard/report/vrc/expire/{{ $data->unit->slug }}/edit"
+                                    class="btn btn-warning"
+                                >
+                                    <span
+                                        class="text-{{ \Lazuardicode::expire($data->expire,$date_now) }}"
+                                    >
+                                        {{ \Carbon\Carbon::parse($data->expire)->format('d/m/Y') }}
+                                    </span>
+                                </a>
                             </td>
 
                             <!-- Modal Image -->

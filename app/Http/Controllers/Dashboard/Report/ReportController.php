@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Dashboard\Report;
 
 use App\Models\Vrc;
+use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\support\Facades\Storage;
 use App\Http\Controllers\Controller;
 
 class ReportController extends Controller
@@ -40,10 +42,43 @@ class ReportController extends Controller
             'title' => 'Vehicle Registration Certificate Data',
             'datas' => $report
                 ->with('unit')
-                // ->whereMonth('tax', '=', $datem)
-                // ->whereYear('tax', '=', $datey)
+                ->whereMonth('tax', '=', $datem)
+                ->whereYear('tax', '=', $datey)
                 ->paginate(10)
                 ->withQueryString(),
         ]);
+    }
+
+    public function editvrcexpire(Unit $unit)
+    {
+        return view('dashboard.report.editvrc-expire', [
+            'title' => 'Update VRC Expire Date',
+            'data' => $unit->load('vrc'),
+        ]);
+    }
+
+    public function updatevrcexpire(Unit $unit, Request $request)
+    {
+        $validatedData = $request->validate([
+            'expire' => 'required',
+        ]);
+
+        if ($request->file('pic')) {
+            $request->validate(['pic' => 'image|file|max:2048']);
+            if ($request->old_pic) {
+                storage::delete($request->old_pic);
+                $unit->vrc->image()->delete();
+            }
+            $unit->vrc->image()->create([
+                'pic' => $request->file('pic')->store('unit-vrc-pic'),
+            ]);
+        }
+
+        $unit->vrc()->update($validatedData);
+
+        return redirect('/dashboard/report/vrc')->with(
+            'success',
+            'data Has Been Updated'
+        );
     }
 }

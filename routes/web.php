@@ -165,5 +165,7 @@ Route::resource('/dashboard/maintenance', MaintenanceController::class);
 Route::controller(ReportController::class)->group(function () {
     Route::get('/dashboard/report', 'index');
     Route::get('/dashboard/report/vrc', 'vrc');
+    Route::get('/dashboard/report/vrc/expire/{unit}/edit', 'editvrcexpire');
+    Route::put('/dashboard/report/vrc/expire/{unit}', 'updatevrcexpire');
 });
 // end Maintenance

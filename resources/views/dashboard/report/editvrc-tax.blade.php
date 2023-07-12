@@ -2,7 +2,7 @@
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
-            <x-breadcrumb-item link="/dashboard/report" name="report" />
+            <x-breadcrumb-item link="/dashboard/stock" name="Stock" />
             <x-breadcrumb-item link="/dashboard/unit" name="Unit" />
             <x-breadcrumb-item
                 link="/dashboard/unit/{{ $data->slug }}"
@@ -19,7 +19,7 @@
 
                 <form
                     class="row g-3"
-                    action="/dashboard/report/vrc/expire/{{ $data->slug }}"
+                    action="/dashboard/report/vrc/tax/{{ $data->slug }}"
                     method="post"
                     enctype="multipart/form-data"
                 >
@@ -63,14 +63,14 @@
 
                     <div class="col-md-8">
                         <input
-                            id="expire"
+                            id="tax"
                             type="date"
-                            class="form-control @error('expire') is-invalid @enderror"
-                            placeholder="expire "
-                            name="expire"
-                            value="{{ old('expire', $data->vrc->expire) }}"
+                            class="form-control @error('tax') is-invalid @enderror"
+                            placeholder="tax "
+                            name="tax"
+                            value="{{ old('tax', $data->vrc->tax) }}"
                         />
-                        @error('expire')
+                        @error('tax')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

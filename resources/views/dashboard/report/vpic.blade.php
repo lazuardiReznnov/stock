@@ -23,7 +23,7 @@
                 <form
                     class="search-form d-flex align-items-center"
                     method="GET"
-                    action="/dashboard/report/vrc"
+                    action="/dashboard/report/vpic"
                 >
                     <input
                         type="month"
@@ -46,7 +46,7 @@
         <div class="col-md-12">
             <x-card>
                 <x-card-title>
-                    VRC Data List -
+                    VPIC Data List -
                     {{ \Carbon\Carbon::parse($date_now)->format('d M Y') }}</x-card-title
                 >
                 <table class="table table-striped">
@@ -55,7 +55,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Unit</th>
                             <th scope="col">Model/Type</th>
-                            <th scope="col">Tax</th>
+                            <th scope="col">Date Registration</th>
+                            <th scope="col">Region</th>
                             <th scope="col">Expire</th>
                         </tr>
                     </thead>
@@ -73,20 +74,14 @@
                             </td>
 
                             <td>
-                                <a
-                                    href="/dashboard/report/vrc/tax/{{ $data->unit->slug }}/edit"
-                                    class="btn btn-warning"
-                                >
-                                    <span
-                                        class="text-{{ \Lazuardicode::expire($data->tax,$date_now) }}"
-                                    >
-                                        {{ \Carbon\Carbon::parse($data->tax)->format('d/m/Y') }}
-                                    </span>
-                                </a>
+                                {{ \Carbon\Carbon::parse($data->tgl_reg)->format('d/m/Y') }}
+                            </td>
+                            <td>
+                                {{ $data->region }}
                             </td>
                             <td>
                                 <a
-                                    href="/dashboard/report/vrc/expire/{{ $data->unit->slug }}/edit"
+                                    href="/dashboard/report/vpic/expire/{{ $data->unit->slug }}/edit"
                                     class="btn btn-warning"
                                 >
                                     <span

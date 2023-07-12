@@ -117,28 +117,28 @@ class UnitSeeder extends Seeder
             'address' => 'Depok',
             'region' => 'Depok',
             'tgl_reg' => '2017/07/23',
-            'expire' => '2024/07/23',
+            'expire' => '2023/07/23',
         ]);
         $unit2->vpic()->create([
             'owner' => 'PT. Indomultimas Perkasa',
             'address' => 'Depok',
             'region' => 'Depok',
             'tgl_reg' => '2017/07/23',
-            'expire' => '2024/07/23',
+            'expire' => '2023/07/23',
         ]);
         $unit3->vpic()->create([
             'owner' => 'PT. Indomultimas Perkasa',
             'address' => 'Depok',
             'region' => 'Depok',
             'tgl_reg' => '2017/07/23',
-            'expire' => '2024/07/23',
+            'expire' => '2023/07/23',
         ]);
         $unit4->vpic()->create([
             'owner' => 'PT. Indomultimas Perkasa',
             'address' => 'Depok',
             'region' => 'Depok',
             'tgl_reg' => '2017/07/23',
-            'expire' => '2024/07/23',
+            'expire' => '2023/07/23',
         ]);
 
         $unit1->maintenance()->create([

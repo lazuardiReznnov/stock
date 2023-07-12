@@ -8,7 +8,7 @@
                 link="/dashboard/unit/{{ $data->slug }}"
                 name="{{ $data->name }}"
             />
-            <x-breadcrumb-item link="" name="VRC " />
+            <x-breadcrumb-item link="" name="VPIC " />
         </x-breadcrumb>
     </x-pagetitle>
 
@@ -19,7 +19,7 @@
 
                 <form
                     class="row g-3"
-                    action="/dashboard/report/vrc/expire/{{ $data->slug }}"
+                    action="/dashboard/report/vpic/expire/{{ $data->slug }}"
                     method="post"
                     enctype="multipart/form-data"
                 >
@@ -30,7 +30,7 @@
                             width="200"
                             class="img-fluid mb-2"
                             alt=""
-                            src="{{ asset('storage/'. $data->vrc->image->pic) }}"
+                            src="{{ asset('storage/'. $data->vpic->image->pic) }}"
                         />
                         <input
                             type="hidden"

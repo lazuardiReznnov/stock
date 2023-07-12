@@ -165,7 +165,12 @@ Route::resource('/dashboard/maintenance', MaintenanceController::class);
 Route::controller(ReportController::class)->group(function () {
     Route::get('/dashboard/report', 'index');
     Route::get('/dashboard/report/vrc', 'vrc');
+    Route::get('/dashboard/report/vpic', 'vpic');
     Route::get('/dashboard/report/vrc/expire/{unit}/edit', 'editvrcexpire');
     Route::put('/dashboard/report/vrc/expire/{unit}', 'updatevrcexpire');
+    Route::get('/dashboard/report/vrc/tax/{unit}/edit', 'editvrctax');
+    Route::put('/dashboard/report/vrc/tax/{unit}', 'updatevrctax');
+    Route::get('/dashboard/report/vpic/expire/{unit}/edit', 'editvpicexpire');
+    Route::put('/dashboard/report/vpic/expire/{unit}', 'updatevpicexpire');
 });
 // end Maintenance

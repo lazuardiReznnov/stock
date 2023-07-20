@@ -79,6 +79,7 @@ class UnitController extends Controller
         }
         $unit->spesification()->create();
         $unit->vpic()->create();
+        $unit->vrc()->create();
 
         return redirect('dashboard/unit')->with(
             'Success',

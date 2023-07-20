@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\stock;
 
 use App\Models\Tag;
+use App\Models\Type;
 use App\Models\Stock;
 use App\Models\Supplier;
 use App\Models\Sparepart;
@@ -88,8 +89,7 @@ class InvoiceStockController extends Controller
             'data' => $invoiceStock,
             'stocks' => Stock::where('invoice_stock_id', $invoiceStock->id)
                 ->with('sparepart')
-                ->paginate(10)
-                ->withQueryString(),
+                ->get(),
         ]);
     }
 
@@ -182,7 +182,8 @@ class InvoiceStockController extends Controller
     {
         return view('dashboard.stock.invoice.stock-in', [
             'title' => 'Stock In',
-            'spareparts' => Sparepart::with('category', 'type')->get(),
+            'spareparts' => Sparepart::with('category')->get(),
+            'types' => Type::with('brand', 'categoryUnit')->get(),
             'invoice' => $invoiceStock,
             'tags' => Tag::all(),
         ]);

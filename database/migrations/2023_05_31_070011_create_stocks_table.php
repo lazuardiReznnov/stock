@@ -17,6 +17,7 @@ return new class extends Migration {
                 ->constrained('spareparts')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
+
             $table
                 ->foreignId('invoice_stock_id')
                 ->constrained('invoice_stocks')

@@ -2,8 +2,8 @@
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
-            <x-breadcrumb-item link="/stock" name="Stock" />
-            <x-breadcrumb-item link="" name="Sparepart" />
+            <x-breadcrumb-item link="/dashboard/unit" name="Unit" />
+            <x-breadcrumb-item link="" name="group" />
         </x-breadcrumb>
     </x-pagetitle>
 
@@ -33,32 +33,13 @@
         </div>
     </div>
 
-    <div class="row my-4">
-        <div class="col-md-6">
-            <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard/stock">
-                    <i class="bi bi-arrow-left-square"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    href="/dashboard/stock/sparepart/create"
-                >
-                    <i class="bi bi-file-earmark-plus"></i> Add
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    href="/dashboard/stock/sparepart/create-excl"
-                >
-                    <i class="bi bi-file-earmark-spreadsheet"></i> Upload Excel
-                </x-button-link>
-            </x-button-group>
-        </div>
+    <div class="row my-4 justify-content-center">
         <div class="col-md-6">
             <div class="search-bar">
                 <form
                     class="search-form d-flex align-items-center"
                     method="GET"
-                    action="/dashboard/stock/sparepart"
+                    action="/dashboard/unit/group"
                 >
                     <input
                         type="text"
@@ -73,10 +54,26 @@
             </div>
         </div>
     </div>
+    <div class="row my-2">
+        <div class="col-md-4">
+            <x-button-group>
+                <x-button-link class="btn-primary" href="/dashboard/unit">
+                    <i class="bi bi-arrow-left-circle"></i> Back
+                </x-button-link>
+                <x-button-link
+                    class="btn-primary"
+                    href="/dashboard/unit/group/create"
+                >
+                    <i class="bi bi-plus-circle"></i> Group Unit
+                </x-button-link>
+            </x-button-group>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Sparepart List </x-card-title>
+                <x-card-title> List Group Unit </x-card-title>
 
                 <table class="table table-striped">
                     <thead>
@@ -84,9 +81,7 @@
                             <th scope="col">#</th>
 
                             <th scope="col">Name</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Code-Part</th>
+                            <th scope="col">Descrtiption</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -96,23 +91,23 @@
                             <th scope="row">
                                 {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
+
                             <td>{{ $data->name }}</td>
-                            <td>{{ $data->category->name }}</td>
-                            <td>{{ $data->type->name }}</td>
-                            <td>{{$data->code}}</td>
+
+                            <td>{!! $data->description !!}</td>
 
                             <td>
                                 <a
-                                    href="/dashboard/stock/sparepart/{{ $data->slug }}/edit"
+                                    href="/dashboard/unit/group/{{ $data->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
-                                    title="Edit stock"
+                                    title="Edit Unit"
                                     ><i class="bi bi-pencil-square"></i
                                 ></a>
 
                                 <form
-                                    action="/dashboard/stock/sparepart/{{ $data->slug }}"
+                                    action="/dashboard/unit/group/{{ $data->slug }}"
                                     method="post"
                                     class="d-inline"
                                 >
@@ -121,7 +116,7 @@
                                         class="badge bg-danger border-0"
                                         data-bs-toggle="tooltip"
                                         data-bs-placement="top"
-                                        title="Delete stock"
+                                        title="Delete Unit"
                                         onclick="return confirm('are You sure ??')"
                                     >
                                         <i class="bi bi-x-lg"></i>

@@ -64,7 +64,7 @@
 
                     <div class="col-12">
                         <textarea
-                            class="form-control tinymce-editor"
+                            class="form-control"
                             id="descriptions"
                             name="description"
                             rows="3"
@@ -79,7 +79,7 @@
 
                     <div class="col-12">
                         <textarea
-                            class="form-control tinymce-editor"
+                            class="form-control"
                             id="instruction"
                             name="instruction"
                             rows="3"

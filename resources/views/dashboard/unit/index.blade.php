@@ -92,6 +92,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/dashboard/unit/letter">Report</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/unit/group">Group</a>
+                </li>
             </ul>
         </div>
         <!-- endlink -->
@@ -109,7 +112,7 @@
 
                             <th scope="col">No. Reg</th>
                             <th scope="col">Merk/Type</th>
-                            <th scope="col">Model</th>
+
                             <th scope="col">Group</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -125,7 +128,7 @@
                                 {{ $data->type->brand->name }}
                                 {{ $data->type->name }}
                             </td>
-                            <td>{{ $data->spesification->model }}</td>
+
                             <td>{{ $data->group->name }}</td>
 
                             <td>

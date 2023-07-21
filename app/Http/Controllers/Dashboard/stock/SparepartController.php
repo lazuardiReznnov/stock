@@ -34,7 +34,7 @@ class SparepartController extends Controller
             'title' => 'Sparepart Data',
             'datas' => $sparepart
                 ->with('type', 'category', 'image')
-                ->paginate(20)
+                ->paginate(10)
                 ->withQueryString(),
         ]);
     }

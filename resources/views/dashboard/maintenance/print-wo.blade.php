@@ -19,9 +19,9 @@
                     <div class="col-sm-3">
                         <img
                             class="rounded-circle mx-auto d-block shadow my-3"
-                            src="http://source.unsplash.com/200x200?logo"
+                            src="/assets/img/logo.jpg"
                             alt=""
-                            width="50"
+                            width="185"
                         />
                     </div>
                     <div class="col-sm-6 align-self-center">
@@ -134,7 +134,7 @@
                                             Repaird Request
                                         </small>
                                         <small class="col-sm-9 fs-6">
-                                            : {{ $data->description }}
+                                            : {!! $data->description !!}
                                         </small>
                                     </div>
                                 </div>
@@ -152,8 +152,7 @@
                                             Instruction
                                         </small>
                                         <small class="col-sm-9 fs-6">
-                                            :
-                                            {{ $data->instruction }}
+                                            : {!! $data->instruction !!}
                                         </small>
                                     </div>
                                 </div>

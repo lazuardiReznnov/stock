@@ -84,6 +84,7 @@
                             <th scope="col">Unit</th>
                             <th scope="col">Descrption</th>
                             <th scope="col">Estimate</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -102,7 +103,21 @@
                             </td>
 
                             <td>{!! $data->description !!}</td>
-                            <td>{{ $data->estimate }}</td>
+                            <td>{{ $data->estimate }} Day</td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: {{ $data->progress }}%"
+                                        aria-valuenow="25"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                    >
+                                        {{ $data->progress }}%
+                                    </div>
+                                </div>
+                            </td>
 
                             <td>
                                 <a

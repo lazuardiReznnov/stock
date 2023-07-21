@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\stock\SupplierController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
 use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
+use App\Http\Controllers\Dashboard\Unit\GroupController;
 use App\Models\Maintenance;
 
 /*
@@ -90,8 +91,14 @@ Route::controller(stockController::class)->group(function () {
 });
 
 // Unit
-// category Unit
+// Group
+Route::controller(GroupController::class)->group(function () {
+    Route::get('/dashboard/unit/group/checkSlug', 'checkSlug');
+});
 
+Route::resource('/dashboard/unit/group', GroupController::class);
+
+// category Unit
 Route::controller(CategoryUnitController::class)->group(function () {
     Route::get('/dashboard/unit/categoryUnit/checkSlug', 'checkSlug');
 });

@@ -1,6 +1,6 @@
 <x-sidebar-nav>
     <x-nav-item>
-        <x-nav-link href="/home">
+        <x-nav-link href="/dashboard">
             <i class="bi bi-grid"></i>
             <span>Dashboard</span>
         </x-nav-link>
@@ -44,7 +44,7 @@
             data-bs-target="#unit-nav"
             data-bs-toggle="collapse"
         >
-            <i class="bi bi-menu-button-wide"></i><span>unit Management</span
+            <i class="bi bi-truck-front"></i><span>unit Management</span
             ><i class="bi bi-chevron-down ms-auto"></i>
         </x-nav-link>
         <x-nav-content id="unit-nav">
@@ -60,8 +60,7 @@
             data-bs-target="#maintenance-nav"
             data-bs-toggle="collapse"
         >
-            <i class="bi bi-menu-button-wide"></i
-            ><span>maintenance Management</span
+            <i class="bi bi-tools"></i><span>maintenance Management</span
             ><i class="bi bi-chevron-down ms-auto"></i>
         </x-nav-link>
         <x-nav-content id="maintenance-nav">
@@ -76,7 +75,7 @@
             data-bs-target="#report-nav"
             data-bs-toggle="collapse"
         >
-            <i class="bi bi-menu-button-wide"></i><span>report Management</span
+            <i class="bi bi-file"></i><span>report Management</span
             ><i class="bi bi-chevron-down ms-auto"></i>
         </x-nav-link>
         <x-nav-content id="report-nav">

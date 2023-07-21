@@ -188,6 +188,7 @@ class MaintenanceController extends Controller
         $validatedData = $request->validate([
             'sparepart_id' => 'required',
             'qty' => 'required',
+            'description' => 'required',
         ]);
 
         $maintenance->maintenancePart()->create($validatedData);
@@ -223,6 +224,7 @@ class MaintenanceController extends Controller
         $validatedData = $request->validate([
             'sparepart_id' => 'required',
             'qty' => 'required',
+            'description' => 'required',
         ]);
 
         $maintenancePart->update($validatedData);

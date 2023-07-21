@@ -246,7 +246,7 @@
                                                             {{ $part->sparepart->name }}
                                                         </td>
                                                         <td>
-                                                            {{ $part->sparepart->code }}
+                                                            {{ $part->description}}
                                                         </td>
                                                         <td>
                                                             {{ $part->qty }}

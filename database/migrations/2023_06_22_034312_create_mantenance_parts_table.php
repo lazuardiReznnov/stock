@@ -23,6 +23,7 @@ return new class extends Migration {
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->integer('qty');
+            $table->string('description');
             $table->timestamps();
         });
     }

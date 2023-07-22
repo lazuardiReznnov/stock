@@ -94,15 +94,15 @@
                             <th scope="row">
                                 {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
-                            <td>
+                            <td width="90px">
                                 {{ \Carbon\Carbon::parse($data->tgl)->format('d M Y') }}
                             </td>
-                            <td>{{ $data->name }}</td>
-                            <td>
+                            <td width="50px">{{ $data->name }}</td>
+                            <td width="100px">
                                 {{ $data->unit->name }}
                             </td>
 
-                            <td>{!! $data->description !!}</td>
+                            <td width="300px">{!! $data->description !!}</td>
                             <td>{{ $data->estimate }} Day</td>
                             <td>
                                 <div class="progress">

@@ -143,6 +143,19 @@ Route::controller(MaintenanceController::class)->group(function () {
     );
     Route::get('/dashboard/maintenance/logstate/{maintenance}', 'createlog');
     Route::post('/dashboard/maintenance/logstate/{maintenance}', 'storelog');
+    Route::get(
+        '/dashboard/maintenance/logstate/{maintenance}/{id}/edit',
+        'editlog'
+    );
+    Route::put(
+        '/dashboard/maintenance/logstate/{maintenance}/{id}',
+        'updatelog'
+    );
+    Route::delete(
+        '/dashboard/maintenance/logstate/{maintenance}',
+        'destroylog'
+    );
+
     Route::get('/dashboard/maintenance/sparepart/{maintenance}', 'createpart');
     Route::post('/dashboard/maintenance/sparepart/{maintenance}', 'storepart');
     Route::get(

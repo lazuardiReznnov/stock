@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\MaintenancePart;
 use App\Models\Sparepart;
+use App\Models\statelog;
 use Illuminate\Support\Str;
 use Illuminate\support\Facades\Storage;
 
@@ -258,6 +259,44 @@ class MaintenanceController extends Controller
         return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
             'success',
             'Data Has Been Added..!!'
+        );
+    }
+
+    public function editlog(Maintenance $maintenance, $id)
+    {
+        $statelog = $maintenance->statelog()->find($id);
+
+        return view('dashboard.maintenance.editlog', [
+            'title' => 'Edit Log',
+            'data' => $statelog,
+        ]);
+    }
+
+    public function updatelog(Maintenance $maintenance, Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $maintenance
+            ->statelog()
+            ->where('id', $id)
+            ->update($validatedData);
+
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been added.!!'
+        );
+    }
+
+    public function destroylog(Maintenance $maintenance, Request $request)
+    {
+        statelog::destroy($request->id);
+
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been added.!!'
         );
     }
 

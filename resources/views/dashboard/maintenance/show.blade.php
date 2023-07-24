@@ -392,12 +392,53 @@
                                         </div>
                                         <ul class="list-group my-3">
                                             @foreach($data->statelog as $sl)
-                                            <li class="list-group-item">
-                                                {{ $sl->description }} <br />
-                                                <small
-                                                    class="text-muted"
-                                                    >{{ $sl->updated_at->diffForHumans() }}</small
-                                                >
+                                            <li
+                                                class="list-group-item d-flex justify-content-between"
+                                            >
+                                                <div>
+                                                    {{ $sl->description }}
+                                                    <br />
+                                                    <small
+                                                        class="text-muted"
+                                                        >{{ $sl->updated_at->diffForHumans() }}</small
+                                                    >
+                                                </div>
+                                                <div>
+                                                    <a
+                                                        href="/dashboard/maintenance/logstate/{{ $data->slug }}/{{ $sl->id }}/edit"
+                                                        class="badge bg-warning"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-placement="top"
+                                                        title="Progress maintenance"
+                                                    >
+                                                        <i
+                                                            class="bi bi-pencil-square"
+                                                        ></i>
+                                                    </a>
+                                                    <form
+                                                        action="/dashboard/maintenance/logstate/{{ $data->slug }}"
+                                                        method="post"
+                                                        class="d-inline"
+                                                    >
+                                                        @method('delete') @csrf
+                                                        <input
+                                                            type="hidden"
+                                                            name="id"
+                                                            value="{{ $sl->id }}"
+                                                        />
+                                                        <button
+                                                            class="badge bg-danger border-0"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-placement="top"
+                                                            title="Delete maintenance"
+                                                            onclick="return confirm('are You sure ??')"
+                                                        >
+                                                            <i
+                                                                class="bi bi-x-lg"
+                                                            ></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </li>
                                             @endforeach
                                         </ul>

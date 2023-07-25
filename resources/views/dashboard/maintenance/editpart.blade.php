@@ -30,36 +30,22 @@
                     @csrf @method('put')
 
                     <div class="col-md-8">
-                        <select
-                            id="unit"
-                            class="form-select"
-                            name="sparepart_id"
-                        >
+                        <select id="unit" class="form-select" name="id">
                             <option selected>Choose sparepart ...</option>
                             @foreach($spareparts as $sparepart)
-                            @if(old('sparepart_id',$data->sparepart_id)==$sparepart->id)
-                            <option
-                                value="{{ $sparepart->sparepart_id }}"
-                                selected
-                            >
+                            @if(old('sparepart_id',$data->sparepart_id)==$sparepart->sparepart_id)
+                            <option value="{{ $sparepart->id }}" selected>
                                 {{ $sparepart->name }}
-                                <?php 
-                               
                             </option>
-                                $price = $sparepart->price ?> @else
-                            </option>
+                            @else
 
-                            <option value="{{ $sparepart->sparepart_id }}">
+                            <option value="{{ $sparepart->id }}">
                                 {{ $sparepart->name }}
                             </option>
-                            $price = $sparepart->price ?> @endif @endforeach
+                            @endif @endforeach
                         </select>
-                        <input
-                            type="hidden"
-                            name="price"
-                            value="{{ $price }}"
-                        />
-                        @error('sparepart_id')
+
+                        @error('id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

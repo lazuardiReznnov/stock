@@ -188,11 +188,14 @@ class MaintenanceController extends Controller
     public function storepart(Request $request, Maintenance $maintenance)
     {
         $validatedData = $request->validate([
-            'sparepart_id' => 'required',
             'qty' => 'required',
             'description' => 'required',
-            'price' => 'required',
         ]);
+
+        $stock = Stock::find($request->id);
+
+        $validatedData['sparepart_id'] = $stock->sparepart_id;
+        $validatedData['price'] = $stock->price;
 
         $maintenance->maintenancePart()->create($validatedData);
 
@@ -225,12 +228,14 @@ class MaintenanceController extends Controller
         MaintenancePart $maintenancePart
     ) {
         $validatedData = $request->validate([
-            'sparepart_id' => 'required',
             'qty' => 'required',
             'description' => 'required',
-            'price' => 'required',
         ]);
 
+        $stock = Stock::find($request->id);
+
+        $validatedData['sparepart_id'] = $stock->sparepart_id;
+        $validatedData['price'] = $stock->price;
         $maintenancePart->update($validatedData);
 
         return redirect(

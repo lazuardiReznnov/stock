@@ -29,33 +29,19 @@
                     @csrf
 
                     <div class="col-md-8">
-                        <select
-                            id="unit"
-                            class="form-select"
-                            name="sparepart_id"
-                        >
+                        <select id="unit" class="form-select" name="id">
                             <option selected>Choose sparepart ...</option>
                             @foreach($spareparts as $sparepart)
                             @if(old('sparepart_id')==$sparepart->id)
-                            <option
-                                value="{{ $sparepart->sparepart_id }}"
-                                selected
-                            >
+                            <option value="{{ $sparepart->id }}" selected>
                                 {{ $sparepart->name }}
                             </option>
-                            <?php 
-                            $price = $sparepart->price ?> @else
-                            <option value="{{ $sparepart->sparepart_id }}">
+                            @else
+                            <option value="{{ $sparepart->id }}">
                                 {{ $sparepart->name }}
                             </option>
-                            <?php 
-                            $price = $sparepart->price ?> @endif @endforeach
+                            @endif @endforeach
                         </select>
-                        <input
-                            type="hidden"
-                            name="price"
-                            value="{{ $price }}"
-                        />
 
                         @error('sparepart_id')
                         <span class="invalid-feedback" role="alert">

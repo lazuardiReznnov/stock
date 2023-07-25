@@ -228,6 +228,10 @@
                                                             code
                                                         </th>
                                                         <th scope="col">Qty</th>
+                                                        <th scope="col">
+                                                            price
+                                                        </th>
+                                                        <th scope="col">sum</th>
 
                                                         <th scope="col">
                                                             Action
@@ -235,6 +239,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php $sumttl=0; ?>
                                                     @if($data->maintenancePart->count())
                                                     @foreach($data->maintenancePart
                                                     as $part)
@@ -250,6 +255,13 @@
                                                         </td>
                                                         <td>
                                                             {{ $part->qty }}
+                                                        </td>
+                                                        <td>
+                                                            @currency($part->price)
+                                                        </td>
+                                                        <td>
+                                                            <?php $sum = $part->price*$part->qty
+                                                            ?> @currency($sum)
                                                         </td>
 
                                                         <td>
@@ -286,10 +298,17 @@
                                                         </td>
                                                         <!-- Modal Image -->
                                                     </tr>
+                                                    <?php $sumttl = $sumttl+$sum ?>
                                                     @endforeach
-                                                    <!-- Modal -->
-
-                                                    <!-- End Modal Image -->
+                                                    <tr class="fw-bold">
+                                                        <td colspan="5">
+                                                            Grand Total
+                                                        </td>
+                                                        <td>
+                                                            @currency($sumttl)
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
                                                     @else
                                                     <tr>
                                                         <td

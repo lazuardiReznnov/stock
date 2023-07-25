@@ -37,16 +37,25 @@
                             <option selected>Choose sparepart ...</option>
                             @foreach($spareparts as $sparepart)
                             @if(old('sparepart_id')==$sparepart->id)
-                            <option value="{{ $sparepart->id }}" selected>
+                            <option
+                                value="{{ $sparepart->sparepart_id }}"
+                                selected
+                            >
                                 {{ $sparepart->name }}
                             </option>
-                            @else
-                            <option value="{{ $sparepart->id }}">
+                            <?php 
+                            $price = $sparepart->price ?> @else
+                            <option value="{{ $sparepart->sparepart_id }}">
                                 {{ $sparepart->name }}
                             </option>
-
-                            @endif @endforeach
+                            <?php 
+                            $price = $sparepart->price ?> @endif @endforeach
                         </select>
+                        <input
+                            type="hidden"
+                            name="price"
+                            value="{{ $price }}"
+                        />
 
                         @error('sparepart_id')
                         <span class="invalid-feedback" role="alert">

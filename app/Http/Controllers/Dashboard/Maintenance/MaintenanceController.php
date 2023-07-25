@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Dashboard\Maintenance;
 
 use App\Models\Unit;
-use App\Models\Maintenance;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\MaintenancePart;
-use App\Models\Sparepart;
+use App\Models\Stock;
 use App\Models\statelog;
+use App\Models\Sparepart;
+use App\Models\Maintenance;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\MaintenancePart;
+use App\Http\Controllers\Controller;
 use Illuminate\support\Facades\Storage;
 
 class MaintenanceController extends Controller
@@ -180,7 +181,7 @@ class MaintenanceController extends Controller
         return view('dashboard.maintenance.createpart', [
             'title' => 'Replacing Sparepart',
             'data' => $maintenance,
-            'spareparts' => Sparepart::all(),
+            'spareparts' => Stock::all(),
         ]);
     }
 
@@ -190,6 +191,7 @@ class MaintenanceController extends Controller
             'sparepart_id' => 'required',
             'qty' => 'required',
             'description' => 'required',
+            'price' => 'required',
         ]);
 
         $maintenance->maintenancePart()->create($validatedData);
@@ -214,7 +216,7 @@ class MaintenanceController extends Controller
         return view('dashboard.maintenance.editpart', [
             'title' => 'Edit Replacing Part',
             'data' => $maintenancePart,
-            'spareparts' => Sparepart::all(),
+            'spareparts' => Stock::all(),
         ]);
     }
 
@@ -226,6 +228,7 @@ class MaintenanceController extends Controller
             'sparepart_id' => 'required',
             'qty' => 'required',
             'description' => 'required',
+            'price' => 'required',
         ]);
 
         $maintenancePart->update($validatedData);

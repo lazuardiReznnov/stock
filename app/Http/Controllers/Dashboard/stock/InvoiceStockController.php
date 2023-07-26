@@ -200,7 +200,7 @@ class InvoiceStockController extends Controller
         $validatedData = $request->validate([
             'sparepart_id' => 'required',
             'invoice_stock_id' => 'required',
-            'name' => 'required|unique:stocks',
+            'name' => 'required',
             'slug' => 'required|unique:stocks',
             'brand' => 'required',
             'qty' => 'required',
@@ -241,6 +241,7 @@ class InvoiceStockController extends Controller
     public function updatestock(Request $request, Stock $stock)
     {
         $rules = [
+            'name' => 'required',
             'sparepart_id' => 'required',
             'invoice_stock_id' => 'required',
             'brand' => 'required',
@@ -248,9 +249,9 @@ class InvoiceStockController extends Controller
             'price' => 'required',
         ];
 
-        if ($request->name != $stock->name) {
-            $rules['name'] = 'required|unique:stocks';
-        }
+        // if ($request->name != $stock->name) {
+        //     $rules['name'] = 'required|unique:stocks';
+        // }
         if ($request->slug != $stock->slug) {
             $rules['slug'] = 'required|unique:stocks';
         }

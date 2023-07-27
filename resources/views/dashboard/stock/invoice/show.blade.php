@@ -114,7 +114,7 @@
 
                             <td>
                                 <a
-                                    href="/dashboard/stock/invoiceStock/stock-in/{{ $data->slug }}/edit"
+                                    href="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
@@ -123,7 +123,7 @@
                                 ></a>
 
                                 <form
-                                    action="/dashboard/stock/invoiceStock/stock-in/{{ $data->slug }}"
+                                    action="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}"
                                     method="post"
                                     class="d-inline"
                                 >

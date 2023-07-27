@@ -172,8 +172,24 @@
             </x-card>
         </div>
     </div>
-    @push('script2')
 
+    @push('css')
+    <link
+        href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+        rel="stylesheet"
+    />
+    @endpush @push('script2')
+    <script
+        src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
+        crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".js-example-basic-multiple").select2({ placeholder: "Tags" });
+        });
+    </script>
     <script>
         //  slug alternatif`
 

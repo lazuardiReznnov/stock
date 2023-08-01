@@ -22,11 +22,29 @@ class InvoiceStockController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
+        $datey = date('Y');
+        $datem = date('m');
+
+        $invoice = InvoiceStock::latest();
+        if ($request->search) {
+            $pisah = explode('-', $request->search);
+
+            $invoice->when($request->search, function ($query) use ($pisah) {
+                return $query
+                    ->whereMonth('tgl', '=', $pisah[1])
+                    ->whereYear('tgl', '=', $pisah[0]);
+            });
+        } else {
+            $invoice
+                ->whereMonth('tgl', '=', $datem)
+                ->whereYear('tgl', '=', $datey);
+        }
+
         return view('dashboard.stock.invoice.index', [
             'title' => 'Invoice Stock Data',
-            'datas' => InvoiceStock::latest()
+            'datas' => $invoice
                 ->with('Supplier', 'stock')
                 ->paginate(10)
                 ->withQueryString(),

@@ -66,11 +66,17 @@
             </div>
         </div>
     </div>
+    <?php 
+    $date_now = date("Y/m/d")
 
+?>
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Maintenance List </x-card-title>
+                <x-card-title>
+                    Maintenance
+                    {{ \Carbon\Carbon::parse($date_now)->format('d M Y') }}</x-card-title
+                >
 
                 <table class="table table-striped">
                     <thead>

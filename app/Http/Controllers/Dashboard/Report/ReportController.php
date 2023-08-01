@@ -38,13 +38,16 @@ class ReportController extends Controller
                     ->whereMonth('tax', '=', $pisah[1])
                     ->whereYear('tax', '=', $pisah[0]);
             });
+        } else {
+            $report
+                ->whereMonth('tax', '=', $datem)
+                ->whereYear('tax', '=', $datey);
         }
         return view('dashboard.report.vrc', [
             'title' => 'Vehicle Registration Certificate Data',
             'datas' => $report
                 ->with('unit')
-                ->whereMonth('tax', '=', $datem)
-                ->whereYear('tax', '=', $datey)
+
                 ->paginate(10)
                 ->withQueryString(),
         ]);

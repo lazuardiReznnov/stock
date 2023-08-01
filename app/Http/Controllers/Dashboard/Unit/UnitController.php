@@ -238,7 +238,7 @@ class UnitController extends Controller
         ]);
 
         if ($request->file('pic')) {
-            $request->validate(['pic' => 'image|file|max:2048']);
+            $request->validate(['pic' => 'image|file|max:5048']);
             if ($request->old_pic) {
                 storage::delete($request->old_pic);
                 $unit->vpic->image()->delete();

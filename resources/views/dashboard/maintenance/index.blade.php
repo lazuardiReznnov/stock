@@ -32,28 +32,7 @@
         </div>
     </div>
 
-    <div class="row my-4 justify-content-center">
-        <div class="col-md-6">
-            <div class="search-bar">
-                <form
-                    class="search-form d-flex align-items-center"
-                    method="GET"
-                    action="/dashboard/maintenance"
-                >
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Search"
-                        title="Enter search keyword"
-                    />
-                    <button type="submit" title="Search">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="row my-2">
+    <div class="row my-2 justify-content-between">
         <div class="col-md-4">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard">
@@ -66,6 +45,25 @@
                     <i class="bi bi-plus-circle"></i> Add Data
                 </x-button-link>
             </x-button-group>
+        </div>
+        <div class="col-md-6">
+            <div class="search-bar">
+                <form
+                    class="search-form d-flex align-items-center"
+                    method="GET"
+                    action="/dashboard/maintenance"
+                >
+                    <input
+                        type="month"
+                        name="search"
+                        placeholder="Search"
+                        title="Enter search keyword"
+                    />
+                    <button type="submit" title="Search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 

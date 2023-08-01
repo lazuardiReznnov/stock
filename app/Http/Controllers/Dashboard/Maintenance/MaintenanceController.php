@@ -24,17 +24,35 @@ class MaintenanceController extends Controller
      */
     public function index(Request $request)
     {
-        $maintenance = Maintenance::query();
+        $datey = date('Y');
+        $datem = date('m');
 
-        $maintenance->when($request->search, function ($query) use ($request) {
-            return $query->where('name', 'like', '%' . $request->search . '%');
-        });
+        // $maintenance = Maintenance::query();
+        $maintenance = Maintenance::latest();
+
+        if ($request->search) {
+            $pisah = explode('-', $request->search);
+
+            $maintenance->when($request->search, function ($query) use (
+                $pisah
+            ) {
+                return $query
+                    ->whereMonth('tgl', '=', $pisah[1])
+                    ->whereYear('tgl', '=', $pisah[0]);
+            });
+        } else {
+            $maintenance
+                ->whereMonth('tgl', '=', $datem)
+                ->whereYear('tgl', '=', $datey);
+        }
+        // $maintenance->when($request->search, function ($query) use ($request) {
+        //     return $query->where('name', 'like', '%' . $request->search . '%');
+        // });
 
         return view('dashboard.maintenance.index', [
             'title' => 'maintenance Management',
             'datas' => $maintenance
                 ->with('unit')
-                ->latest()
                 ->paginate(10)
                 ->withQueryString(),
         ]);

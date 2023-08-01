@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\stock\SupplierController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
 use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
+use App\Http\Controllers\Dashboard\Transaction\CustomerController;
 use App\Http\Controllers\Dashboard\Unit\GroupController;
 use App\Models\Maintenance;
 
@@ -137,10 +138,7 @@ Route::resource('/dashboard/unit', UnitController::class);
 
 // Maintenance
 Route::controller(MaintenanceController::class)->group(function () {
-    Route::get(
-        '/dashboard/maintenanceCoMaintenanceController/checkSlug',
-        'checkSlug'
-    );
+    Route::get('/dashboard/maintenance/checkSlug', 'checkSlug');
     Route::get('/dashboard/maintenance/logstate/{maintenance}', 'createlog');
     Route::post('/dashboard/maintenance/logstate/{maintenance}', 'storelog');
     Route::get(
@@ -193,4 +191,14 @@ Route::controller(ReportController::class)->group(function () {
     Route::get('/dashboard/report/vpic/expire/{unit}/edit', 'editvpicexpire');
     Route::put('/dashboard/report/vpic/expire/{unit}', 'updatevpicexpire');
 });
+
 // end Maintenance
+
+// Transaction
+Route::controller(CustomerController::class)->group(function () {
+    Route::get('/dashboard/transaction/customer/checkSlug', 'checkSlug');
+});
+
+Route::resource('/dashboard/transaction/customer', CustomerController::class);
+
+// endtransaction

@@ -84,4 +84,20 @@
             </x-nav-content-item>
         </x-nav-content>
     </x-nav-item>
+
+    <x-nav-item>
+        <x-nav-link
+            href="#"
+            data-bs-target="#transaction-nav"
+            data-bs-toggle="collapse"
+        >
+            <i class="bi bi-file"></i><span>transaction Management</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+        </x-nav-link>
+        <x-nav-content id="transaction-nav">
+            <x-nav-content-item link="/dashboard/transaction/customer">
+                Customer
+            </x-nav-content-item>
+        </x-nav-content>
+    </x-nav-item>
 </x-sidebar-nav>

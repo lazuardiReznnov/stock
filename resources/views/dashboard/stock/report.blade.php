@@ -7,7 +7,7 @@
         </x-breadcrumb>
     </x-pagetitle>
 
-    <div class="row">
+    <div class="row justify-content-between mt-4">
         <div class="col-md-4">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard/stock">
@@ -39,7 +39,7 @@
         $date_now = date('M Y')
     
     ?>
-    <div class="row">
+    <div class="row my-4">
         <div class="col-md-12">
             <x-card>
                 <x-card-title> Summary Cash</x-card-title>

@@ -100,12 +100,12 @@
 
                         <tr>
                             <th scope="row">
-                                {{ ($stocks->currentpage()-1) * $stocks->perpage() + $loop->index + 1 }}
+                                {{ $loop->iteration }}
                             </th>
                             <td>{{ $stock->sparepart->name }}</td>
                             <td>{{ $stock->brand }}</td>
                             <td>{{ $stock->qty }}</td>
-                            <td class="text-end">{{ $stock->price }}</td>
+                            <td class="text-end">@currency($stock->price)</td>
                             <td class="text-end">
                                 <?php $sum=0 ;
                                     $sum = $stock->price*$stock->qty; ?>
@@ -114,7 +114,7 @@
 
                             <td>
                                 <a
-                                    href="/dashboard/stock/invoiceStock/stock-in/{{ $data->slug }}/edit"
+                                    href="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
@@ -123,7 +123,7 @@
                                 ></a>
 
                                 <form
-                                    action="/dashboard/stock/invoiceStock/stock-in/{{ $data->slug }}"
+                                    action="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}"
                                     method="post"
                                     class="d-inline"
                                 >

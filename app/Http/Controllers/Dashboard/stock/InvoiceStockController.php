@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\stock;
 
 use App\Models\Tag;
+use App\Models\Type;
 use App\Models\Stock;
 use App\Models\Supplier;
 use App\Models\Sparepart;
@@ -21,11 +22,29 @@ class InvoiceStockController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
+        $datey = date('Y');
+        $datem = date('m');
+
+        $invoice = InvoiceStock::latest();
+        if ($request->search) {
+            $pisah = explode('-', $request->search);
+
+            $invoice->when($request->search, function ($query) use ($pisah) {
+                return $query
+                    ->whereMonth('tgl', '=', $pisah[1])
+                    ->whereYear('tgl', '=', $pisah[0]);
+            });
+        } else {
+            $invoice
+                ->whereMonth('tgl', '=', $datem)
+                ->whereYear('tgl', '=', $datey);
+        }
+
         return view('dashboard.stock.invoice.index', [
             'title' => 'Invoice Stock Data',
-            'datas' => InvoiceStock::latest()
+            'datas' => $invoice
                 ->with('Supplier', 'stock')
                 ->paginate(10)
                 ->withQueryString(),
@@ -88,8 +107,7 @@ class InvoiceStockController extends Controller
             'data' => $invoiceStock,
             'stocks' => Stock::where('invoice_stock_id', $invoiceStock->id)
                 ->with('sparepart')
-                ->paginate(10)
-                ->withQueryString(),
+                ->get(),
         ]);
     }
 
@@ -182,7 +200,8 @@ class InvoiceStockController extends Controller
     {
         return view('dashboard.stock.invoice.stock-in', [
             'title' => 'Stock In',
-            'spareparts' => Sparepart::with('category', 'type')->get(),
+            'spareparts' => Sparepart::with('category')->get(),
+            'types' => Type::with('brand', 'categoryUnit')->get(),
             'invoice' => $invoiceStock,
             'tags' => Tag::all(),
         ]);
@@ -199,7 +218,7 @@ class InvoiceStockController extends Controller
         $validatedData = $request->validate([
             'sparepart_id' => 'required',
             'invoice_stock_id' => 'required',
-            'name' => 'required|unique:stocks',
+            'name' => 'required',
             'slug' => 'required|unique:stocks',
             'brand' => 'required',
             'qty' => 'required',
@@ -240,6 +259,7 @@ class InvoiceStockController extends Controller
     public function updatestock(Request $request, Stock $stock)
     {
         $rules = [
+            'name' => 'required',
             'sparepart_id' => 'required',
             'invoice_stock_id' => 'required',
             'brand' => 'required',
@@ -247,9 +267,9 @@ class InvoiceStockController extends Controller
             'price' => 'required',
         ];
 
-        if ($request->name != $stock->name) {
-            $rules['name'] = 'required|unique:stocks';
-        }
+        // if ($request->name != $stock->name) {
+        //     $rules['name'] = 'required|unique:stocks';
+        // }
         if ($request->slug != $stock->slug) {
             $rules['slug'] = 'required|unique:stocks';
         }

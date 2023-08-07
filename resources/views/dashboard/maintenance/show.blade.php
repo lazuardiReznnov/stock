@@ -23,12 +23,12 @@
                 </x-button-link>
 
                 <x-button-link
-                    href="/dashboard/maintenance/{{ $data->slug }}/edit"
-                    class="btn-warning"
+                    href="/dashboard/maintenance/print/{{ $data->slug }}"
+                    class="btn-success"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
-                    title="Edit maintenance"
-                    ><i class="bi bi-pencil-square"></i> Edit maintenance
+                    title="Print SPK"
+                    ><i class="bi bi-printer"></i> Print
                 </x-button-link>
 
                 <form
@@ -37,15 +37,15 @@
                     class="d-inline"
                 >
                     @method('delete') @csrf
-                    <button
-                        class="btn btn-danger border-0 rounded-0"
+                    <x-button-link
+                        class="btn btn-danger"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title="Delete data"
                         onclick="return confirm('are You sure ??')"
                     >
                         <i class="bi bi-x-lg"></i>
-                    </button>
+                    </x-button-link>
                 </form>
             </x-button-group>
         </div>
@@ -228,6 +228,10 @@
                                                             code
                                                         </th>
                                                         <th scope="col">Qty</th>
+                                                        <th scope="col">
+                                                            price
+                                                        </th>
+                                                        <th scope="col">sum</th>
 
                                                         <th scope="col">
                                                             Action
@@ -235,6 +239,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php $sumttl=0; ?>
                                                     @if($data->maintenancePart->count())
                                                     @foreach($data->maintenancePart
                                                     as $part)
@@ -246,10 +251,17 @@
                                                             {{ $part->sparepart->name }}
                                                         </td>
                                                         <td>
-                                                            {{ $part->sparepart->code }}
+                                                            {{ $part->description}}
                                                         </td>
                                                         <td>
                                                             {{ $part->qty }}
+                                                        </td>
+                                                        <td>
+                                                            @currency($part->price)
+                                                        </td>
+                                                        <td>
+                                                            <?php $sum = $part->price*$part->qty
+                                                            ?> @currency($sum)
                                                         </td>
 
                                                         <td>
@@ -286,10 +298,17 @@
                                                         </td>
                                                         <!-- Modal Image -->
                                                     </tr>
+                                                    <?php $sumttl = $sumttl+$sum ?>
                                                     @endforeach
-                                                    <!-- Modal -->
-
-                                                    <!-- End Modal Image -->
+                                                    <tr class="fw-bold">
+                                                        <td colspan="5">
+                                                            Grand Total
+                                                        </td>
+                                                        <td>
+                                                            @currency($sumttl)
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
                                                     @else
                                                     <tr>
                                                         <td
@@ -376,42 +395,12 @@
                                 class="tab-pane fade progres pt-3"
                                 id="progres"
                             >
-                                <div class="row my-3">
-                                    <div class="col">
-                                        <div class="progress">
-                                            <div
-                                                class="progress-bar"
-                                                role="progressbar"
-                                                style="width: {{ $data->progress }}%"
-                                                aria-valuenow="25"
-                                                aria-valuemin="0"
-                                                aria-valuemax="100"
-                                            >
-                                                {{ $data->progress }}%
-                                            </div>
-                                        </div>
-                                        <ul class="list-group my-3">
-                                            @foreach($data->statelog as $sl)
-                                            <li class="list-group-item">
-                                                {{ $sl->description }} <br />
-                                                <small
-                                                    class="text-muted"
-                                                    >{{ $sl->updated_at->diffForHumans() }}</small
-                                                >
-                                            </li>
-                                            @endforeach
-                                        </ul>
-                                        <x-button-link
-                                            href="/dashboard/maintenance/logstate/{{ $data->slug }}"
-                                            class="btn-success"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="Progress maintenance"
-                                        >
-                                            Update Progress
-                                        </x-button-link>
-                                    </div>
-                                </div>
+                                @push('css')
+                                <livewire:styles />
+                                @endpush @push('script')
+                                <livewire:scripts />
+                                @endpush @livewire('maintenance.progress.table',
+                                ['maintenanceId'=>$data->id])
                             </div>
                         </div>
                     </x-card-body>

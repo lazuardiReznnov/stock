@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row my-4">
         <div class="col-md-6">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard/stock">

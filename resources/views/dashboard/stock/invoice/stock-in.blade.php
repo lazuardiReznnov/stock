@@ -91,7 +91,6 @@
                             @foreach($spareparts as $sparepart)
                             @if(old('sparepart_id')==$sparepart->id)
                             <option value="{{ $sparepart->id }}" selected>
-                                {{ $sparepart->type->name }} -
                                 {{ $sparepart->name }}
                             </option>
                             @else

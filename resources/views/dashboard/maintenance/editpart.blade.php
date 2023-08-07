@@ -30,26 +30,22 @@
                     @csrf @method('put')
 
                     <div class="col-md-8">
-                        <select
-                            id="unit"
-                            class="form-select"
-                            name="sparepart_id"
-                        >
+                        <select id="unit" class="form-select" name="id">
                             <option selected>Choose sparepart ...</option>
                             @foreach($spareparts as $sparepart)
-                            @if(old('sparepart_id',$data->sparepart_id)==$sparepart->id)
+                            @if(old('sparepart_id',$data->sparepart_id)==$sparepart->sparepart_id)
                             <option value="{{ $sparepart->id }}" selected>
                                 {{ $sparepart->name }}
                             </option>
                             @else
+
                             <option value="{{ $sparepart->id }}">
                                 {{ $sparepart->name }}
                             </option>
-
                             @endif @endforeach
                         </select>
 
-                        @error('sparepart_id')
+                        @error('id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -66,6 +62,21 @@
                             value="{{ old('qty', $data->qty) }}"
                         />
                         @error('qty')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-8">
+                        <input
+                            id="description"
+                            type="text"
+                            class="form-control @error('description') is-invalid @enderror"
+                            placeholder="description"
+                            name="description"
+                            value="{{ old('description', $data->description) }}"
+                        />
+                        @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

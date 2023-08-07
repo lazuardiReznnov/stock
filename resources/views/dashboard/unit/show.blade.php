@@ -206,6 +206,7 @@
                                     >Vehicle Registration
                                     Certificate</x-card-title
                                 >
+                                @if($data->vrc)
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">
                                         Owner
@@ -267,9 +268,10 @@
                                         >
                                     </div>
                                 </div>
+                                @endif
 
                                 <x-card-title>Inspection Card</x-card-title>
-
+                                @if($data->vpic)
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">
                                         Owner
@@ -332,6 +334,7 @@
                                         >
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </x-card-body>

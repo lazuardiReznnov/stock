@@ -8,7 +8,7 @@
     </x-pagetitle>
 
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             @if(session()->has('success'))
 
             <!-- pesan -->
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row my-4">
         <div class="col-md-6">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard/stock">
@@ -55,7 +55,7 @@
                     action="/dashboard/stock/invoiceStock"
                 >
                     <input
-                        type="text"
+                        type="month"
                         name="search"
                         placeholder="Search"
                         title="Enter search keyword"
@@ -67,10 +67,17 @@
             </div>
         </div>
     </div>
+    <?php 
+        $date_now = date("Y/m/d")
+    
+    ?>
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Invoice List </x-card-title>
+                <x-card-title>
+                    Invoice List
+                    {{ \Carbon\Carbon::parse($date_now)->format('d M Y') }}
+                </x-card-title>
 
                 <table class="table table-striped">
                     <thead>

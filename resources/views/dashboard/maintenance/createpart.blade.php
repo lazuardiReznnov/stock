@@ -29,11 +29,7 @@
                     @csrf
 
                     <div class="col-md-8">
-                        <select
-                            id="unit"
-                            class="form-select"
-                            name="sparepart_id"
-                        >
+                        <select id="unit" class="form-select" name="id">
                             <option selected>Choose sparepart ...</option>
                             @foreach($spareparts as $sparepart)
                             @if(old('sparepart_id')==$sparepart->id)
@@ -44,7 +40,6 @@
                             <option value="{{ $sparepart->id }}">
                                 {{ $sparepart->name }}
                             </option>
-
                             @endif @endforeach
                         </select>
 
@@ -65,6 +60,21 @@
                             value="{{ old('qty') }}"
                         />
                         @error('qty')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-8">
+                        <input
+                            id="description"
+                            type="text"
+                            class="form-control @error('description') is-invalid @enderror"
+                            placeholder="description"
+                            name="description"
+                            value="{{ old('description') }}"
+                        />
+                        @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

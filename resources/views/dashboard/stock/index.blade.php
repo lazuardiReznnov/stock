@@ -6,7 +6,7 @@
         </x-breadcrumb>
     </x-pagetitle>
 
-    <div class="row">
+    <div class="row my-4">
         <div class="col-md-4">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard">
@@ -27,12 +27,12 @@
                         class="nav-link active"
                         aria-current="page"
                         href="/dashboard/stock/supplier"
-                        >Supplier</a
+                        ><i class="bi bi-people-fill"></i> Supplier</a
                     >
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/dashboard/stock/category"
-                        >Categories</a
+                        ><i class="bi bi-card-list"></i> Categories</a
                     >
                 </li>
                 <li class="nav-item">

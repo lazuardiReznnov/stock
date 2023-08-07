@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Dashboard\Maintenance;
 
 use App\Models\Unit;
-use App\Models\Maintenance;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\MaintenancePart;
+use App\Models\Stock;
+use App\Models\statelog;
 use App\Models\Sparepart;
+use App\Models\Maintenance;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\MaintenancePart;
+use App\Http\Controllers\Controller;
 use Illuminate\support\Facades\Storage;
 
 class MaintenanceController extends Controller
@@ -22,17 +24,35 @@ class MaintenanceController extends Controller
      */
     public function index(Request $request)
     {
-        $maintenance = Maintenance::query();
+        $datey = date('Y');
+        $datem = date('m');
 
-        $maintenance->when($request->search, function ($query) use ($request) {
-            return $query->where('name', 'like', '%' . $request->search . '%');
-        });
+        // $maintenance = Maintenance::query();
+        $maintenance = Maintenance::latest();
+
+        if ($request->search) {
+            $pisah = explode('-', $request->search);
+
+            $maintenance->when($request->search, function ($query) use (
+                $pisah
+            ) {
+                return $query
+                    ->whereMonth('tgl', '=', $pisah[1])
+                    ->whereYear('tgl', '=', $pisah[0]);
+            });
+        } else {
+            $maintenance
+                ->whereMonth('tgl', '=', $datem)
+                ->whereYear('tgl', '=', $datey);
+        }
+        // $maintenance->when($request->search, function ($query) use ($request) {
+        //     return $query->where('name', 'like', '%' . $request->search . '%');
+        // });
 
         return view('dashboard.maintenance.index', [
             'title' => 'maintenance Management',
             'datas' => $maintenance
                 ->with('unit')
-                ->latest()
                 ->paginate(10)
                 ->withQueryString(),
         ]);
@@ -179,16 +199,21 @@ class MaintenanceController extends Controller
         return view('dashboard.maintenance.createpart', [
             'title' => 'Replacing Sparepart',
             'data' => $maintenance,
-            'spareparts' => Sparepart::all(),
+            'spareparts' => Stock::all(),
         ]);
     }
 
     public function storepart(Request $request, Maintenance $maintenance)
     {
         $validatedData = $request->validate([
-            'sparepart_id' => 'required',
             'qty' => 'required',
+            'description' => 'required',
         ]);
+
+        $stock = Stock::find($request->id);
+
+        $validatedData['sparepart_id'] = $stock->sparepart_id;
+        $validatedData['price'] = $stock->price;
 
         $maintenance->maintenancePart()->create($validatedData);
 
@@ -212,7 +237,7 @@ class MaintenanceController extends Controller
         return view('dashboard.maintenance.editpart', [
             'title' => 'Edit Replacing Part',
             'data' => $maintenancePart,
-            'spareparts' => Sparepart::all(),
+            'spareparts' => Stock::all(),
         ]);
     }
 
@@ -221,10 +246,14 @@ class MaintenanceController extends Controller
         MaintenancePart $maintenancePart
     ) {
         $validatedData = $request->validate([
-            'sparepart_id' => 'required',
             'qty' => 'required',
+            'description' => 'required',
         ]);
 
+        $stock = Stock::find($request->id);
+
+        $validatedData['sparepart_id'] = $stock->sparepart_id;
+        $validatedData['price'] = $stock->price;
         $maintenancePart->update($validatedData);
 
         return redirect(
@@ -259,6 +288,44 @@ class MaintenanceController extends Controller
         );
     }
 
+    public function editlog(Maintenance $maintenance, $id)
+    {
+        $statelog = $maintenance->statelog()->find($id);
+
+        return view('dashboard.maintenance.editlog', [
+            'title' => 'Edit Log',
+            'data' => $statelog,
+        ]);
+    }
+
+    public function updatelog(Maintenance $maintenance, Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $maintenance
+            ->statelog()
+            ->where('id', $id)
+            ->update($validatedData);
+
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been added.!!'
+        );
+    }
+
+    public function destroylog(Maintenance $maintenance, Request $request)
+    {
+        statelog::destroy($request->id);
+
+        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+            'success',
+            'Data Has Been added.!!'
+        );
+    }
+
     public function destroyupload(Maintenance $maintenance, Request $request)
     {
         $data = $maintenance->image->find($request->id);
@@ -269,5 +336,13 @@ class MaintenanceController extends Controller
             'success',
             'Data Has Been Added..!!'
         );
+    }
+
+    public function print(Maintenance $maintenance)
+    {
+        return view('dashboard.maintenance.print-wo', [
+            'title' => 'Work Order Letter',
+            'data' => $maintenance->load('unit', 'maintenancePart'),
+        ]);
     }
 }

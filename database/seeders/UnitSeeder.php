@@ -87,31 +87,59 @@ class UnitSeeder extends Seeder
             'owner' => 'PT. Indomultimas Perkasa',
             'address' => 'Depok',
             'region' => 'Depok',
-            'tax' => '2024/06/23',
+            'tax' => '2023/07/23',
+            'expire' => '2024/07/23',
         ]);
         $unit2->vrc()->create([
             'owner' => 'PT. Indomultimas Perkasa',
             'address' => 'Depok',
             'region' => 'Depok',
-            'tax' => '2024/06/23',
+            'tax' => '2023/07/23',
+            'expire' => '2024/07/23',
         ]);
         $unit3->vrc()->create([
             'owner' => 'PT. Indomultimas Perkasa',
             'address' => 'Depok',
             'region' => 'Depok',
-            'tax' => '2024/06/23',
+            'tax' => '2023/07/23',
+            'expire' => '2024/07/23',
         ]);
         $unit4->vrc()->create([
             'owner' => 'PT. Indomultimas Perkasa',
             'address' => 'Depok',
             'region' => 'Depok',
-            'tax' => '2024/06/23',
+            'tax' => '2023/07/23',
+            'expire' => '2024/07/23',
         ]);
 
-        $unit1->vpic()->create();
-        $unit2->vpic()->create();
-        $unit3->vpic()->create();
-        $unit4->vpic()->create();
+        $unit1->vpic()->create([
+            'owner' => 'PT. Indomultimas Perkasa',
+            'address' => 'Depok',
+            'region' => 'Depok',
+            'tgl_reg' => '2017/07/23',
+            'expire' => '2023/07/23',
+        ]);
+        $unit2->vpic()->create([
+            'owner' => 'PT. Indomultimas Perkasa',
+            'address' => 'Depok',
+            'region' => 'Depok',
+            'tgl_reg' => '2017/07/23',
+            'expire' => '2023/07/23',
+        ]);
+        $unit3->vpic()->create([
+            'owner' => 'PT. Indomultimas Perkasa',
+            'address' => 'Depok',
+            'region' => 'Depok',
+            'tgl_reg' => '2017/07/23',
+            'expire' => '2023/07/23',
+        ]);
+        $unit4->vpic()->create([
+            'owner' => 'PT. Indomultimas Perkasa',
+            'address' => 'Depok',
+            'region' => 'Depok',
+            'tgl_reg' => '2017/07/23',
+            'expire' => '2023/07/23',
+        ]);
 
         $unit1->maintenance()->create([
             'name' => '2023062201b9054edb',

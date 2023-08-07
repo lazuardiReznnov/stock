@@ -32,28 +32,7 @@
         </div>
     </div>
 
-    <div class="row my-4 justify-content-center">
-        <div class="col-md-6">
-            <div class="search-bar">
-                <form
-                    class="search-form d-flex align-items-center"
-                    method="GET"
-                    action="/dashboard/maintenance"
-                >
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Search"
-                        title="Enter search keyword"
-                    />
-                    <button type="submit" title="Search">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="row my-2">
+    <div class="row my-2 justify-content-between">
         <div class="col-md-4">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard">
@@ -67,12 +46,37 @@
                 </x-button-link>
             </x-button-group>
         </div>
+        <div class="col-md-6">
+            <div class="search-bar">
+                <form
+                    class="search-form d-flex align-items-center"
+                    method="GET"
+                    action="/dashboard/maintenance"
+                >
+                    <input
+                        type="month"
+                        name="search"
+                        placeholder="Search"
+                        title="Enter search keyword"
+                    />
+                    <button type="submit" title="Search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
+    <?php 
+    $date_now = date("Y/m/d")
 
+?>
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Maintenance List </x-card-title>
+                <x-card-title>
+                    Maintenance
+                    {{ \Carbon\Carbon::parse($date_now)->format('d M Y') }}</x-card-title
+                >
 
                 <table class="table table-striped">
                     <thead>
@@ -84,6 +88,7 @@
                             <th scope="col">Unit</th>
                             <th scope="col">Descrption</th>
                             <th scope="col">Estimate</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -93,16 +98,30 @@
                             <th scope="row">
                                 {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
-                            <td>
+                            <td width="90px">
                                 {{ \Carbon\Carbon::parse($data->tgl)->format('d M Y') }}
                             </td>
-                            <td>{{ $data->name }}</td>
-                            <td>
+                            <td width="50px">{{ $data->name }}</td>
+                            <td width="100px">
                                 {{ $data->unit->name }}
                             </td>
 
-                            <td>{!! $data->description !!}</td>
-                            <td>{{ $data->estimate }}</td>
+                            <td width="300px">{!! $data->description !!}</td>
+                            <td>{{ $data->estimate }} Day</td>
+                            <td>
+                                <div class="progress">
+                                    <div
+                                        class="progress-bar"
+                                        role="progressbar"
+                                        style="width: {{ $data->progress }}%"
+                                        aria-valuenow="25"
+                                        aria-valuemin="0"
+                                        aria-valuemax="100"
+                                    >
+                                        {{ $data->progress }}%
+                                    </div>
+                                </div>
+                            </td>
 
                             <td>
                                 <a

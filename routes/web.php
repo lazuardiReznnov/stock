@@ -13,6 +13,8 @@ use App\Http\Controllers\Dashboard\stock\SupplierController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
 use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
+use App\Http\Controllers\Dashboard\Transaction\CustomerController;
+use App\Http\Controllers\Dashboard\Unit\GroupController;
 use App\Models\Maintenance;
 
 /*
@@ -90,8 +92,14 @@ Route::controller(stockController::class)->group(function () {
 });
 
 // Unit
-// category Unit
+// Group
+Route::controller(GroupController::class)->group(function () {
+    Route::get('/dashboard/unit/group/checkSlug', 'checkSlug');
+});
 
+Route::resource('/dashboard/unit/group', GroupController::class);
+
+// category Unit
 Route::controller(CategoryUnitController::class)->group(function () {
     Route::get('/dashboard/unit/categoryUnit/checkSlug', 'checkSlug');
 });
@@ -130,12 +138,22 @@ Route::resource('/dashboard/unit', UnitController::class);
 
 // Maintenance
 Route::controller(MaintenanceController::class)->group(function () {
-    Route::get(
-        '/dashboard/maintenanceCoMaintenanceController/checkSlug',
-        'checkSlug'
-    );
+    Route::get('/dashboard/maintenance/checkSlug', 'checkSlug');
     Route::get('/dashboard/maintenance/logstate/{maintenance}', 'createlog');
     Route::post('/dashboard/maintenance/logstate/{maintenance}', 'storelog');
+    Route::get(
+        '/dashboard/maintenance/logstate/{maintenance}/{id}/edit',
+        'editlog'
+    );
+    Route::put(
+        '/dashboard/maintenance/logstate/{maintenance}/{id}',
+        'updatelog'
+    );
+    Route::delete(
+        '/dashboard/maintenance/logstate/{maintenance}',
+        'destroylog'
+    );
+
     Route::get('/dashboard/maintenance/sparepart/{maintenance}', 'createpart');
     Route::post('/dashboard/maintenance/sparepart/{maintenance}', 'storepart');
     Route::get(
@@ -157,6 +175,7 @@ Route::controller(MaintenanceController::class)->group(function () {
         '/dashboard/maintenance/upload/{maintenance}',
         'destroyupload'
     );
+    Route::get('/dashboard/maintenance/print/{maintenance}', 'print');
 });
 
 Route::resource('/dashboard/maintenance', MaintenanceController::class);
@@ -164,5 +183,22 @@ Route::resource('/dashboard/maintenance', MaintenanceController::class);
 Route::controller(ReportController::class)->group(function () {
     Route::get('/dashboard/report', 'index');
     Route::get('/dashboard/report/vrc', 'vrc');
+    Route::get('/dashboard/report/vpic', 'vpic');
+    Route::get('/dashboard/report/vrc/expire/{unit}/edit', 'editvrcexpire');
+    Route::put('/dashboard/report/vrc/expire/{unit}', 'updatevrcexpire');
+    Route::get('/dashboard/report/vrc/tax/{unit}/edit', 'editvrctax');
+    Route::put('/dashboard/report/vrc/tax/{unit}', 'updatevrctax');
+    Route::get('/dashboard/report/vpic/expire/{unit}/edit', 'editvpicexpire');
+    Route::put('/dashboard/report/vpic/expire/{unit}', 'updatevpicexpire');
 });
+
 // end Maintenance
+
+// Transaction
+Route::controller(CustomerController::class)->group(function () {
+    Route::get('/dashboard/transaction/customer/checkSlug', 'checkSlug');
+});
+
+Route::resource('/dashboard/transaction/customer', CustomerController::class);
+
+// endtransaction

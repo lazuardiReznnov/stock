@@ -1,5 +1,30 @@
 <div>
-    <form class="row g-3" wire:prevent="store">
+    <div class="row">
+        <div class="col-md-8">
+            @if(session()->has('success'))
+
+            <!-- pesan -->
+
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
+            @endif
+        </div>
+    </div>
+    <form class="row g-3" wire:submit.prevent="store">
         <div class="col-md-6">
             <input
                 id="name"

@@ -20,8 +20,7 @@
         />
 
         <!-- Vendor CSS Files -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-        @stack('css')@stack('script')
+        @vite(['resources/sass/app.scss', 'resources/js/app.js']) @stack('css')
 
         <link
             href="/assets/vendor/boxicons/css/boxicons.min.css"
@@ -34,7 +33,7 @@
             href="/assets/vendor/simple-datatables/style.css"
             rel="stylesheet"
         />
-
+        <livewire:styles />
         <!-- Template Main CSS File -->
         <link href="/assets/css/style.css" rel="stylesheet" />
 
@@ -72,7 +71,6 @@
             class="back-to-top d-flex align-items-center justify-content-center"
             ><i class="bi bi-arrow-up-short"></i
         ></a>
-
         @stack('script2')
         <!-- Vendor JS Files -->
         <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -83,8 +81,10 @@
         <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
         <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
         <script src="/assets/vendor/php-email-form/validate.js"></script>
-
+        @stack('script')
         <!-- Template Main JS File -->
+
         <script src="/assets/js/main.js"></script>
+        @livewireScripts
     </body>
 </html>

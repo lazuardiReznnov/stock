@@ -57,7 +57,4 @@
             </ul>
         </div>
     </div>
-    <div class="card p-3">
-        <livewire:maintenance.progress.create />
-    </div>
 </div>

@@ -9,6 +9,7 @@ class Create extends Component
     public $name;
     public $description;
     public $progress;
+    public $maintenanceId;
 
     public function render()
     {
@@ -17,5 +18,6 @@ class Create extends Component
 
     public function store()
     {
+        dd($this->maintenanceId);
     }
 }

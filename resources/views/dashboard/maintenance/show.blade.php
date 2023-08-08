@@ -394,14 +394,7 @@
                             <div
                                 class="tab-pane fade progres pt-3"
                                 id="progres"
-                            >
-                                @push('css')
-                                <livewire:styles />
-                                @endpush @push('script')
-                                <livewire:scripts />
-                                @endpush @livewire('maintenance.progress.table',
-                                ['maintenanceId'=>$data->id])
-                            </div>
+                            ></div>
                         </div>
                     </x-card-body>
                 </x-card2>

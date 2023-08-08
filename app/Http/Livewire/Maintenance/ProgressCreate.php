@@ -39,8 +39,6 @@ class ProgressCreate extends Component
         $this->resetInput();
 
         $this->emit('dataStored', $state);
-
-        session()->flash('success', 'Data Has Been Added');
     }
 
     private function resetInput()

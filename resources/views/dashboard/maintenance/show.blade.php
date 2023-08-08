@@ -397,11 +397,6 @@
                             >
                                 @livewire('maintenance.progress-table',
                                 ['maintenanceId'=>$data->id])
-
-                                <div class="card p-3">
-                                    @livewire('maintenance.progress-create',
-                                    ['maintenanceId'=> $data->id])
-                                </div>
                             </div>
                         </div>
                     </x-card-body>
@@ -409,4 +404,9 @@
             </div>
         </div>
     </x-section>
+    @push('csslivewire')
+    <livewire:styles />
+    @endpush @push('jslivewire')
+    <livewire:scripts />
+    @endpush
 </x-dashboard>

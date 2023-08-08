@@ -33,7 +33,7 @@
             href="/assets/vendor/simple-datatables/style.css"
             rel="stylesheet"
         />
-        <livewire:styles />
+        @stack('csslivewire')
         <!-- Template Main CSS File -->
         <link href="/assets/css/style.css" rel="stylesheet" />
 
@@ -85,6 +85,6 @@
         <!-- Template Main JS File -->
 
         <script src="/assets/js/main.js"></script>
-        @livewireScripts
+        @stack('jslivewire')
     </body>
 </html>

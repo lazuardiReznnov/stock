@@ -8,9 +8,11 @@ use App\Models\Maintenance;
 
 class ProgressTable extends Component
 {
+    public $statusUpdate = false;
     public $maintenanceId;
     protected $listeners = [
         'dataStored' => 'handleStored',
+        'dataUpdated' => 'handleUpdated',
     ];
 
     public function render()
@@ -24,7 +26,21 @@ class ProgressTable extends Component
         ]);
     }
 
+    public function getState($id)
+    {
+        $this->statusUpdate = true;
+        $statelog = statelog::find($id);
+        $this->emit('getState', $statelog);
+    }
+
     public function handleStored($datas)
     {
+        session()->flash('success', 'Data Has Been Added');
+    }
+
+    public function handleUpdated($datas)
+    {
+        session()->flash('success', 'Data Has Been Updated');
+        $this->statusUpdate = false;
     }
 }

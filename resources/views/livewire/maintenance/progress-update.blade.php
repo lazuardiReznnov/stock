@@ -1,5 +1,7 @@
 <div>
-    <form class="row g-3" wire:submit.prevent="store">
+    <form class="row g-3" wire:submit.prevent="update">
+        <input type="hidden" wire:model="stateId" />
+        <input type="hidden" wire:model="maintenanceId" />
         <div class="col-md-6">
             <input
                 id="name"
@@ -35,23 +37,9 @@
             </span>
             @enderror
         </div>
-        <div class="col-4">
-            <input
-                type="text"
-                class="form-control @error('progress') is-invalid @enderror"
-                placeholder="progress"
-                name="progress"
-                wire:model="progress"
-                value="{{ old('progress') }}"
-            />
-            @error('progress')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-        </div>
+
         <div class="">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </div>
     </form>
 </div>

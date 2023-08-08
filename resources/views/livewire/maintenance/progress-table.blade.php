@@ -1,4 +1,29 @@
 <div>
+    <div class="row">
+        <div class="col-md-8">
+            @if(session()->has('success'))
+
+            <!-- pesan -->
+
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
+            @endif
+        </div>
+    </div>
     <div class="row my-3">
         <div class="col">
             <div class="progress">
@@ -26,7 +51,8 @@
                     </div>
                     <div>
                         <a
-                            href=""
+                            href="#"
+                            wire:click="getState({{ $sl->id }})"
                             class="badge bg-warning"
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
@@ -56,5 +82,10 @@
                 @endforeach
             </ul>
         </div>
+    </div>
+    <div class="card p-3">
+        @if($statusUpdate) @livewire('maintenance.progress-update') @else
+        @livewire('maintenance.progress-create', ['maintenanceId'=>
+        $progress->id]) @endif
     </div>
 </div>

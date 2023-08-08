@@ -60,23 +60,16 @@
                         >
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <form action="" method="post" class="d-inline">
-                            @method('delete') @csrf
-                            <input
-                                type="hidden"
-                                name="id"
-                                value="{{ $sl->id }}"
-                            />
-                            <button
-                                class="badge bg-danger border-0"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Delete maintenance"
-                                onclick="return confirm('are You sure ??')"
-                            >
-                                <i class="bi bi-x-lg"></i>
-                            </button>
-                        </form>
+                        <a
+                            href="#"
+                            wire:click="destroy({{ $sl->id }})"
+                            class="badge bg-danger"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Progress maintenance"
+                        >
+                            <i class="bi bi-x-lg"></i>
+                        </a>
                     </div>
                 </li>
                 @endforeach

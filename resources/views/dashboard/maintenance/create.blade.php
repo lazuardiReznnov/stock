@@ -111,7 +111,7 @@
                             id="estimate"
                             type="text"
                             class="form-control @error('estimate') is-invalid @enderror"
-                            placeholder="estimate "
+                            placeholder="estimate Per Day"
                             name="estimate"
                             value="{{ old('estimate') }}"
                         />

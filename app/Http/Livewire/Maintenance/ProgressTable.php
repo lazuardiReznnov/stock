@@ -38,7 +38,7 @@ class ProgressTable extends Component
         session()->flash('success', 'Data Has Been Added');
     }
 
-    public function handleUpdated($datas)
+    public function handleUpdatedgit($datas)
     {
         session()->flash('success', 'Data Has Been Updated');
         $this->statusUpdate = false;

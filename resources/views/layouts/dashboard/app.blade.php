@@ -19,9 +19,9 @@
             rel="stylesheet"
         />
 
+        @stack('csslivewire')
         <!-- Vendor CSS Files -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js']) @stack('css')
-
+        @stack('css') @stack('script')
         <link
             href="/assets/vendor/boxicons/css/boxicons.min.css"
             rel="stylesheet"
@@ -33,7 +33,7 @@
             href="/assets/vendor/simple-datatables/style.css"
             rel="stylesheet"
         />
-        @stack('csslivewire')
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
         <!-- Template Main CSS File -->
         <link href="/assets/css/style.css" rel="stylesheet" />
 
@@ -81,7 +81,7 @@
         <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
         <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
         <script src="/assets/vendor/php-email-form/validate.js"></script>
-        @stack('script')
+
         <!-- Template Main JS File -->
 
         <script src="/assets/js/main.js"></script>

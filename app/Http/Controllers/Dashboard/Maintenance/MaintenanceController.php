@@ -178,21 +178,21 @@ class MaintenanceController extends Controller
         ]);
     }
 
-    public function storelog(Request $request, Maintenance $maintenance)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-        ]);
+    // public function storelog(Request $request, Maintenance $maintenance)
+    // {
+    //     $validatedData = $request->validate([
+    //         'name' => 'required',
+    //         'description' => 'required',
+    //     ]);
 
-        $maintenance->statelog()->create($validatedData);
-        $maintenance->update(['progress' => $request->progress]);
+    //     $maintenance->statelog()->create($validatedData);
+    //     $maintenance->update(['progress' => $request->progress]);
 
-        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
-            'success',
-            'Data Has Been added.!!'
-        );
-    }
+    //     return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+    //         'success',
+    //         'Data Has Been added.!!'
+    //     );
+    // }
 
     public function createpart(Maintenance $maintenance)
     {
@@ -288,43 +288,43 @@ class MaintenanceController extends Controller
         );
     }
 
-    public function editlog(Maintenance $maintenance, $id)
-    {
-        $statelog = $maintenance->statelog()->find($id);
+    // public function editlog(Maintenance $maintenance, $id)
+    // {
+    //     $statelog = $maintenance->statelog()->find($id);
 
-        return view('dashboard.maintenance.editlog', [
-            'title' => 'Edit Log',
-            'data' => $statelog,
-        ]);
-    }
+    //     return view('dashboard.maintenance.editlog', [
+    //         'title' => 'Edit Log',
+    //         'data' => $statelog,
+    //     ]);
+    // }
 
-    public function updatelog(Maintenance $maintenance, Request $request, $id)
-    {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-        ]);
+    // public function updatelog(Maintenance $maintenance, Request $request, $id)
+    // {
+    //     $validatedData = $request->validate([
+    //         'name' => 'required',
+    //         'description' => 'required',
+    //     ]);
 
-        $maintenance
-            ->statelog()
-            ->where('id', $id)
-            ->update($validatedData);
+    //     $maintenance
+    //         ->statelog()
+    //         ->where('id', $id)
+    //         ->update($validatedData);
 
-        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
-            'success',
-            'Data Has Been added.!!'
-        );
-    }
+    //     return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+    //         'success',
+    //         'Data Has Been added.!!'
+    //     );
+    // }
 
-    public function destroylog(Maintenance $maintenance, Request $request)
-    {
-        statelog::destroy($request->id);
+    // public function destroylog(Maintenance $maintenance, Request $request)
+    // {
+    //     statelog::destroy($request->id);
 
-        return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
-            'success',
-            'Data Has Been added.!!'
-        );
-    }
+    //     return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
+    //         'success',
+    //         'Data Has Been added.!!'
+    //     );
+    // }
 
     public function destroyupload(Maintenance $maintenance, Request $request)
     {

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard\Maintenance;
 
-use App\Models\Unit;
 use App\Models\Stock;
-use App\Models\statelog;
-use App\Models\Sparepart;
+
 use App\Models\Maintenance;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -22,83 +20,11 @@ class MaintenanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $datey = date('Y');
-        $datem = date('m');
-
-        // $maintenance = Maintenance::query();
-        $maintenance = Maintenance::latest();
-
-        if ($request->search) {
-            $pisah = explode('-', $request->search);
-
-            $maintenance->when($request->search, function ($query) use (
-                $pisah
-            ) {
-                return $query
-                    ->whereMonth('tgl', '=', $pisah[1])
-                    ->whereYear('tgl', '=', $pisah[0]);
-            });
-        } else {
-            $maintenance
-                ->whereMonth('tgl', '=', $datem)
-                ->whereYear('tgl', '=', $datey);
-        }
-        // $maintenance->when($request->search, function ($query) use ($request) {
-        //     return $query->where('name', 'like', '%' . $request->search . '%');
-        // });
-
         return view('dashboard.maintenance.index', [
             'title' => 'maintenance Management',
-            'datas' => $maintenance
-                ->with('unit')
-                ->paginate(10)
-                ->withQueryString(),
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('dashboard.maintenance.create', [
-            'title' => 'Maintenance Create',
-            'units' => Unit::all(),
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'unit_id' => 'required',
-            'tgl' => 'required',
-            'estimate' => 'required',
-            'mechanic' => 'required',
-            'description' => 'required',
-            'instruction' => 'required',
-        ]);
-
-        $date = date('Ymd');
-        $unit_name = $request->unit_id;
-        $rand = rand(0, 100);
-
-        $name = $date . $unit_name . $rand;
-        $slug = $date . '-' . $unit_name . '-' . $rand;
-
-        $validatedData['name'] = $name;
-        $validatedData['slug'] = $slug;
-
-        Maintenance::create($validatedData);
-
-        return redirect('/dashboard/maintenance')->with(
-            'success',
-            'Data Has Been Added.!!'
-        );
     }
 
     /**
@@ -115,40 +41,6 @@ class MaintenanceController extends Controller
                 'image'
             ),
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Maintenance $maintenance)
-    {
-        return view('dashboard.maintenance.edit', [
-            'title' => 'Maintenance Edit',
-            'data' => $maintenance,
-            'units' => Unit::all(),
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Maintenance $maintenance)
-    {
-        $validatedData = $request->validate([
-            'unit_id' => 'required',
-            'tgl' => 'required',
-            'estimate' => 'required',
-            'mechanic' => 'required',
-            'description' => 'required',
-            'instruction' => 'required',
-        ]);
-
-        $maintenance->update($validatedData);
-
-        return redirect('/dashboard/maintenance')->with(
-            'success',
-            'Data Has Been Added.!!'
-        );
     }
 
     /**
@@ -177,22 +69,6 @@ class MaintenanceController extends Controller
             'data' => $maintenance,
         ]);
     }
-
-    // public function storelog(Request $request, Maintenance $maintenance)
-    // {
-    //     $validatedData = $request->validate([
-    //         'name' => 'required',
-    //         'description' => 'required',
-    //     ]);
-
-    //     $maintenance->statelog()->create($validatedData);
-    //     $maintenance->update(['progress' => $request->progress]);
-
-    //     return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
-    //         'success',
-    //         'Data Has Been added.!!'
-    //     );
-    // }
 
     public function createpart(Maintenance $maintenance)
     {
@@ -287,44 +163,6 @@ class MaintenanceController extends Controller
             'Data Has Been Added..!!'
         );
     }
-
-    // public function editlog(Maintenance $maintenance, $id)
-    // {
-    //     $statelog = $maintenance->statelog()->find($id);
-
-    //     return view('dashboard.maintenance.editlog', [
-    //         'title' => 'Edit Log',
-    //         'data' => $statelog,
-    //     ]);
-    // }
-
-    // public function updatelog(Maintenance $maintenance, Request $request, $id)
-    // {
-    //     $validatedData = $request->validate([
-    //         'name' => 'required',
-    //         'description' => 'required',
-    //     ]);
-
-    //     $maintenance
-    //         ->statelog()
-    //         ->where('id', $id)
-    //         ->update($validatedData);
-
-    //     return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
-    //         'success',
-    //         'Data Has Been added.!!'
-    //     );
-    // }
-
-    // public function destroylog(Maintenance $maintenance, Request $request)
-    // {
-    //     statelog::destroy($request->id);
-
-    //     return redirect('dashboard/maintenance/' . $maintenance->slug)->with(
-    //         'success',
-    //         'Data Has Been added.!!'
-    //     );
-    // }
 
     public function destroyupload(Maintenance $maintenance, Request $request)
     {

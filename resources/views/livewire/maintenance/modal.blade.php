@@ -130,7 +130,7 @@
                         data-bs-dismiss="modal"
                         wire:click="closeModal"
                     >
-                        Close
+                        <i class="bi bi-x-lg"></i>
                     </button>
                     <button type="submit" class="btn btn-primary">
                         Save changes
@@ -273,7 +273,7 @@
                         data-bs-dismiss="modal"
                         wire:click="closeModal"
                     >
-                        Close
+                        <i class="bi bi-x-lg"></i>
                     </button>
                     <button type="submit" class="btn btn-primary">
                         Update changes
@@ -309,7 +309,7 @@
             </div>
             <form wire:submit.prevent="destroyMaintenance">
                 <div class="modal-body">
-                    <h4>are You Sure.??</h4>
+                    <h4>Are You Sure.??</h4>
                 </div>
                 <div class="modal-footer">
                     <button
@@ -318,7 +318,7 @@
                         data-bs-dismiss="modal"
                         wire:click="closeModal"
                     >
-                        Close
+                        <i class="bi bi-x-lg"></i>
                     </button>
                     <button type="submit" class="btn btn-primary">
                         Delete changes

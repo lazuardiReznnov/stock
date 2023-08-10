@@ -20,20 +20,10 @@ class BrandController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $brand = Brand::query();
-
-        $brand->when($request->search, function ($query) use ($request) {
-            return $query->where('name', 'like', '%' . $request->search . '%');
-        });
-
         return view('dashboard.unit.brand.index', [
             'title' => 'Brand Model',
-            'datas' => $brand
-                ->latest()
-                ->paginate(10)
-                ->withQueryString(),
         ]);
     }
 

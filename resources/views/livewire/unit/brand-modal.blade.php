@@ -38,7 +38,6 @@
                             placeholder="Image"
                             name="pic"
                             wire:model="pic"
-                            onchange="previewImage()"
                         />
                         @error('pic')
                         <span class="invalid-feedback" role="alert">

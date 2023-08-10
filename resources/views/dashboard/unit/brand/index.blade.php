@@ -19,7 +19,6 @@
             $("#deleteBrandModal").modal("hide");
         });
     </script>
-    <script src="/assets/js/lazuardicode.js"></script>
 
     @endpush
 </x-dashboard>

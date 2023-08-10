@@ -8,32 +8,6 @@
     </x-pagetitle>
 
     <div class="row">
-        <div class="col-md-8">
-            @if(session()->has('success'))
-
-            <!-- pesan -->
-
-            <div
-                class="alert alert-success alert-dismissible fade show"
-                role="alert"
-            >
-                {{ session("success") }}
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                    aria-label="close"
-                ></button>
-            </div>
-
-            <!-- endpesan -->
-
-            @endif
-        </div>
-    </div>
-
-    <div class="row">
         <div class="col-md-12">
             <livewire:maintenance.index />
         </div>
@@ -45,6 +19,7 @@
         window.addEventListener("close-modal", (event) => {
             $("#maintenanceModal").modal("hide");
             $("#updateMaintenanceModal").modal("hide");
+            $("#deleteMaintenanceModal").modal("hide");
         });
     </script>
     @endpush

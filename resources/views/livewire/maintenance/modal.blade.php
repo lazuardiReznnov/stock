@@ -283,3 +283,48 @@
         </div>
     </div>
 </div>
+
+<!-- modal Delete -->
+<div
+    wire:ignore.self
+    class="modal fade"
+    id="deleteMaintenanceModal"
+    tabindex="-1"
+    aria-labelledby="deleteMaintenanceModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteMaintenanceModalLabel">
+                    Delete Maintenance Data
+                </h1>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    wire:click="closeModal"
+                ></button>
+            </div>
+            <form wire:submit.prevent="destroyMaintenance">
+                <div class="modal-body">
+                    <h4>are You Sure.??</h4>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                        wire:click="closeModal"
+                    >
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Delete changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

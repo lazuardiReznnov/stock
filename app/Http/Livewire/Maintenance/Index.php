@@ -23,6 +23,11 @@ class Index extends Component
         $instruction;
     public $maintenanceId;
 
+    public function mount()
+    {
+        $this->units = Unit::all();
+    }
+
     protected function rules()
     {
         return [
@@ -38,11 +43,6 @@ class Index extends Component
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
     }
 
     public function saveMaintenance()
@@ -100,29 +100,14 @@ class Index extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    public function mount()
+    public function updatingSearch()
     {
-        $this->units = Unit::all();
+        $this->resetPage();
     }
 
     public function render()
     {
         $maintenance = Maintenance::latest();
-
-        // if ($this->search) {
-        //     $pisah = explode('-', $this->search);
-
-        //     $maintenance
-        //         ->whereMonth('tgl', '=', $pisah[1])
-        //         ->whereYear('tgl', '=', $pisah[0]);
-        // } else {
-        //     $maintenance
-        //         ->whereMonth('tgl', '=', $datem)
-        //         ->whereYear('tgl', '=', $datey);
-        // }
-        // $maintenance->when($request->search, function ($query) use ($request) {
-        //     return $query->where('name', 'like', '%' . $request->search . '%');
-        // });
 
         return view('livewire.maintenance.index', [
             'datas' => $maintenance
@@ -130,6 +115,19 @@ class Index extends Component
                 ->where('tgl', 'like', '%' . $this->search . '%')
                 ->paginate(10),
         ]);
+    }
+
+    public function deleteMaintenance(int $maintenanceId)
+    {
+        $this->maintenanceId = $maintenanceId;
+    }
+
+    public function destroyMaintenance()
+    {
+        Maintenance::find($this->maintenanceId)->delete();
+        session()->flash('success', 'Data Has Been Deleted');
+
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function closeModal()

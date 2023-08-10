@@ -4,7 +4,31 @@
 
 ?>
     @include('livewire.maintenance.modal')
+    <div class="row">
+        <div class="col-md-8">
+            @if(session()->has('success'))
 
+            <!-- pesan -->
+
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
+            @endif
+        </div>
+    </div>
     <div class="row my-2 justify-content-between">
         <div class="col-md-4">
             <x-button-group>
@@ -96,7 +120,7 @@
                             ><i class="bi bi-eye"></i
                         ></a>
                         <a
-                            href="/dashboard/maintenance/{{ $data->slug }}/edit"
+                            href="#"
                             class="badge bg-warning"
                             data-bs-toggle="modal"
                             data-bs-target="#updateMaintenanceModal"
@@ -105,22 +129,15 @@
                             ><i class="bi bi-pencil-square"></i
                         ></a>
 
-                        <form
-                            action="/dashboard/maintenance/{{ $data->slug }}"
-                            method="post"
-                            class="d-inline"
+                        <button
+                            class="badge bg-danger border-0"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteMaintenanceModal"
+                            title="Delete maintenance"
+                            wire:click="deleteMaintenance({{ $data->id }})"
                         >
-                            @method('delete') @csrf
-                            <button
-                                class="badge bg-danger border-0"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="Delete maintenance"
-                                onclick="return confirm('are You sure ??')"
-                            >
-                                <i class="bi bi-x-lg"></i>
-                            </button>
-                        </form>
+                            <i class="bi bi-x-lg"></i>
+                        </button>
                     </td>
                     <!-- Modal Image -->
                 </tr>

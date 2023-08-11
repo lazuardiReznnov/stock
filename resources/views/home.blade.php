@@ -8,28 +8,6 @@
 
     <!-- End Page Title -->
     <x-section>
-        <div class="row">
-            <div class="col-lg-6">
-                <x-card>
-                    <x-card-title> Example </x-card-title>
-
-                    <p>
-                        This is an examle page with no contrnt. You can use it
-                        as a starter for your custom pages.
-                    </p>
-                </x-card>
-            </div>
-
-            <div class="col-lg-6">
-                <x-card>
-                    <x-card-title> Example </x-card-title>
-
-                    <p>
-                        This is an examle page with no contrnt. You can use it
-                        as a starter for your custom pages.
-                    </p>
-                </x-card>
-            </div>
-        </div>
+        <div class="row"></div>
     </x-section>
 </x-dashboard>

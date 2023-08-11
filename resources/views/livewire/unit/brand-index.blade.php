@@ -102,31 +102,25 @@
                             <td>{!! $data->description !!}</td>
 
                             <td>
-                                <a
-                                    href="/dashboard/unit/brand/{{ $data->slug }}/edit"
-                                    class="badge bg-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
+                                <button
+                                    href="#"
+                                    class="badge bg-warning border-0"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#updateBrandModal"
                                     title="Edit Unit"
-                                    ><i class="bi bi-pencil-square"></i
-                                ></a>
-
-                                <form
-                                    action="/dashboard/unit/brand/{{ $data->slug }}"
-                                    method="post"
-                                    class="d-inline"
+                                    wire:click="editBrand({{ $data->id }})"
                                 >
-                                    @method('delete') @csrf
-                                    <button
-                                        class="badge bg-danger border-0"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Delete Unit"
-                                        onclick="return confirm('are You sure ??')"
-                                    >
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
-                                </form>
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button
+                                    class="badge bg-danger border-0"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteBrandModal"
+                                    title="Delete Brand"
+                                    wire:click="deleteBrand({{ $data->id }})"
+                                >
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </td>
                             <!-- Modal Image -->
                         </tr>

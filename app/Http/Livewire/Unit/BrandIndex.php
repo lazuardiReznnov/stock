@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Unit;
 
 use App\Models\Brand;
+use App\Models\Image;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Illuminate\support\Facades\Storage;
 
 class BrandIndex extends Component
 {
@@ -20,6 +22,8 @@ class BrandIndex extends Component
     public $pic;
     public $name;
     public $description;
+    public $brandId;
+    public $oldPic, $oldPicId;
 
     public function updatingSearch()
     {
@@ -56,6 +60,67 @@ class BrandIndex extends Component
 
         session()->flash('success', 'Data Has Been Added');
         $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function editBrand($brandId)
+    {
+        $brand = Brand::find($brandId);
+        if ($brand) {
+            $this->brandId = $brand->id;
+            $this->name = $brand->name;
+            $this->description = $brand->description;
+            if ($brand->image) {
+                $this->oldPic = $brand->image->pic;
+                $this->oldPicId = $brand->image->id;
+            }
+        } else {
+            return redirect()->to('/unit/brand');
+        }
+    }
+
+    public function updateBrand()
+    {
+        $validatedData = $this->validate();
+
+        Brand::where('id', $this->brandId)->update([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+        ]);
+
+        if ($this->pic) {
+            $data = $this->validate([
+                'pic' => 'image|file|max:2048',
+            ]);
+            if ($this->oldPic) {
+                storage::delete($this->oldPic);
+                Image::where('id', $this->oldPicId)->delete();
+            }
+            $data['pic'] = $this->pic->store('Brand-Pic');
+            $brand2 = Brand::where('id', $this->brandId)->first();
+            $brand2->image()->create($data);
+        }
+        session()->flash('success', 'Data Has Been Updated');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function deleteBrand(int $brandId)
+    {
+        $this->brandId = $brandId;
+    }
+
+    public function destroyBrand()
+    {
+        $brand = Brand::find($this->brandId);
+        if ($brand->image) {
+            storage::delete($brand->image->pic);
+            $brand->image->delete();
+        }
+        $brand->delete();
+        session()->flash('success', 'Data Has Been Deleted');
 
         $this->dispatchBrowserEvent('close-modal');
     }

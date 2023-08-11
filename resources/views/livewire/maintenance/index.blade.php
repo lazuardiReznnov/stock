@@ -121,7 +121,7 @@
                         ></a>
                         <a
                             href="#"
-                            class="badge bg-warning"
+                            class="badge bg-warning border-0"
                             data-bs-toggle="modal"
                             data-bs-target="#updateMaintenanceModal"
                             wire:click="editMaintenance({{ $data->id }})"

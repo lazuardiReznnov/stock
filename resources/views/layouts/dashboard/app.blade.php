@@ -22,6 +22,7 @@
         @stack('csslivewire')
         <!-- Vendor CSS Files -->
         @stack('css') @stack('script')
+
         <link
             href="/assets/vendor/boxicons/css/boxicons.min.css"
             rel="stylesheet"

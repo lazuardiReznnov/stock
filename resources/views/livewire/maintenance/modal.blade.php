@@ -135,6 +135,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save changes
                     </button>
+                    <div wire:loading>Processing save...</div>
                 </div>
             </form>
         </div>
@@ -278,6 +279,7 @@
                     <button type="submit" class="btn btn-primary">
                         Update changes
                     </button>
+                    <div wire:loading>Processing Update...</div>
                 </div>
             </form>
         </div>

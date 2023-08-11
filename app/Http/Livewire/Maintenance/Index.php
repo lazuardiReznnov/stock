@@ -107,12 +107,22 @@ class Index extends Component
 
     public function render()
     {
+        $datey = date('Y');
+        $datem = date('m');
         $maintenance = Maintenance::latest();
+
+        if ($this->search) {
+            $maintenance->where('tgl', 'like', '%' . $this->search . '%');
+        } else {
+            $maintenance
+                ->whereMonth('tgl', '=', $datem)
+                ->whereYear('tgl', '=', $datey);
+        }
 
         return view('livewire.maintenance.index', [
             'datas' => $maintenance
                 ->with('unit')
-                ->where('tgl', 'like', '%' . $this->search . '%')
+
                 ->paginate(10),
         ]);
     }

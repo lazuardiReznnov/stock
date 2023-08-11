@@ -60,11 +60,6 @@
     </div>
 
     <x-card>
-        <x-card-title>
-            Maintenance
-            {{ \Carbon\Carbon::parse($date_now)->format('d M Y') }}</x-card-title
-        >
-
         <table class="table table-striped">
             <thead>
                 <tr>

@@ -7,6 +7,27 @@
         </x-breadcrumb>
     </x-pagetitle>
 
+    <section class="section dashboard">
+        <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
+                    <!-- Sales Card -->
+                    <div class="col-xxl-6 col-md-6">
+                        <livewire:maintenance.card-count />
+                    </div>
+                    <!-- End Sales Card -->
+
+                    <!-- Revenue Card -->
+                    <div class="col-xxl-6 col-md-6">
+                        <livewire:maintenance.card-count-part />
+                    </div>
+                    <!-- End Revenue Card -->
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="row">
         <div class="col-md-12">
             <livewire:maintenance.index />

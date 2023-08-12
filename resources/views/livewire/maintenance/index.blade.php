@@ -29,7 +29,7 @@
             @endif
         </div>
     </div>
-    <div class="row my-2 justify-content-between">
+    <div class="row my-3 justify-content-between">
         <div class="col-md-4">
             <x-button-group>
                 <x-button-link class="btn-primary" href="/dashboard">
@@ -60,7 +60,7 @@
     </div>
 
     <x-card>
-        <table class="table table-striped">
+        <table class="table table-striped my-3">
             <thead>
                 <tr>
                     <th scope="col">#</th>

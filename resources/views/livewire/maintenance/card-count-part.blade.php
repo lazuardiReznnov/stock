@@ -13,16 +13,21 @@
             </h5>
 
             <div class="d-flex align-items-center">
+                <?php 
+                
+                ?>
                 <div
                     class="card-icon rounded-circle d-flex align-items-center justify-content-center"
                 >
                     <i class="bi bi-currency-dollar"></i>
                 </div>
-                @foreach($parts as $part) @endforeach
+
                 <div class="ps-3">
-                    <h6>$3,264</h6>
-                    <span class="text-success small pt-1 fw-bold">8%</span>
-                    <span class="text-muted small pt-2 ps-1">increase</span>
+                    <h6>This Month : @currency($partMonths)</h6>
+                    <span class="text-success small pt-1 fw-bold"
+                        >Total Cost : @currency($parts)</span
+                    >
+                    <span class="text-muted small pt-2 ps-1">Maintenance</span>
                 </div>
             </div>
         </div>

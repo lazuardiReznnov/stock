@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
 use App\Http\Controllers\Dashboard\Transaction\CustomerController;
 use App\Http\Controllers\Dashboard\Unit\GroupController;
+use App\Http\Controllers\Dashboard\Transaction\TransactionController;
 use App\Models\Maintenance;
 
 /*
@@ -201,4 +202,7 @@ Route::controller(CustomerController::class)->group(function () {
 
 Route::resource('/dashboard/transaction/customer', CustomerController::class);
 
+Route::controller(TransactionController::class)->group(function () {
+    Route::get('/dashboard/transaction', 'index');
+});
 // endtransaction

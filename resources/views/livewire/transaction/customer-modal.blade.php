@@ -321,7 +321,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="destroyMaintenance">
+            <form wire:submit.prevent="destroyCustomer">
                 <div class="modal-body">
                     <h4>Are You Sure.??</h4>
                 </div>

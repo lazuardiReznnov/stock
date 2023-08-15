@@ -108,31 +108,25 @@
                             <!-- <td>{{ $data->address }}</td> -->
 
                             <td>
-                                <a
-                                    href="/dashboard/transaction/customer/{{ $data->slug }}/edit"
+                                <button
                                     class="badge bg-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#updateCustomerModal"
+                                    wire:click="editCustomer({{ $data->id }})"
                                     title="Edit data"
-                                    ><i class="bi bi-pencil-square"></i
-                                ></a>
-
-                                <form
-                                    action="/dashboard/transaction/customer/{{ $data->slug }}"
-                                    method="post"
-                                    class="d-inline"
                                 >
-                                    @method('delete') @csrf
-                                    <button
-                                        class="badge bg-danger border-0"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Delete Data"
-                                        onclick="return confirm('are You sure ??')"
-                                    >
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
-                                </form>
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+
+                                <button
+                                    class="badge bg-danger border-0"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteCustomerModal"
+                                    title="Delete Customer"
+                                    wire:click="deleteCustomer({{ $data->id }})"
+                                >
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </td>
                             <!-- Modal Image -->
                         </tr>

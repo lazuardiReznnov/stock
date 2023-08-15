@@ -83,11 +83,10 @@ class BrandIndex extends Component
     public function updateBrand()
     {
         $validatedData = $this->validate();
+        $validatedData['slug'] = Str::slug($this->name);
 
-        Brand::where('id', $this->brandId)->update([
-            'name' => $validatedData['name'],
-            'description' => $validatedData['description'],
-        ]);
+        $brand = Brand::find($this->brandId);
+        $brand->update($validatedData);
 
         if ($this->pic) {
             $data = $this->validate([
@@ -95,12 +94,13 @@ class BrandIndex extends Component
             ]);
             if ($this->oldPic) {
                 storage::delete($this->oldPic);
+                $brand->image()->delete();
                 Image::where('id', $this->oldPicId)->delete();
             }
             $data['pic'] = $this->pic->store('Brand-Pic');
-            $brand2 = Brand::where('id', $this->brandId)->first();
-            $brand2->image()->create($data);
+            $brand->image()->create($data);
         }
+
         session()->flash('success', 'Data Has Been Updated');
         $this->resetInput();
 

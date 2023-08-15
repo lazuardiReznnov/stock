@@ -23,11 +23,11 @@
                 </div>
 
                 <div class="ps-3">
-                    <h6>This Month : @currency($partMonths)</h6>
+                    <h6>@currency($countMounth)</h6>
+                    <span class="text-muted small pt-2 ps-1">Total Cost :</span>
                     <span class="text-success small pt-1 fw-bold"
-                        >Total Cost : @currency($parts)</span
+                        >@currency($countAll)</span
                     >
-                    <span class="text-muted small pt-2 ps-1">Maintenance</span>
                 </div>
             </div>
         </div>

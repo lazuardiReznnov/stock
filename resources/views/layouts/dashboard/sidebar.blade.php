@@ -95,8 +95,8 @@
             ><i class="bi bi-chevron-down ms-auto"></i>
         </x-nav-link>
         <x-nav-content id="transaction-nav">
-            <x-nav-content-item link="/dashboard/transaction/customer">
-                Customer
+            <x-nav-content-item link="/dashboard/transaction">
+                transaction
             </x-nav-content-item>
         </x-nav-content>
     </x-nav-item>

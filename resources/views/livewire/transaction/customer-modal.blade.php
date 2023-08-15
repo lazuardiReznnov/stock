@@ -3,15 +3,17 @@
 <div
     wire:ignore.self
     class="modal fade"
-    id="brandModal"
+    id="customerModal"
     tabindex="-1"
-    aria-labelledby="brandModalLabel"
+    aria-labelledby="customerModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="brandModalLabel">Add Brand</h1>
+                <h1 class="modal-title fs-5" id="customerModalLabel">
+                    Create Customer Data
+                </h1>
                 <button
                     type="button"
                     class="btn-close"
@@ -20,7 +22,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="saveBrand">
+            <form wire:submit.prevent="saveCustomer">
                 <div class="modal-body">
                     <div class="col-md-8 mb-3">
                         @if($pic)
@@ -45,11 +47,13 @@
                         </span>
                         @enderror
                     </div>
+
                     <div class="col-md-8 mb-3">
                         <input
+                            id="name"
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Brand Name"
+                            placeholder="name"
                             name="name"
                             wire:model="name"
                         />
@@ -59,16 +63,62 @@
                         </span>
                         @enderror
                     </div>
-
                     <div class="col-12 mb-3">
                         <textarea
-                            class="form-control @error('description') is-invalid @enderror"
-                            id="descriptions"
-                            name="description"
+                            class="form-control @error('address') is-invalid @enderror"
+                            id="address"
+                            name="address"
                             rows="3"
-                            wire:model="description"
+                            wire:model="address"
                         ></textarea>
-                        @error('description')
+                        @error('address')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-8 mb-3">
+                        <input
+                            id="phone"
+                            type="text"
+                            class="form-control @error('phone') is-invalid @enderror"
+                            placeholder="phone"
+                            name="phone"
+                            wire:model="phone"
+                        />
+                        @error('phone')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <input
+                            id="email"
+                            type="email"
+                            class="form-control @error('email') is-invalid @enderror"
+                            placeholder="email"
+                            name="email"
+                            wire:model="email"
+                        />
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-8 mb-3">
+                        <input
+                            id="industry"
+                            type="text"
+                            class="form-control @error('industry') is-invalid @enderror"
+                            placeholder="industry"
+                            name="industry"
+                            wire:model="industry"
+                        />
+                        @error('industry')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -87,7 +137,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save changes
                     </button>
-                    <div wire:loading>Save...</div>
+                    <div wire:loading>save...</div>
                 </div>
             </form>
         </div>
@@ -95,20 +145,20 @@
 </div>
 <!-- endinput -->
 
-<!-- Modal Edit -->
+<!-- modal update -->
 <div
     wire:ignore.self
     class="modal fade"
-    id="updateBrandModal"
+    id="updateCustomerModal"
     tabindex="-1"
-    aria-labelledby="updateBrandModalLabel"
+    aria-labelledby="updateCustomerModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="updateBrandModalLabel">
-                    Add Brand
+                <h1 class="modal-title fs-5" id="updateCustomerModalLabel">
+                    Update Customer Data
                 </h1>
                 <button
                     type="button"
@@ -118,7 +168,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="updateBrand">
+            <form wire:submit.prevent="updateCustomer">
                 <div class="modal-body">
                     <div class="col-md-8 mb-3">
                         @if($oldPic)
@@ -154,9 +204,10 @@
                     </div>
                     <div class="col-md-8 mb-3">
                         <input
+                            id="name"
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Brand Name"
+                            placeholder="name"
                             name="name"
                             wire:model="name"
                         />
@@ -166,16 +217,62 @@
                         </span>
                         @enderror
                     </div>
-
                     <div class="col-12 mb-3">
                         <textarea
-                            class="form-control @error('description') is-invalid @enderror"
-                            id="descriptions"
-                            name="description"
+                            class="form-control @error('address') is-invalid @enderror"
+                            id="address"
+                            name="address"
                             rows="3"
-                            wire:model="description"
+                            wire:model="address"
                         ></textarea>
-                        @error('description')
+                        @error('address')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-8 mb-3">
+                        <input
+                            id="phone"
+                            type="text"
+                            class="form-control @error('phone') is-invalid @enderror"
+                            placeholder="phone"
+                            name="phone"
+                            wire:model="phone"
+                        />
+                        @error('phone')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="col-md-8 mb-3">
+                        <input
+                            id="email"
+                            type="email"
+                            class="form-control @error('email') is-invalid @enderror"
+                            placeholder="email"
+                            name="email"
+                            wire:model="email"
+                        />
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-8 mb-3">
+                        <input
+                            id="industry"
+                            type="text"
+                            class="form-control @error('industry') is-invalid @enderror"
+                            placeholder="industry"
+                            name="industry"
+                            wire:model="industry"
+                        />
+                        @error('industry')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -200,22 +297,21 @@
         </div>
     </div>
 </div>
-<!-- end Edit -->
 
 <!-- modal Delete -->
 <div
     wire:ignore.self
     class="modal fade"
-    id="deleteBrandModal"
+    id="deleteCustomerModal"
     tabindex="-1"
-    aria-labelledby="deleteBrandModalLabel"
+    aria-labelledby="deleteCustomerModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteBrandModalLabel">
-                    Delete Brand Data
+                <h1 class="modal-title fs-5" id="deleteCustomerModalLabel">
+                    Delete Maintenance Data
                 </h1>
                 <button
                     type="button"
@@ -225,7 +321,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="destroyBrand">
+            <form wire:submit.prevent="destroyCustomer">
                 <div class="modal-body">
                     <h4>Are You Sure.??</h4>
                 </div>

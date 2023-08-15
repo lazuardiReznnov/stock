@@ -1,5 +1,5 @@
 <div>
-    @include('livewire.unit.brand-modal')
+    @include('livewire.transaction.customer-modal')
     <div class="row">
         <div class="col-md-12">
             @if(session()->has('success'))
@@ -25,17 +25,16 @@
             @endif
         </div>
     </div>
-
     <div class="row my-4 justify-content-center">
         <div class="col-md-6">
             <div class="search-bar">
                 <input
-                    class="form-control"
                     type="text"
                     name="search"
                     placeholder="Search"
                     title="Enter search keyword"
                     wire:model="search"
+                    class="form-control"
                 />
             </div>
         </div>
@@ -43,16 +42,19 @@
     <div class="row my-2">
         <div class="col-md-4">
             <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard/unit">
+                <x-button-link
+                    class="btn-primary"
+                    href="/dashboard/transaction"
+                >
                     <i class="bi bi-arrow-left-circle"></i> Back
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
                     href="#"
                     data-bs-toggle="modal"
-                    data-bs-target="#brandModal"
+                    data-bs-target="#customerModal"
                 >
-                    <i class="bi bi-plus-circle"></i> Brand Model
+                    <i class="bi bi-plus-circle"></i> Add Customer
                 </x-button-link>
             </x-button-group>
         </div>
@@ -61,7 +63,7 @@
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Brand List </x-card-title>
+                <x-card-title> Customer List </x-card-title>
 
                 <table class="table table-striped">
                     <thead>
@@ -69,7 +71,9 @@
                             <th scope="col">#</th>
                             <th scope="col">Pic</th>
                             <th scope="col">Name</th>
-                            <th scope="col">Descrtiption</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Email</th>
+                            <!-- <th scope="col">address</th> -->
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -99,25 +103,27 @@
                             </td>
                             <td>{{ $data->name }}</td>
 
-                            <td>{!! $data->description !!}</td>
+                            <td>{{ $data->phone }}</td>
+                            <td>{{ $data->email }}</td>
+                            <!-- <td>{{ $data->address }}</td> -->
 
                             <td>
                                 <button
-                                    href="#"
-                                    class="badge bg-warning border-0"
+                                    class="badge bg-warning"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#updateBrandModal"
-                                    title="Edit Brand"
-                                    wire:click="editBrand({{ $data->id }})"
+                                    data-bs-target="#updateCustomerModal"
+                                    wire:click="editCustomer({{ $data->id }})"
+                                    title="Edit data"
                                 >
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
+
                                 <button
                                     class="badge bg-danger border-0"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#deleteBrandModal"
-                                    title="Delete Brand"
-                                    wire:click="deleteBrand({{ $data->id }})"
+                                    data-bs-target="#deleteCustomerModal"
+                                    title="Delete Customer"
+                                    wire:click="deleteCustomer({{ $data->id }})"
                                 >
                                     <i class="bi bi-x-lg"></i>
                                 </button>

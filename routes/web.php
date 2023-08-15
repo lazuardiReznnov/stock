@@ -15,7 +15,7 @@ use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
 use App\Http\Controllers\Dashboard\Transaction\CustomerController;
 use App\Http\Controllers\Dashboard\Unit\GroupController;
-use App\Models\Maintenance;
+use App\Http\Controllers\Dashboard\Transaction\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,10 +101,9 @@ Route::resource('/dashboard/unit/group', GroupController::class);
 
 // category Unit
 Route::controller(CategoryUnitController::class)->group(function () {
-    Route::get('/dashboard/unit/categoryUnit/checkSlug', 'checkSlug');
+    Route::get('/dashboard/unit/categoryUnit', 'index');
 });
 
-Route::resource('/dashboard/unit/categoryUnit', CategoryUnitController::class);
 // End Category Unit
 
 // type
@@ -116,10 +115,9 @@ Route::resource('/dashboard/unit/type', TypeController::class);
 // endType
 // Brand
 Route::controller(BrandController::class)->group(function () {
-    Route::get('/dashboard/unit/brand/checkSlug', 'checkSlug');
+    Route::get('/dashboard/unit/brand', 'index');
 });
 
-Route::resource('/dashboard/unit/brand', BrandController::class);
 // end Brand
 //Group
 Route::controller(UnitController::class)->group(function () {
@@ -138,22 +136,6 @@ Route::resource('/dashboard/unit', UnitController::class);
 
 // Maintenance
 Route::controller(MaintenanceController::class)->group(function () {
-    Route::get('/dashboard/maintenance/checkSlug', 'checkSlug');
-    Route::get('/dashboard/maintenance/logstate/{maintenance}', 'createlog');
-    Route::post('/dashboard/maintenance/logstate/{maintenance}', 'storelog');
-    Route::get(
-        '/dashboard/maintenance/logstate/{maintenance}/{id}/edit',
-        'editlog'
-    );
-    Route::put(
-        '/dashboard/maintenance/logstate/{maintenance}/{id}',
-        'updatelog'
-    );
-    Route::delete(
-        '/dashboard/maintenance/logstate/{maintenance}',
-        'destroylog'
-    );
-
     Route::get('/dashboard/maintenance/sparepart/{maintenance}', 'createpart');
     Route::post('/dashboard/maintenance/sparepart/{maintenance}', 'storepart');
     Route::get(
@@ -175,10 +157,9 @@ Route::controller(MaintenanceController::class)->group(function () {
         '/dashboard/maintenance/upload/{maintenance}',
         'destroyupload'
     );
-    Route::get('/dashboard/maintenance/print/{maintenance}', 'print');
+    Route::get('/dashboard/maintenance', 'index');
+    Route::get('/dashboard/maintenance/{maintenance}', 'show');
 });
-
-Route::resource('/dashboard/maintenance', MaintenanceController::class);
 
 Route::controller(ReportController::class)->group(function () {
     Route::get('/dashboard/report', 'index');
@@ -196,9 +177,10 @@ Route::controller(ReportController::class)->group(function () {
 
 // Transaction
 Route::controller(CustomerController::class)->group(function () {
-    Route::get('/dashboard/transaction/customer/checkSlug', 'checkSlug');
+    Route::get('/dashboard/transaction/customer', 'index');
 });
 
-Route::resource('/dashboard/transaction/customer', CustomerController::class);
-
+Route::controller(TransactionController::class)->group(function () {
+    Route::get('/dashboard/transaction', 'index');
+});
 // endtransaction

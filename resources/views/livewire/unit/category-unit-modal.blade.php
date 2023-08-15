@@ -3,15 +3,17 @@
 <div
     wire:ignore.self
     class="modal fade"
-    id="brandModal"
+    id="categoryUnitModal"
     tabindex="-1"
-    aria-labelledby="brandModalLabel"
+    aria-labelledby="categoryUnitModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="brandModalLabel">Add Brand</h1>
+                <h1 class="modal-title fs-5" id="categoryUnitModalLabel">
+                    Add Category
+                </h1>
                 <button
                     type="button"
                     class="btn-close"
@@ -20,7 +22,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="saveBrand">
+            <form wire:submit.prevent="saveCategoryUnit">
                 <div class="modal-body">
                     <div class="col-md-8 mb-3">
                         @if($pic)
@@ -49,7 +51,7 @@
                         <input
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Brand Name"
+                            placeholder="Category Name"
                             name="name"
                             wire:model="name"
                         />
@@ -99,16 +101,16 @@
 <div
     wire:ignore.self
     class="modal fade"
-    id="updateBrandModal"
+    id="updateCategoryUnitModal"
     tabindex="-1"
-    aria-labelledby="updateBrandModalLabel"
+    aria-labelledby="updateCategoryUnitModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="updateBrandModalLabel">
-                    Add Brand
+                <h1 class="modal-title fs-5" id="updateCategoryUnitModalLabel">
+                    Update Category
                 </h1>
                 <button
                     type="button"
@@ -118,7 +120,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="updateBrand">
+            <form wire:submit.prevent="updateCategoryUnit">
                 <div class="modal-body">
                     <div class="col-md-8 mb-3">
                         @if($oldPic)
@@ -156,7 +158,7 @@
                         <input
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Brand Name"
+                            placeholder="Category Name"
                             name="name"
                             wire:model="name"
                         />
@@ -206,16 +208,16 @@
 <div
     wire:ignore.self
     class="modal fade"
-    id="deleteBrandModal"
+    id="deleteCategoryUnitModal"
     tabindex="-1"
-    aria-labelledby="deleteBrandModalLabel"
+    aria-labelledby="deleteCategoryUnitModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteBrandModalLabel">
-                    Delete Brand Data
+                <h1 class="modal-title fs-5" id="deleteCategoryUnitModalLabel">
+                    Delete Category Unit Data
                 </h1>
                 <button
                     type="button"
@@ -225,7 +227,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="destroyBrand">
+            <form wire:submit.prevent="destroyCategoryUnit">
                 <div class="modal-body">
                     <h4>Are You Sure.??</h4>
                 </div>

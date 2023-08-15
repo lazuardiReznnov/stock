@@ -1,5 +1,5 @@
 <div>
-    @include('livewire.unit.brand-modal')
+    @include('livewire.unit.category-unit-modal')
     <div class="row">
         <div class="col-md-12">
             @if(session()->has('success'))
@@ -30,12 +30,12 @@
         <div class="col-md-6">
             <div class="search-bar">
                 <input
-                    class="form-control"
                     type="text"
                     name="search"
                     placeholder="Search"
                     title="Enter search keyword"
                     wire:model="search"
+                    class="form-control"
                 />
             </div>
         </div>
@@ -48,11 +48,10 @@
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
-                    href="#"
                     data-bs-toggle="modal"
-                    data-bs-target="#brandModal"
+                    data-bs-target="#categoryUnitModal"
                 >
-                    <i class="bi bi-plus-circle"></i> Brand Model
+                    <i class="bi bi-plus-circle"></i> Category Model
                 </x-button-link>
             </x-button-group>
         </div>
@@ -61,7 +60,7 @@
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Brand List </x-card-title>
+                <x-card-title> Category Unit List </x-card-title>
 
                 <table class="table table-striped">
                     <thead>
@@ -103,21 +102,19 @@
 
                             <td>
                                 <button
-                                    href="#"
-                                    class="badge bg-warning border-0"
+                                    class="badge bg-warning"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#updateBrandModal"
-                                    title="Edit Brand"
-                                    wire:click="editBrand({{ $data->id }})"
+                                    data-bs-target="#updateCategoryUnitModal"
+                                    wire:click="editCategoryUnit({{ $data->id }})"
                                 >
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
+
                                 <button
                                     class="badge bg-danger border-0"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#deleteBrandModal"
-                                    title="Delete Brand"
-                                    wire:click="deleteBrand({{ $data->id }})"
+                                    data-bs-target="#deleteCategoryUnitModal"
+                                    wire:click="deleteCategoryUnit({{ $data->id }})"
                                 >
                                     <i class="bi bi-x-lg"></i>
                                 </button>

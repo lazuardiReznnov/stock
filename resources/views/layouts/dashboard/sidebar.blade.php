@@ -98,9 +98,6 @@
             <x-nav-content-item link="/dashboard/transaction">
                 transaction
             </x-nav-content-item>
-            <x-nav-content-item link="/dashboard/transaction/customer">
-                Customer
-            </x-nav-content-item>
         </x-nav-content>
     </x-nav-item>
 </x-sidebar-nav>

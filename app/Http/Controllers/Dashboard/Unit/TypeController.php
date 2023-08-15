@@ -32,6 +32,7 @@ class TypeController extends Controller
             'title' => 'Type Model',
             'datas' => $type
                 ->with('brand', 'categoryUnit', 'image')
+
                 ->paginate(10)
                 ->withQueryString(),
         ]);

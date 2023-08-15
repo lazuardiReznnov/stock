@@ -26,6 +26,11 @@ class CustomerShow extends Component
         $picId,
         $customerId;
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     protected function rules()
     {
         return [
@@ -78,6 +83,8 @@ class CustomerShow extends Component
             if ($customer->image) {
                 $this->oldPic = $customer->image->pic;
                 $this->picId = $customer->image->id;
+            } else {
+                return redirect()->to('/transaction/customer');
             }
         }
     }

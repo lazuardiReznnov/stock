@@ -1,22 +1,41 @@
 <div>
+    @include('livewire.transaction.customer-modal')
+    <div class="row">
+        <div class="col-md-12">
+            @if(session()->has('success'))
+
+            <!-- pesan -->
+
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
+            @endif
+        </div>
+    </div>
     <div class="row my-4 justify-content-center">
         <div class="col-md-6">
             <div class="search-bar">
-                <form
-                    class="search-form d-flex align-items-center"
-                    method="GET"
-                    action="/dashboard/transaction/customer"
-                >
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Search"
-                        title="Enter search keyword"
-                    />
-                    <button type="submit" title="Search">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search"
+                    title="Enter search keyword"
+                    wire:model="search"
+                    class="form-control"
+                />
             </div>
         </div>
     </div>
@@ -31,7 +50,9 @@
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
-                    href="/dashboard/transaction/customer/create"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#customerModal"
                 >
                     <i class="bi bi-plus-circle"></i> Add Customer
                 </x-button-link>
@@ -51,7 +72,8 @@
                             <th scope="col">Pic</th>
                             <th scope="col">Name</th>
                             <th scope="col">Phone</th>
-                            <th scope="col">address</th>
+                            <th scope="col">Email</th>
+                            <!-- <th scope="col">address</th> -->
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -82,7 +104,8 @@
                             <td>{{ $data->name }}</td>
 
                             <td>{{ $data->phone }}</td>
-                            <td>{{ $data->address }}</td>
+                            <td>{{ $data->email }}</td>
+                            <!-- <td>{{ $data->address }}</td> -->
 
                             <td>
                                 <a

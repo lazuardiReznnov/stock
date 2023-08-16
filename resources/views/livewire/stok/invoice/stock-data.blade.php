@@ -141,16 +141,3 @@
         </div>
     </div>
 </div>
-@push('script')
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".js-example-basic-multiple").select2({ placeholder: "Tags" });
-        $('.js-example-basic-multiple').on('change', function (e) {
-            let data = $(this).val();
-                 @this.set('tag_id', data);
-        });
-    });
-</script>
-@endpush

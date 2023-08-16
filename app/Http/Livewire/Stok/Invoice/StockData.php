@@ -43,6 +43,7 @@ class StockData extends Component
             'qty' => 'required|numeric',
             'price' => 'required|numeric',
             'brand' => 'required',
+            'tag_id' => 'required',
         ];
     }
 

@@ -239,7 +239,7 @@
 
                     <div class="col-md-8 mb-3" wire:ignore>
                         <select
-                            class="form-select @error('tag_id') is-invalid @enderror js-example-basic-multiple"
+                            class="form-select @error('tag_id') is-invalid @enderror js-example-basic-multiple2"
                             id="selec2"
                             aria-label="tag"
                             name="tag_id[]"
@@ -321,3 +321,16 @@
         </div>
     </div>
 </div>
+@push('script')
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".js-example-basic-multiple").select2({ placeholder: "Tags" });
+        $('.js-example-basic-multiple').on('change', function (e) {
+            let data = $(this).val();
+                 @this.set('tag_id', data);
+        });
+    });
+</script>
+@endpush

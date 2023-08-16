@@ -35,6 +35,7 @@ class BrandIndex extends Component
         return [
             'name' => 'required',
             'description' => 'required',
+            'pic' => 'image|file|max:2048',
         ];
     }
 
@@ -89,15 +90,12 @@ class BrandIndex extends Component
         $brand->update($validatedData);
 
         if ($this->pic) {
-            $data = $this->validate([
-                'pic' => 'image|file|max:2048',
-            ]);
             if ($this->oldPic) {
                 storage::delete($this->oldPic);
                 $brand->image()->delete();
             }
-            $data['pic'] = $this->pic->store('Brand-Pic');
-            $brand->image()->create($data);
+            $pic = $this->pic->store('Brand-Pic');
+            $brand->image()->create(['pic' => $pic]);
         }
 
         session()->flash('success', 'Data Has Been Updated');
@@ -143,5 +141,6 @@ class BrandIndex extends Component
         $this->pic = '';
         $this->name = '';
         $this->description = '';
+        $this->resetValidation();
     }
 }

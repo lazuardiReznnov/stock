@@ -159,6 +159,7 @@ Route::controller(MaintenanceController::class)->group(function () {
     );
     Route::get('/dashboard/maintenance', 'index');
     Route::get('/dashboard/maintenance/{maintenance}', 'show');
+    Route::get('/dashboard/maintenance/print/{maintenance}', 'print');
 });
 
 Route::controller(ReportController::class)->group(function () {

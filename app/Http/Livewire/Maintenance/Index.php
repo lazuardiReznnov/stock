@@ -153,5 +153,6 @@ class Index extends Component
         $this->description = '';
         $this->estimate = '';
         $this->mechanic = '';
+        $this->resetValidation();
     }
 }

@@ -1,5 +1,6 @@
 <div>
     @include('livewire\stok\invoice\stock-modal')
+
     <div class="row">
         <div class="col-md-8">
             @if(session()->has('success'))
@@ -96,31 +97,24 @@
                             </td>
 
                             <td>
-                                <a
-                                    href="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}/edit"
-                                    class="badge bg-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Edit Item Invoice"
-                                    ><i class="bi bi-pencil-square"></i
-                                ></a>
-
-                                <form
-                                    action="/dashboard/stock/invoiceStock/stock-in/{{ $stock->slug }}"
-                                    method="post"
-                                    class="d-inline"
+                                <button
+                                    class="badge bg-warning border-0"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#updateStockModal"
+                                    title="Edit Stock"
+                                    wire:click="editStock({{ $stock->id }})"
                                 >
-                                    @method('delete') @csrf
-                                    <button
-                                        class="badge bg-danger border-0"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Delete stock"
-                                        onclick="return confirm('are You sure ??')"
-                                    >
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
-                                </form>
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button
+                                    class="badge bg-danger border-0"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteStockModal"
+                                    title="Delete Invoice Stock"
+                                    wire:click="deleteStock({{ $stock->id }})"
+                                >
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </td>
 
                             <!-- Modal Image -->
@@ -147,3 +141,16 @@
         </div>
     </div>
 </div>
+@push('script')
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".js-example-basic-multiple").select2({ placeholder: "Tags" });
+        $('.js-example-basic-multiple').on('change', function (e) {
+            let data = $(this).val();
+                 @this.set('tag_id', data);
+        });
+    });
+</script>
+@endpush

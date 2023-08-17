@@ -140,7 +140,6 @@
 </div>
 
 <!-- endinput -->
-
 <!-- Modal edit -->
 <div
     wire:ignore.self
@@ -239,7 +238,7 @@
 
                     <div class="col-md-8 mb-3" wire:ignore>
                         <select
-                            class="form-select @error('tag_id') is-invalid @enderror js-example-basic-multiple2"
+                            class="form-select @error('tag_id') is-invalid @enderror js-example-basic-multiple"
                             id="selec2"
                             aria-label="tag"
                             name="tag_id[]"
@@ -274,7 +273,6 @@
         </div>
     </div>
 </div>
-
 <!-- endinput -->
 
 <div

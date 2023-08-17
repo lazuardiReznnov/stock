@@ -212,122 +212,16 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <x-card>
-                                            <x-card-title>
-                                                Replacing Sparepart
-                                            </x-card-title>
-
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">#</th>
-
-                                                        <th scope="col">
-                                                            Sparepart Name
-                                                        </th>
-                                                        <th scope="col">
-                                                            code
-                                                        </th>
-                                                        <th scope="col">Qty</th>
-                                                        <th scope="col">
-                                                            price
-                                                        </th>
-                                                        <th scope="col">sum</th>
-
-                                                        <th scope="col">
-                                                            Action
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $sumttl=0; ?>
-                                                    @if($data->maintenancePart->count())
-                                                    @foreach($data->maintenancePart
-                                                    as $part)
-                                                    <tr>
-                                                        <th scope="row">
-                                                            {{ $loop->iteration }}
-                                                        </th>
-                                                        <td>
-                                                            {{ $part->sparepart->name }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $part->description}}
-                                                        </td>
-                                                        <td>
-                                                            {{ $part->qty }}
-                                                        </td>
-                                                        <td>
-                                                            @currency($part->price)
-                                                        </td>
-                                                        <td>
-                                                            <?php $sum = $part->price*$part->qty
-                                                            ?> @currency($sum)
-                                                        </td>
-
-                                                        <td>
-                                                            <a
-                                                                href="/dashboard/maintenance/sparepart/{{ $part->id }}/edit"
-                                                                class="badge bg-warning"
-                                                                data-bs-toggle="tooltip"
-                                                                data-bs-placement="top"
-                                                                title="Edit maintenance/sparepart"
-                                                                ><i
-                                                                    class="bi bi-pencil-square"
-                                                                ></i
-                                                            ></a>
-
-                                                            <form
-                                                                action="/dashboard/maintenance/sparepart/{{ $part->id }}"
-                                                                method="post"
-                                                                class="d-inline"
-                                                            >
-                                                                @method('delete')
-                                                                @csrf
-                                                                <button
-                                                                    class="badge bg-danger border-0"
-                                                                    data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top"
-                                                                    title="Delete Unit"
-                                                                    onclick="return confirm('are You sure ??')"
-                                                                >
-                                                                    <i
-                                                                        class="bi bi-x-lg"
-                                                                    ></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                        <!-- Modal Image -->
-                                                    </tr>
-                                                    <?php $sumttl = $sumttl+$sum ?>
-                                                    @endforeach
-                                                    <tr class="fw-bold">
-                                                        <td colspan="5">
-                                                            Grand Total
-                                                        </td>
-                                                        <td>
-                                                            @currency($sumttl)
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>
-                                                    @else
-                                                    <tr>
-                                                        <td
-                                                            colspan="6"
-                                                            class="text-center"
-                                                        >
-                                                            Data Not Found
-                                                        </td>
-                                                    </tr>
-                                                    @endif
-                                                </tbody>
-                                            </table>
+                                            <livewire:maintenance.sparepart-index
+                                                :maintenanceId="$data->id"
+                                            />
                                         </x-card>
 
                                         <x-button-link
-                                            href="/dashboard/maintenance/sparepart/{{ $data->slug }}"
+                                            href="#"
                                             class="btn-success"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#maintenanceSparepartModal"
                                             title="Sparepart maintenance"
                                         >
                                             add Sparepart
@@ -408,5 +302,14 @@
     <livewire:styles />
     @endpush @push('jslivewire')
     <livewire:scripts />
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        window.addEventListener("close-modal", (event) => {
+            $("#maintenanceSparepartModal").modal("hide");
+            $("#updateMaintenanceSparepartModal").modal("hide");
+            $("#deleteMaintenanceSparepartModal").modal("hide");
+        });
+    </script>
     @endpush
 </x-dashboard>

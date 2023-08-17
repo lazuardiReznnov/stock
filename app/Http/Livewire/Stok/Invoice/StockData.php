@@ -9,7 +9,6 @@ use App\Models\Sparepart;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
-use Illuminate\support\Facades\Storage;
 
 class StockData extends Component
 {

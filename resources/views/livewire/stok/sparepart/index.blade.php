@@ -1,4 +1,5 @@
 <div>
+    @include('livewire\stok\sparepart\modal')
     <div class="row">
         <div class="col-md-8">
             @if(session()->has('success'))
@@ -33,7 +34,9 @@
                 </x-button-link>
                 <x-button-link
                     class="btn-primary"
-                    href="/dashboard/stock/sparepart/create"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#sparepartStockModal"
                 >
                     <i class="bi bi-file-earmark-plus"></i> Add
                 </x-button-link>

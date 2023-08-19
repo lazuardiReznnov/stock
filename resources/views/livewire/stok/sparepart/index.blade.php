@@ -90,31 +90,25 @@
                             <td>{{$data->code}}</td>
 
                             <td>
-                                <a
-                                    href="/dashboard/stock/sparepart/{{ $data->slug }}/edit"
-                                    class="badge bg-warning"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Edit stock"
-                                    ><i class="bi bi-pencil-square"></i
-                                ></a>
-
-                                <form
-                                    action="/dashboard/stock/sparepart/{{ $data->slug }}"
-                                    method="post"
-                                    class="d-inline"
+                                <button
+                                    href="#"
+                                    class="badge bg-warning border-0"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#updateSparepartStockModal"
+                                    title="Edit Sparepart Stock"
+                                    wire:click="editSparepartStock({{ $data->id }})"
                                 >
-                                    @method('delete') @csrf
-                                    <button
-                                        class="badge bg-danger border-0"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Delete stock"
-                                        onclick="return confirm('are You sure ??')"
-                                    >
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
-                                </form>
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button
+                                    class="badge bg-danger border-0"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteSparepartStockModal"
+                                    title="Delete Sparepart Stock"
+                                    wire:click="deleteSparepartStock({{ $data->id }})"
+                                >
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
                             </td>
                             <!-- Modal Image -->
                         </tr>

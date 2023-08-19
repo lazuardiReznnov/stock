@@ -41,9 +41,9 @@ class Index extends Component
         ];
     }
 
-    public function updated($propertyName)
+    public function updated($fields)
     {
-        $this->validateOnly($propertyName);
+        $this->validateOnly($fields);
     }
 
     public function saveInvoiceStock()

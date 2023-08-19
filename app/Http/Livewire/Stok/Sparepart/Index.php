@@ -28,7 +28,9 @@ class Index extends Component
         $type_id,
         $name,
         $code,
-        $description;
+        $description,
+        $oldPic,
+        $sparepartId;
 
     public function mount()
     {
@@ -37,18 +39,15 @@ class Index extends Component
         $this->types = collect();
     }
 
-    protected function rules()
-    {
-        return [
-            'category_id' => 'required',
-            'type_id' => 'required',
-            'name' => 'required',
-            'code' => 'required',
-            'description' => 'required',
-            'selectedBrands' => 'required',
-            'pic' => 'image|file|max:2048',
-        ];
-    }
+    protected $rules = [
+        'category_id' => 'required',
+        'type_id' => 'required',
+        'name' => 'required',
+        'code' => 'required',
+        'description' => 'required',
+        'selectedBrands' => 'required',
+        'pic' => 'image|file|max:2048',
+    ];
 
     public function updated($propertyName)
     {
@@ -87,6 +86,58 @@ class Index extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
+    public function editSparepartStock($sparepartId)
+    {
+        $sparepart = Sparepart::find($sparepartId);
+        if ($sparepart) {
+            $this->category_id = $sparepart->category_id;
+            $this->type_id = $sparepart->type_id;
+            $this->selectedBrands = $sparepart->type->brand->id;
+            $this->updatedSelectedBrands($this->selectedBrands);
+            $this->name = $sparepart->name;
+            $this->code = $sparepart->code;
+            $this->description = $sparepart->description;
+            $this->sparepartId = $sparepart->id;
+            if ($sparepart->image) {
+                $this->oldPic = $sparepart->image->pic;
+            }
+        } else {
+            return redirect()->to('/stock/sparepart');
+        }
+    }
+    public function updateSparepart()
+    {
+        $rules = [
+            'category_id' => 'required',
+            'type_id' => 'required',
+
+            'code' => 'required',
+            'description' => 'required',
+        ];
+
+        $sparepart = Sparepart::find($this->sparepartId);
+        if ($this->name != $sparepart->name) {
+            $rules['name'] = 'required|unique:spareparts';
+        }
+        $validatedData = $this->validate($rules);
+        $validatedData['slug'] = Str::slug($this->name);
+
+        if ($this->pic) {
+            if ($this->oldPic) {
+                storage::delete($this->oldPic);
+                $sparepart->image()->delete();
+            }
+            $pic = $this->pic->store('sparepart-Pic');
+            $sparepart->image()->create(['pic' => $pic]);
+        }
+
+        $sparepart->update($validatedData);
+
+        session()->flash('success', 'Data Has Been Updated');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
     public function updatingSearch()
     {
         $this->resetPage();
@@ -111,6 +162,7 @@ class Index extends Component
     {
         $this->name = '';
         $this->selectedBrands = null;
+        $this->category_id = null;
         $this->type_id = '';
         $this->code = '';
         $this->pic = '';

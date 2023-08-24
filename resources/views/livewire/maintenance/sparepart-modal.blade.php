@@ -201,12 +201,60 @@
                         <i class="bi bi-x-lg"></i>
                     </button>
                     <button type="submit" class="btn btn-primary">
-                        Save changes
+                        Update changes
                     </button>
-                    <div wire:loading>Processing save...</div>
+                    <div wire:loading>Processing Update...</div>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <!-- endinput -->
+
+<!-- delete Modal -->
+<div
+    wire:ignore.self
+    class="modal fade"
+    id="deleteMaintenanceSparepartModal"
+    tabindex="-1"
+    aria-labelledby="deleteMaintenanceSparepartModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1
+                    class="modal-title fs-5"
+                    id="deleteMaintenanceSparepartModalLabel"
+                >
+                    Delete Sparepart Data
+                </h1>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    wire:click="closeModal"
+                ></button>
+            </div>
+            <form wire:submit.prevent="destroyMaintenanceSparepart">
+                <div class="modal-body">
+                    <h4>Are You Sure.??</h4>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                        wire:click="closeModal"
+                    >
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Delete changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

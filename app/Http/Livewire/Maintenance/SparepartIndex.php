@@ -83,6 +83,24 @@ class SparepartIndex extends Component
         $maintenanceSparepart->update($validatedData);
     }
 
+    public function deleteMaintenanceSparepart(int $maintenanceSparepartId)
+    {
+        $this->maintenanceSparepartId = $maintenanceSparepartId;
+    }
+
+    public function destroyMaintenanceSparepart()
+    {
+        $maintenanceSparepart = MaintenancePart::find(
+            $this->maintenanceSparepartId
+        );
+
+        $maintenanceSparepart->delete();
+
+        session()->flash('success', 'Data Has Been Deleted');
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
     public function render()
     {
         $sparepart = MaintenancePart::where(
@@ -104,6 +122,7 @@ class SparepartIndex extends Component
     {
         $this->sparepart_id = '';
         $this->qty = '';
+        $this->description = '';
         $this->resetValidation();
     }
 }

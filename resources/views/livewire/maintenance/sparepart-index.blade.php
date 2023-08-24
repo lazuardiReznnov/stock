@@ -69,22 +69,14 @@
                         ><i class="bi bi-pencil-square"></i
                     ></a>
 
-                    <form
-                        action="/dashboard/maintenance/sparepart/{{ $part->id }}"
-                        method="post"
-                        class="d-inline"
+                    <button
+                        class="badge bg-danger border-0"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteMaintenanceSparepartModal"
+                        wire:click="deleteMaintenanceSparepart({{ $part->id }})"
                     >
-                        @method('delete') @csrf
-                        <button
-                            class="badge bg-danger border-0"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="top"
-                            title="Delete Unit"
-                            onclick="return confirm('are You sure ??')"
-                        >
-                            <i class="bi bi-x-lg"></i>
-                        </button>
-                    </form>
+                        <i class="bi bi-x-lg"></i>
+                    </button>
                 </td>
                 <!-- Modal Image -->
             </tr>

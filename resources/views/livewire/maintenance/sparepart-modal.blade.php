@@ -38,6 +38,8 @@
                             @foreach($stocks as $stock)
 
                             <option value="{{ $stock->id }}">
+                                {{ $stock->sparepart->type->brand->name }}
+                                {{ $stock->sparepart->type->name }} -
                                 {{ $stock->sparepart->name }}
                             </option>
 

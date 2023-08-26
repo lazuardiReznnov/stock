@@ -37,7 +37,6 @@ class Index extends Component
             'name' => 'required',
             'tgl' => 'required',
             'method' => 'required',
-            'pic' => 'image|file|max:2048',
         ];
     }
 
@@ -48,9 +47,9 @@ class Index extends Component
 
     public function saveInvoiceStock()
     {
-        $validatedData = $this->validate();
+        $this->rules(['name' => 'required|unique:invoice_stocks']);
 
-        $validatedData['name'] = 'required|unique:invoice_stocks';
+        $validatedData = $this->validate();
 
         $validatedData['slug'] = Str::slug($this->name);
 
@@ -63,8 +62,9 @@ class Index extends Component
         $invoiceStock = InvoiceStock::create($validatedData);
 
         if ($this->pic) {
-            $pic = $this->pic->store('Invoice-Stock-Pic');
-            $invoiceStock->image()->create(['pic' => $pic]);
+            $data = $this->validate(['pic' => 'image|file|max:2048']);
+            $data['pic'] = $this->pic->store('Invoice-Stock-Pic');
+            $invoiceStock->image()->create($data);
         }
 
         session()->flash('success', 'Data Has Been Added');
@@ -92,13 +92,13 @@ class Index extends Component
 
     public function updateInvoiceStock()
     {
-        $validatedData = $this->validate();
-        $validatedData['slug'] = Str::slug($this->name);
-
         $invoiceStock = InvoiceStock::find($this->invoiceStockId);
         if ($invoiceStock->name != $this->name) {
-            $validatedData['name'] = 'required|unique:invoice_stocks';
+            $this->rules(['name' => 'required|unique:invoice_stocks']);
         }
+
+        $validatedData['slug'] = Str::slug($this->name);
+        $validatedData = $this->validate();
 
         if ($this->method == 'Cash') {
             $validatedData['state'] = 'Paid';
@@ -107,15 +107,17 @@ class Index extends Component
         }
 
         if ($this->pic) {
+            $data = $this->validate(['pic' => 'image|file|max:2048']);
+
             if ($this->oldPic) {
                 storage::delete($this->oldPic);
                 $invoiceStock->image()->delete();
             }
-            $pic = $this->pic->store('InvoiceStock-Pic');
-            $invoiceStock->image()->create(['pic' => $pic]);
+            $data['pic'] = $this->pic->store('Invoice-Stock-Pic');
+            $invoiceStock->image()->create($data);
         }
 
-        $invoiceStock->update();
+        $invoiceStock->update($validatedData);
 
         session()->flash('success', 'Data Has Been Updated');
         $this->resetInput();

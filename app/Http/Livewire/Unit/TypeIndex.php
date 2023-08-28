@@ -43,7 +43,7 @@ class TypeIndex extends Component
     }
 
     protected $rules = [
-        'brand_id ' => 'required',
+        'brand_id' => 'required',
         'category_unit_id' => 'required',
         'name' => 'required|min:6',
         'description' => 'required|min:5',
@@ -56,8 +56,92 @@ class TypeIndex extends Component
 
     public function saveType()
     {
-        dd($this->brand_id);
+        $this->rules['name'] = 'required|unique:types';
+
+        $validatedData = $this->validate();
+
+        $validatedData['slug'] = Str::slug($this->name);
+
+        $type = Type::create($validatedData);
+
+        if ($this->pic) {
+            $data = $this->validate([
+                'pic' => 'image|file|max:2048',
+            ]);
+            $data['pic'] = $this->pic->store('type-Pic');
+            $type->image()->create($data);
+        }
+
+        session()->flash('success', 'Data Has Been Added');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
     }
+
+    public function editType($typeId)
+    {
+        $type = Type::find($typeId);
+        if ($type) {
+            $this->typeId = $type->id;
+            $this->brand_id = $type->brand_id;
+            $this->category_unit_id = $type->category_unit_id;
+            $this->name = $type->name;
+            $this->description = $type->description;
+            if ($type->image) {
+                $this->oldPic = $type->image->pic;
+            } else {
+                return redirect()->to('/unit/brand');
+            }
+        }
+    }
+
+    public function updateType()
+    {
+        $type = Type::find($this->typeId);
+
+        if ($type->name != $this->name) {
+            $this->rules['name'] = 'required|unique:types';
+        }
+        $validatedData = $this->validate();
+        $validatedData['slug'] = Str::slug($this->name);
+
+        if ($this->pic) {
+            $data = $this->validate([
+                'pic' => 'image|file|max:2048',
+            ]);
+            if ($this->oldPic) {
+                storage::delete($this->oldPic);
+                $type->image()->delete();
+            }
+            $data['pic'] = $this->pic->store('type-Pic');
+            $type->image()->create($data);
+        }
+        $type->update($validatedData);
+
+        session()->flash('success', 'Data Has Been Updated');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function deleteType(int $typeId)
+    {
+        $this->typeId = $typeId;
+    }
+
+    public function destroyType()
+    {
+        $type = Type::find($this->typeId);
+        if ($type->image) {
+            storage::delete($type->image->pic);
+            $type->image->delete();
+        }
+        $type->delete();
+        session()->flash('success', 'Data Has Been Deleted');
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
     public function render()
     {
         return view('livewire.unit.type-index', [

@@ -56,7 +56,6 @@
                         >
                             <option selected>Choose Brands ...</option>
                             @foreach($brands as $brand)
-
                             <option value="{{ $brand->id }}" selected>
                                 {{ $brand->name }}
                             </option>

@@ -35,7 +35,6 @@ class BrandIndex extends Component
         return [
             'name' => 'required',
             'description' => 'required',
-            'pic' => 'image|file|max:2048',
         ];
     }
 
@@ -141,6 +140,7 @@ class BrandIndex extends Component
         $this->pic = '';
         $this->name = '';
         $this->description = '';
+        $this->reset();
         $this->resetValidation();
     }
 }

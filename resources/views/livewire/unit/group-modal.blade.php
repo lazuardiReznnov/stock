@@ -1,18 +1,17 @@
+<!-- input -->
 <!-- Modal input -->
 <div
     wire:ignore.self
     class="modal fade"
-    id="invoiceStockModal"
+    id="groupModal"
     tabindex="-1"
-    aria-labelledby="invoiceStockModalLabel"
+    aria-labelledby="groupModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="invoiceStockModalLabel">
-                    Create Invoice data
-                </h1>
+                <h1 class="modal-title fs-5" id="groupModalLabel">Add Group</h1>
                 <button
                     type="button"
                     class="btn-close"
@@ -21,9 +20,9 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="saveInvoiceStock">
+            <form wire:submit.prevent="saveGroup">
                 <div class="modal-body">
-                    <div class="col-md-8 mb-3">
+                    <div class="col-md-8 mb-3" wire:ignore.self>
                         @if($pic)
                         <img
                             width="200"
@@ -45,28 +44,11 @@
                         </span>
                         @enderror
                     </div>
-
                     <div class="col-md-8 mb-3">
                         <input
-                            type="date"
-                            class="form-control @error('tgl') is-invalid @enderror"
-                            placeholder="Date"
-                            name="tgl"
-                            value="{{ old('tgl') }}"
-                            wire:model="tgl"
-                        />
-                        @error('tgl')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-8 mb-3">
-                        <input
-                            id="name"
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Invoice Number"
+                            placeholder="Brand Name"
                             name="name"
                             wire:model="name"
                         />
@@ -76,45 +58,16 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="col-md-8 mb-3">
-                        <select
-                            id="supplier"
-                            class="form-select"
-                            name="supplier_id"
-                            wire:model="supplier_id"
-                        >
-                            <option selected>Choose Supplier ...</option>
-                            @foreach($suppliers as $supplier)
-                            @if(old('supplier_id')==$supplier->id)
-                            <option value="{{ $supplier->id }}" selected>
-                                {{ $supplier->name }}
-                            </option>
-                            @else
-                            <option value="{{ $supplier->id }}">
-                                {{ $supplier->name }}
-                            </option>
 
-                            @endif @endforeach
-                        </select>
-
-                        @error('supplier_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-8 mb-3">
-                        <input
-                            id="method"
-                            type="text"
-                            class="form-control @error('method') is-invalid @enderror"
-                            placeholder="method "
-                            name="method"
-                            value="{{ old('method') }}"
-                            wire:model="method"
-                        />
-                        @error('method')
+                    <div class="col-12 mb-3">
+                        <textarea
+                            class="form-control @error('description') is-invalid @enderror"
+                            id="descriptions"
+                            name="description"
+                            rows="3"
+                            wire:model="description"
+                        ></textarea>
+                        @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -133,7 +86,7 @@
                     <button type="submit" class="btn btn-primary">
                         Save changes
                     </button>
-                    <div wire:loading>save...</div>
+                    <div wire:loading>Save...</div>
                 </div>
             </form>
         </div>
@@ -141,20 +94,20 @@
 </div>
 <!-- endinput -->
 
-<!-- Update Modal input -->
+<!-- Modal Edit -->
 <div
     wire:ignore.self
     class="modal fade"
-    id="updateInvoiceStockModal"
+    id="updateGroupModal"
     tabindex="-1"
-    aria-labelledby="updateInvoiceStockModalLabel"
+    aria-labelledby="updateGroupModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="updateInvoiceStockModalLabel">
-                    Update Invoice data
+                <h1 class="modal-title fs-5" id="updateGroupModalLabel">
+                    Edit Group
                 </h1>
                 <button
                     type="button"
@@ -164,7 +117,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="updateInvoiceStock">
+            <form wire:submit.prevent="updateGroup">
                 <div class="modal-body">
                     <div class="col-md-8 mb-3">
                         @if($oldPic)
@@ -197,28 +150,11 @@
                         </span>
                         @enderror
                     </div>
-
                     <div class="col-md-8 mb-3">
                         <input
-                            type="date"
-                            class="form-control @error('tgl') is-invalid @enderror"
-                            placeholder="Date"
-                            name="tgl"
-                            value="{{ old('tgl') }}"
-                            wire:model="tgl"
-                        />
-                        @error('tgl')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-8 mb-3">
-                        <input
-                            id="name"
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Invoice Number"
+                            placeholder="Brand Name"
                             name="name"
                             wire:model="name"
                         />
@@ -228,45 +164,16 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="col-md-8 mb-3">
-                        <select
-                            id="supplier"
-                            class="form-select"
-                            name="supplier_id"
-                            wire:model="supplier_id"
-                        >
-                            <option selected>Choose Supplier ...</option>
-                            @foreach($suppliers as $supplier)
-                            @if(old('supplier_id')==$supplier->id)
-                            <option value="{{ $supplier->id }}" selected>
-                                {{ $supplier->name }}
-                            </option>
-                            @else
-                            <option value="{{ $supplier->id }}">
-                                {{ $supplier->name }}
-                            </option>
 
-                            @endif @endforeach
-                        </select>
-
-                        @error('supplier_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-8 mb-3">
-                        <input
-                            id="method"
-                            type="text"
-                            class="form-control @error('method') is-invalid @enderror"
-                            placeholder="method "
-                            name="method"
-                            value="{{ old('method') }}"
-                            wire:model="method"
-                        />
-                        @error('method')
+                    <div class="col-12 mb-3">
+                        <textarea
+                            class="form-control @error('description') is-invalid @enderror"
+                            id="descriptions"
+                            name="description"
+                            rows="3"
+                            wire:model="description"
+                        ></textarea>
+                        @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -283,7 +190,7 @@
                         <i class="bi bi-x-lg"></i>
                     </button>
                     <button type="submit" class="btn btn-primary">
-                        Save changes
+                        Update changes
                     </button>
                     <div wire:loading>Update...</div>
                 </div>
@@ -291,22 +198,22 @@
         </div>
     </div>
 </div>
-<!-- Update endinput -->
+<!-- end Edit -->
 
 <!-- modal Delete -->
 <div
     wire:ignore.self
     class="modal fade"
-    id="deleteInvoiceStockModal"
+    id="deleteGroupModal"
     tabindex="-1"
-    aria-labelledby="deleteInvoiceStockModalLabel"
+    aria-labelledby="deleteGroupModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteInvoiceStockModalLabel">
-                    Delete Invoice Data
+                <h1 class="modal-title fs-5" id="deleteGroupModalLabel">
+                    Delete Group Data
                 </h1>
                 <button
                     type="button"
@@ -316,7 +223,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="destroyInvoiceStock">
+            <form wire:submit.prevent="destroyGroup">
                 <div class="modal-body">
                     <h4>Are You Sure.??</h4>
                 </div>

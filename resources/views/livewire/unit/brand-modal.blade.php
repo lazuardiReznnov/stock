@@ -33,7 +33,6 @@
                         @endif
                         <input
                             type="file"
-                            id="pic"
                             class="form-control @error('pic') is-invalid @enderror"
                             placeholder="Image"
                             name="pic"
@@ -140,7 +139,6 @@
                         @endif
                         <input
                             type="file"
-                            id="pic"
                             class="form-control @error('pic') is-invalid @enderror"
                             placeholder="Image"
                             name="pic"

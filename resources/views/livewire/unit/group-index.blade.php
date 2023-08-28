@@ -1,7 +1,8 @@
 <div>
-    @include('livewire.unit.category-unit-modal')
+    @include('livewire.unit.group-modal')
+    <!-- Flash -->
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             @if(session()->has('success'))
 
             <!-- pesan -->
@@ -26,21 +27,8 @@
         </div>
     </div>
 
-    <div class="row my-4 justify-content-between">
-        <div class="col-md-4">
-            <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard/unit">
-                    <i class="bi bi-arrow-left-circle"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#categoryUnitModal"
-                >
-                    <i class="bi bi-plus-circle"></i> Category Model
-                </x-button-link>
-            </x-button-group>
-        </div>
+    <!-- Search -->
+    <div class="row my-4 justify-content-center">
         <div class="col-md-6">
             <div class="search-bar">
                 <input
@@ -54,17 +42,35 @@
             </div>
         </div>
     </div>
-
+    <!-- Link -->
+    <div class="row my-2">
+        <div class="col-md-4">
+            <x-button-group>
+                <x-button-link class="btn-primary" href="/dashboard/unit">
+                    <i class="bi bi-arrow-left-circle"></i> Back
+                </x-button-link>
+                <x-button-link
+                    class="btn-primary"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#groupModal"
+                >
+                    <i class="bi bi-plus-circle"></i> Unit Group
+                </x-button-link>
+            </x-button-group>
+        </div>
+    </div>
+    <!-- Table -->
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> Category Unit List </x-card-title>
+                <x-card-title> List Group Unit </x-card-title>
 
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Pic</th>
+
                             <th scope="col">Name</th>
                             <th scope="col">Descrtiption</th>
                             <th scope="col">Action</th>
@@ -76,43 +82,28 @@
                             <th scope="row">
                                 {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
-                            <td>
-                                @if($data->image)
-                                <img
-                                    width="50"
-                                    class="img-fluid mb-2"
-                                    alt=""
-                                    src="{{ asset('storage/'. $data->image->pic) }}"
-                                />
 
-                                @else
-                                <img
-                                    width="50"
-                                    class="img-preview img-fluid mb-2"
-                                    alt=""
-                                    src="http://source.unsplash.com/50x50?smartphones"
-                                />
-                                @endif
-                            </td>
                             <td>{{ $data->name }}</td>
 
                             <td>{!! $data->description !!}</td>
 
                             <td>
-                                <button
+                                <a
+                                    href="/dashboard/unit/group/{{ $data->slug }}/edit"
                                     class="badge bg-warning"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#updateCategoryUnitModal"
-                                    wire:click="editCategoryUnit({{ $data->id }})"
-                                >
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
+                                    data-bs-target="#updateGroupModal"
+                                    title="Edit Group"
+                                    wire:click="editGroup({{ $data->id }})"
+                                    ><i class="bi bi-pencil-square"></i
+                                ></a>
 
                                 <button
                                     class="badge bg-danger border-0"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#deleteCategoryUnitModal"
-                                    wire:click="deleteCategoryUnit({{ $data->id }})"
+                                    data-bs-target="#deleteGroupModal"
+                                    title="Delete Group"
+                                    wire:click="deleteGroup({{ $data->id }})"
                                 >
                                     <i class="bi bi-x-lg"></i>
                                 </button>

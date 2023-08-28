@@ -33,6 +33,7 @@ class GroupController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+
     public function create()
     {
         return view('dashboard.unit.group.create', [
@@ -46,8 +47,8 @@ class GroupController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:brands',
-            'slug' => 'required|unique:brands',
+            'name' => 'required|unique:groups',
+            'slug' => 'required|unique:groups',
             'description' => 'required',
         ]);
 

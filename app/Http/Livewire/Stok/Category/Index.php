@@ -1,29 +1,24 @@
 <?php
 
-namespace App\Http\Livewire\Unit;
+namespace App\Http\Livewire\Stok\Category;
 
-use App\Models\Brand;
-use App\Models\Image;
 use Livewire\Component;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Illuminate\support\Facades\Storage;
 
-class BrandIndex extends Component
+class Index extends Component
 {
     use WithPagination;
     use WithFileUploads;
 
     protected $paginationTheme = 'bootstrap';
-
     public $search = '';
-
-    public $pic;
     public $name;
     public $description;
-    public $brandId;
-    public $oldPic, $oldPicId;
+    public $categoryId, $oldPic, $pic;
 
     public function updatingSearch()
     {
@@ -40,19 +35,19 @@ class BrandIndex extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function saveBrand()
+    public function saveCategory()
     {
         $validatedData = $this->validate();
 
         $validatedData['slug'] = Str::slug($this->name);
 
-        $brand = Brand::create($validatedData);
+        $category = Category::create($validatedData);
         if ($this->pic) {
             $data = $this->validate([
                 'pic' => 'image|file|max:2048',
             ]);
-            $data['pic'] = $this->pic->store('Brand-Pic');
-            $brand->image()->create($data);
+            $data['pic'] = $this->pic->store('Category-Pic');
+            $category->image()->create($data);
         }
 
         session()->flash('success', 'Data Has Been Added');
@@ -61,42 +56,41 @@ class BrandIndex extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    public function editBrand($brandId)
+    public function editCategory($categoryId)
     {
-        $brand = Brand::find($brandId);
-        if ($brand) {
-            $this->brandId = $brand->id;
-            $this->name = $brand->name;
-            $this->description = $brand->description;
-            if ($brand->image) {
-                $this->oldPic = $brand->image->pic;
-                $this->oldPicId = $brand->image->id;
+        $category = Category::find($categoryId);
+        if ($category) {
+            $this->categoryId = $category->id;
+            $this->name = $category->name;
+            $this->description = $category->description;
+            if ($category->image) {
+                $this->oldPic = $category->image->pic;
             }
         } else {
-            return redirect()->to('/unit/brand');
+            return redirect()->to('/unit/category');
         }
     }
 
-    public function updateBrand()
+    public function updateCategory()
     {
-        $brand = Brand::find($this->brandId);
+        $category = Category::find($this->categoryId);
 
-        if ($brand->name != $this->name) {
-            $this->rules['name'] = 'required|unique:brands';
+        if ($category->name != $this->name) {
+            $this->rules['name'] = 'required|unique:categorys';
         }
 
         $validatedData = $this->validate();
         $validatedData['slug'] = Str::slug($this->name);
 
-        $brand->update($validatedData);
+        $category->update($validatedData);
 
         if ($this->pic) {
             if ($this->oldPic) {
                 storage::delete($this->oldPic);
-                $brand->image()->delete();
+                $category->image()->delete();
             }
-            $pic = $this->pic->store('Brand-Pic');
-            $brand->image()->create(['pic' => $pic]);
+            $pic = $this->pic->store('category-Pic');
+            $category->image()->create(['pic' => $pic]);
         }
 
         session()->flash('success', 'Data Has Been Updated');
@@ -105,19 +99,19 @@ class BrandIndex extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
-    public function deleteBrand(int $brandId)
+    public function deleteCategory(int $categoryId)
     {
-        $this->brandId = $brandId;
+        $this->categoryId = $categoryId;
     }
 
-    public function destroyBrand()
+    public function destroyCategory()
     {
-        $brand = Brand::find($this->brandId);
-        if ($brand->image) {
-            storage::delete($brand->image->pic);
-            $brand->image->delete();
+        $category = Category::find($this->categoryId);
+        if ($category->image) {
+            storage::delete($category->image->pic);
+            $category->image->delete();
         }
-        $brand->delete();
+        $category->delete();
         session()->flash('success', 'Data Has Been Deleted');
 
         $this->dispatchBrowserEvent('close-modal');
@@ -125,8 +119,12 @@ class BrandIndex extends Component
 
     public function render()
     {
-        return view('livewire.unit.brand-index', [
-            'datas' => Brand::where('name', 'like', '%' . $this->search . '%')
+        return view('livewire.stok.category.index', [
+            'datas' => Category::where(
+                'name',
+                'like',
+                '%' . $this->search . '%'
+            )
                 ->latest()
                 ->paginate(10),
         ]);

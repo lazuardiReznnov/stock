@@ -26,44 +26,52 @@
         </div>
     </div>
 
-    <div class="row my-4">
-        <div class="col-md-6">
-            <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard/stock">
-                    <i class="bi bi-arrow-left-square"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    href="#"
-                    data-bs-toggle="modal"
-                    data-bs-target="#sparepartStockModal"
-                >
-                    <i class="bi bi-file-earmark-plus"></i> Add
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    href="/dashboard/stock/sparepart/create-excl"
-                >
-                    <i class="bi bi-file-earmark-spreadsheet"></i> Upload Excel
-                </x-button-link>
-            </x-button-group>
-        </div>
-        <div class="col-md-6">
-            <div class="search-bar">
-                <input
-                    type="text"
-                    class="form-control"
-                    name="search"
-                    placeholder="Search"
-                    title="Enter search keyword"
-                    wire:model="search"
-                />
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <x-card>
+                <x-card-header>
+                    <div class="row my-4">
+                        <div class="col-md-6">
+                            <x-button-group>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="/dashboard/stock"
+                                >
+                                    <i class="bi bi-arrow-left-square"></i> Back
+                                </x-button-link>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="#"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#sparepartStockModal"
+                                >
+                                    <i class="bi bi-file-earmark-plus"></i> Add
+                                </x-button-link>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="/dashboard/stock/sparepart/create-excl"
+                                >
+                                    <i
+                                        class="bi bi-file-earmark-spreadsheet"
+                                    ></i>
+                                    Upload Excel
+                                </x-button-link>
+                            </x-button-group>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="search-bar">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="search"
+                                    placeholder="Search"
+                                    title="Enter search keyword"
+                                    wire:model="search"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </x-card-header>
                 <x-card-title> Sparepart List </x-card-title>
 
                 <table class="table table-striped">

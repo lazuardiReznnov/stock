@@ -27,40 +27,42 @@
         </div>
     </div>
 
-    <div class="row my-3">
-        <div class="col-md-6">
-            <x-button-group>
-                <x-button-link
-                    class="btn-primary"
-                    href="/dashboard/stock/invoiceStock"
-                >
-                    <i class="bi bi-arrow-left-circle"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#stockModal"
-                >
-                    <i class="bi bi-plus-circle"></i> Add Item
-                </x-button-link>
-            </x-button-group>
-        </div>
-        <div class="col-md-6">
-            <div class="search-bar">
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Search"
-                    title="Enter search keyword"
-                    wire:model="search"
-                    class="form-control"
-                />
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-12">
             <x-card>
+                <x-card-header>
+                    <div class="row my-1">
+                        <div class="col-md-6">
+                            <x-button-group>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="/dashboard/stock/invoiceStock"
+                                >
+                                    <i class="bi bi-arrow-left-circle"></i> Back
+                                </x-button-link>
+                                <x-button-link
+                                    class="btn-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#stockModal"
+                                >
+                                    <i class="bi bi-plus-circle"></i> Add Item
+                                </x-button-link>
+                            </x-button-group>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="search-bar">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    placeholder="Search"
+                                    title="Enter search keyword"
+                                    wire:model="search"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </x-card-header>
                 <x-card-title> Item </x-card-title>
                 <table class="table table-striped">
                     <thead>

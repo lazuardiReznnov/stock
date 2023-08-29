@@ -1,7 +1,7 @@
 <div>
-    @include('livewire.unit.brand-modal')
     <div class="row">
-        <div class="col-md-12">
+        @include('livewire.stok.category.modal')
+        <div class="col-md-8">
             @if(session()->has('success'))
 
             <!-- pesan -->
@@ -26,35 +26,36 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row my-2">
         <div class="col-md-12">
             <x-card>
-                <x-card-header>
-                    <div class="row my-2">
+                <div class="card-header">
+                    <div class="row">
                         <div class="col-md-6">
                             <x-button-group>
                                 <x-button-link
                                     class="btn-primary"
-                                    href="/dashboard/unit"
+                                    href="/dashboard/stock"
                                 >
-                                    <i class="bi bi-arrow-left-circle"></i> Back
+                                    Back
                                 </x-button-link>
                                 <x-button-link
                                     class="btn-primary"
                                     href="#"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#brandModal"
+                                    data-bs-target="#categoryModal"
                                 >
-                                    <i class="bi bi-plus-circle"></i> Brand
-                                    Model
+                                    <i class="bi bi-plus-circle"></i>
+
+                                    Add
                                 </x-button-link>
                             </x-button-group>
                         </div>
                         <div class="col-md-6">
                             <div class="search-bar">
                                 <input
-                                    class="form-control"
                                     type="text"
+                                    class="form-control"
                                     name="search"
                                     placeholder="Search"
                                     title="Enter search keyword"
@@ -63,16 +64,17 @@
                             </div>
                         </div>
                     </div>
-                </x-card-header>
-                <x-card-title> Brand List </x-card-title>
+                </div>
+                <x-card-title> Category List </x-card-title>
 
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Pic</th>
+
                             <th scope="col">Name</th>
-                            <th scope="col">Descrtiption</th>
+
+                            <th scope="col">description</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -82,24 +84,6 @@
                             <th scope="row">
                                 {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
-                            <td>
-                                @if($data->image)
-                                <img
-                                    width="50"
-                                    class="img-fluid mb-2"
-                                    alt=""
-                                    src="{{ asset('storage/'. $data->image->pic) }}"
-                                />
-
-                                @else
-                                <img
-                                    width="50"
-                                    class="img-preview img-fluid mb-2"
-                                    alt=""
-                                    src="http://source.unsplash.com/50x50?smartphones"
-                                />
-                                @endif
-                            </td>
                             <td>{{ $data->name }}</td>
 
                             <td>{!! $data->description !!}</td>
@@ -109,31 +93,26 @@
                                     href="#"
                                     class="badge bg-warning border-0"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#updateBrandModal"
-                                    title="Edit Brand"
-                                    wire:click="editBrand({{ $data->id }})"
+                                    data-bs-target="#updateCategoryModal"
+                                    title="Edit Category"
+                                    wire:click="editCategory({{ $data->id }})"
                                 >
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                                 <button
                                     class="badge bg-danger border-0"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#deleteBrandModal"
-                                    title="Delete Brand"
-                                    wire:click="deleteBrand({{ $data->id }})"
+                                    data-bs-target="#deleteCategoryModal"
+                                    title="Delete Category"
+                                    wire:click="deleteCategory({{ $data->id }})"
                                 >
                                     <i class="bi bi-x-lg"></i>
                                 </button>
                             </td>
-                            <!-- Modal Image -->
                         </tr>
-                        @endforeach
-                        <!-- Modal -->
-
-                        <!-- End Modal Image -->
-                        @else
+                        @endforeach @else
                         <tr>
-                            <td colspan="6" class="text-center">
+                            <td colspan="4" class="text-center">
                                 Data Not Found
                             </td>
                         </tr>

@@ -3,16 +3,16 @@
 <div
     wire:ignore.self
     class="modal fade"
-    id="typeModal"
+    id="categoryModal"
     tabindex="-1"
-    aria-labelledby="typeModalLabel"
+    aria-labelledby="categoryModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="typeModalLabel">
-                    Add Model Unit
+                <h1 class="modal-title fs-5" id="categoryModalLabel">
+                    Add category
                 </h1>
                 <button
                     type="button"
@@ -22,9 +22,9 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="saveType">
+            <form wire:submit.prevent="saveCategory">
                 <div class="modal-body">
-                    <div class="col-md-8 mb-3" wire:ignore.self>
+                    <div class="col-md-8 mb-3">
                         @if($pic)
                         <img
                             width="200"
@@ -46,50 +46,6 @@
                         </span>
                         @enderror
                     </div>
-
-                    <div class="col-md-8 mb-3">
-                        <select
-                            class="form-select"
-                            name="brand_id"
-                            wire:model="brand_id"
-                        >
-                            <option selected>Choose Brand ...</option>
-                            @if (!is_null($brands)) @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}" selected>
-                                {{ $brand->name }}
-                            </option>
-                            @endforeach @endif
-                        </select>
-
-                        @error('brand_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-8 mb-3">
-                        <select
-                            class="form-select"
-                            name="category_unit_id"
-                            wire:model="category_unit_id"
-                        >
-                            <option selected>Choose Category Unit ...</option>
-                            @if(!is_null($categoryUnits))
-                            @foreach($categoryUnits as $categoryUnit)
-                            <option value="{{ $categoryUnit->id }}" selected>
-                                {{ $categoryUnit->name }}
-                            </option>
-                            @endforeach @endif
-                        </select>
-
-                        @error('categoryUnit_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
                     <div class="col-md-8 mb-3">
                         <input
                             type="text"
@@ -144,16 +100,16 @@
 <div
     wire:ignore.self
     class="modal fade"
-    id="updateTypeModal"
+    id="updateCategoryModal"
     tabindex="-1"
-    aria-labelledby="updateTypeModalLabel"
+    aria-labelledby="updateCategoryModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="updateTypeModalLabel">
-                    Edit Type
+                <h1 class="modal-title fs-5" id="updateCategoryModalLabel">
+                    Add Category
                 </h1>
                 <button
                     type="button"
@@ -163,7 +119,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="updateType">
+            <form wire:submit.prevent="updateCategory">
                 <div class="modal-body">
                     <div class="col-md-8 mb-3">
                         @if($oldPic)
@@ -191,49 +147,6 @@
                             wire:model="pic"
                         />
                         @error('pic')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-8 mb-3">
-                        <select
-                            class="form-select"
-                            name="brand_id"
-                            wire:model="brand_id"
-                        >
-                            <option selected>Choose Brand ...</option>
-                            @if (!is_null($brands)) @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}" selected>
-                                {{ $brand->name }}
-                            </option>
-                            @endforeach @endif
-                        </select>
-
-                        @error('brand_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="col-md-8 mb-3">
-                        <select
-                            class="form-select"
-                            name="category_unit_id"
-                            wire:model="category_unit_id"
-                        >
-                            <option selected>Choose Category Unit ...</option>
-                            @if(!is_null($categoryUnits))
-                            @foreach($categoryUnits as $categoryUnit)
-                            <option value="{{ $categoryUnit->id }}" selected>
-                                {{ $categoryUnit->name }}
-                            </option>
-                            @endforeach @endif
-                        </select>
-
-                        @error('categoryUnit_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -293,16 +206,16 @@
 <div
     wire:ignore.self
     class="modal fade"
-    id="deleteTypeModal"
+    id="deleteCategoryModal"
     tabindex="-1"
-    aria-labelledby="deleteTypeModalLabel"
+    aria-labelledby="deleteCategoryModalLabel"
     aria-hidden="true"
 >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteTypeModalLabel">
-                    Delete Type Data
+                <h1 class="modal-title fs-5" id="deleteCategoryModalLabel">
+                    Delete Category Data
                 </h1>
                 <button
                     type="button"
@@ -312,7 +225,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="destroyType">
+            <form wire:submit.prevent="destroyCategory">
                 <div class="modal-body">
                     <h4>Are You Sure.??</h4>
                 </div>

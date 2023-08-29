@@ -6,10 +6,37 @@
         </x-breadcrumb>
     </x-pagetitle>
 
+    <!-- flash message -->
+    <div class="row">
+        <div class="col-md-12">
+            @if(session()->has('success'))
+
+            <!-- pesan -->
+
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
+            @endif
+        </div>
+    </div>
+
     <!-- link -->
-    <div class="row my-3 justify-content-center">
+    <div class="row">
         <!-- link -->
-        <div class="col-md-6">
+        <div class="col-md-6 ms-auto">
             <ul class="nav justify-content-end">
                 <li class="nav-item">
                     <a
@@ -39,63 +66,42 @@
         </div>
         <!-- endlink -->
     </div>
-    <div class="row my-4 justify-content-between">
-        <div class="col-md-6">
-            <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard">
-                    <i class="bi bi-arrow-left-circle"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    href="/dashboard/unit/create"
-                >
-                    <i class="bi bi-plus-circle"></i> Add Unit
-                </x-button-link>
-            </x-button-group>
-        </div>
-
-        <div class="col-md-6 ms">
-            <div class="search-bar ms-auto">
-                <input
-                    type="text"
-                    name="search"
-                    class="form-control"
-                    placeholder="Search"
-                    title="Enter search keyword"
-                />
-            </div>
-        </div>
-    </div>
-    <!-- flash message -->
-    <div class="row">
-        <div class="col-md-12">
-            @if(session()->has('success'))
-
-            <!-- pesan -->
-
-            <div
-                class="alert alert-success alert-dismissible fade show"
-                role="alert"
-            >
-                {{ session("success") }}
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert"
-                    aria-label="close"
-                ></button>
-            </div>
-
-            <!-- endpesan -->
-
-            @endif
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-12">
             <x-card>
+                <x-card-header>
+                    <div class="row my-1 justify-content-between">
+                        <div class="col-md-6">
+                            <x-button-group>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="/dashboard"
+                                >
+                                    <i class="bi bi-arrow-left-circle"></i> Back
+                                </x-button-link>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="/dashboard/unit/create"
+                                >
+                                    <i class="bi bi-plus-circle"></i> Add Unit
+                                </x-button-link>
+                            </x-button-group>
+                        </div>
+
+                        <div class="col-md-6 ms">
+                            <div class="search-bar ms-auto">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    class="form-control"
+                                    placeholder="Search"
+                                    title="Enter search keyword"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </x-card-header>
                 <x-card-title> Unit List </x-card-title>
 
                 <table class="table table-striped">

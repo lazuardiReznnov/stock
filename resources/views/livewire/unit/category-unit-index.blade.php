@@ -26,38 +26,43 @@
         </div>
     </div>
 
-    <div class="row my-4 justify-content-between">
-        <div class="col-md-4">
-            <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard/unit">
-                    <i class="bi bi-arrow-left-circle"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#categoryUnitModal"
-                >
-                    <i class="bi bi-plus-circle"></i> Category Model
-                </x-button-link>
-            </x-button-group>
-        </div>
-        <div class="col-md-6">
-            <div class="search-bar">
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Search"
-                    title="Enter search keyword"
-                    wire:model="search"
-                    class="form-control"
-                />
-            </div>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-md-12">
             <x-card>
+                <x-card-header>
+                    <div class="row my-4 justify-content-between">
+                        <div class="col-md-4">
+                            <x-button-group>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="/dashboard/unit"
+                                >
+                                    <i class="bi bi-arrow-left-circle"></i> Back
+                                </x-button-link>
+                                <x-button-link
+                                    class="btn-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#categoryUnitModal"
+                                >
+                                    <i class="bi bi-plus-circle"></i> Category
+                                    Model
+                                </x-button-link>
+                            </x-button-group>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="search-bar">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    placeholder="Search"
+                                    title="Enter search keyword"
+                                    wire:model="search"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </x-card-header>
                 <x-card-title> Category Unit List </x-card-title>
 
                 <table class="table table-striped">

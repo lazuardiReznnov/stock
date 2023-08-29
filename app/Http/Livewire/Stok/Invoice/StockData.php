@@ -35,16 +35,13 @@ class StockData extends Component
         $this->tags = Tag::all();
     }
 
-    protected function rules()
-    {
-        return [
-            'sparepart_id' => 'required',
-            'qty' => 'required|numeric',
-            'price' => 'required|numeric',
-            'brand' => 'required',
-            'tag_id' => 'required',
-        ];
-    }
+    protected $rules = [
+        'sparepart_id' => 'required',
+        'qty' => 'required|numeric',
+        'price' => 'required|numeric',
+        'brand' => 'required',
+        'tag_id' => 'required',
+    ];
 
     public function updated($propertyName)
     {
@@ -69,6 +66,7 @@ class StockData extends Component
     {
         $validatedData = $this->validate();
         $validatedData['name'] = Str::random(10);
+        $validatedData['slug'] = Str::slug($validatedData['name']);
         $validatedData['invoice_stock_id'] = $this->invoiceId;
 
         $stock = Stock::create($validatedData);
@@ -99,6 +97,7 @@ class StockData extends Component
     {
         $validatedData = $this->validate();
         $validatedData['name'] = Str::random(10);
+        $validatedData['slug'] = Str::slug($validatedData['name']);
         $validatedData['invoice_stock_id'] = $this->invoiceId;
 
         $stock = Stock::find($this->stockId);

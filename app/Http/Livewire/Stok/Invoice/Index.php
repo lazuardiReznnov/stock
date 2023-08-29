@@ -30,15 +30,12 @@ class Index extends Component
         $this->resetPage();
     }
 
-    protected function rules()
-    {
-        return [
-            'supplier_id' => 'required',
-            'name' => 'required',
-            'tgl' => 'required',
-            'method' => 'required',
-        ];
-    }
+    protected $rules = [
+        'supplier_id' => 'required',
+        'name' => 'required',
+        'tgl' => 'required',
+        'method' => 'required',
+    ];
 
     public function updated($fields)
     {

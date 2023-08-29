@@ -28,43 +28,47 @@
     </div>
 
     <!-- Search -->
-    <div class="row my-4 justify-content-center">
-        <div class="col-md-6">
-            <div class="search-bar">
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Search"
-                    title="Enter search keyword"
-                    wire:model="search"
-                    class="form-control"
-                />
-            </div>
-        </div>
-    </div>
+
     <!-- Link -->
-    <div class="row my-2">
-        <div class="col-md-4">
-            <x-button-group>
-                <x-button-link class="btn-primary" href="/dashboard/unit">
-                    <i class="bi bi-arrow-left-circle"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    href="#"
-                    data-bs-toggle="modal"
-                    data-bs-target="#groupModal"
-                >
-                    <i class="bi bi-plus-circle"></i> Unit Group
-                </x-button-link>
-            </x-button-group>
-        </div>
-    </div>
+
     <!-- Table -->
     <div class="row">
         <div class="col-md-12">
             <x-card>
-                <x-card-title> List Group Unit </x-card-title>
+                <x-card-header>
+                    <div class="row my-2">
+                        <div class="col-md-6">
+                            <x-button-group>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="/dashboard/unit"
+                                >
+                                    <i class="bi bi-arrow-left-circle"></i> Back
+                                </x-button-link>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="#"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#groupModal"
+                                >
+                                    <i class="bi bi-plus-circle"></i> Unit Group
+                                </x-button-link>
+                            </x-button-group>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="search-bar">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    placeholder="Search"
+                                    title="Enter search keyword"
+                                    wire:model="search"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </x-card-header>
 
                 <table class="table table-striped">
                     <thead>

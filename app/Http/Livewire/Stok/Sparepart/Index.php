@@ -46,7 +46,6 @@ class Index extends Component
         'code' => 'required',
         'description' => 'required',
         'selectedBrands' => 'required',
-        'pic' => 'image|file|max:2048',
     ];
 
     public function updated($propertyName)
@@ -63,21 +62,19 @@ class Index extends Component
 
     public function saveSparepart()
     {
-        $validatedData = $this->validate([
-            'category_id' => 'required',
-            'type_id' => 'required',
-            'name' => 'required',
-            'code' => 'required',
-            'description' => 'required',
-            'pic' => 'image|file|max:2048',
-        ]);
+        $this->rules['name'] = 'required|unique:spareparts';
+
+        $validatedData = $this->validate();
 
         $validatedData['slug'] = Str::slug($this->name);
 
         $sparepart = Sparepart::create($validatedData);
         if ($this->pic) {
-            $pic = $this->pic->store('Invoice-Stock-Pic');
-            $sparepart->image()->create(['pic' => $pic]);
+            $data = $this->validate([
+                'pic' => 'image|file|max:2048',
+            ]);
+            $data['pic'] = $this->pic->store('Invoice-Stock-Pic');
+            $sparepart->image()->create($data);
         }
 
         session()->flash('success', 'Data Has Been Added');
@@ -107,19 +104,12 @@ class Index extends Component
     }
     public function updateSparepart()
     {
-        $rules = [
-            'category_id' => 'required',
-            'type_id' => 'required',
-
-            'code' => 'required',
-            'description' => 'required',
-        ];
-
         $sparepart = Sparepart::find($this->sparepartId);
+
         if ($this->name != $sparepart->name) {
-            $rules['name'] = 'required|unique:spareparts';
+            $this->rules['name'] = 'required|unique:spareparts';
         }
-        $validatedData = $this->validate($rules);
+        $validatedData = $this->validate();
         $validatedData['slug'] = Str::slug($this->name);
 
         if ($this->pic) {
@@ -141,6 +131,24 @@ class Index extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function deleteSparepartStock(int $sparepartId)
+    {
+        $this->sparepartId = $sparepartId;
+    }
+
+    public function destroySparepartStock()
+    {
+        $sparepart = Sparepart::find($this->sparepartId);
+        if ($sparepart->image) {
+            storage::delete($sparepart->image->pic);
+            $sparepart->image->delete();
+        }
+        $sparepart->delete();
+        session()->flash('success', 'Data Has Been Deleted');
+
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function render()

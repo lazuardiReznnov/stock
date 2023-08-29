@@ -23,7 +23,6 @@ class TypeIndex extends Component
     public $pic;
     public $name;
     public $brand_id;
-
     public $category_unit_id;
     public $description;
     public $typeId;
@@ -81,6 +80,7 @@ class TypeIndex extends Component
     public function editType($typeId)
     {
         $type = Type::find($typeId);
+
         if ($type) {
             $this->typeId = $type->id;
             $this->brand_id = $type->brand_id;
@@ -89,9 +89,9 @@ class TypeIndex extends Component
             $this->description = $type->description;
             if ($type->image) {
                 $this->oldPic = $type->image->pic;
-            } else {
-                return redirect()->to('/unit/brand');
             }
+        } else {
+            return redirect()->to('/unit/type');
         }
     }
 
@@ -163,7 +163,7 @@ class TypeIndex extends Component
         $this->pic = '';
         $this->name = '';
         $this->category_unit_id = '';
-        $this->brand_id = '';
+        $this->brand_id = null;
         $this->description = '';
         $this->reset();
         $this->resetValidation();

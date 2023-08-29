@@ -57,34 +57,6 @@
             </div>
         </div>
 
-        <div class="row my-4">
-            <div class="col-md-6">
-                <x-button-group>
-                    <x-button-link class="btn-primary" href="/dashboard/stock">
-                        <i class="bi bi-arrow-left-circle"></i> Back
-                    </x-button-link>
-                    <x-button-link
-                        class="btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#invoiceStockModal"
-                    >
-                        <i class="bi bi-plus-circle"></i> Add Invoice
-                    </x-button-link>
-                </x-button-group>
-            </div>
-            <div class="col-md-6">
-                <div class="search-bar">
-                    <input
-                        type="month"
-                        name="search"
-                        placeholder="Search"
-                        title="Enter search keyword"
-                        class="form-control"
-                        wire:model="search"
-                    />
-                </div>
-            </div>
-        </div>
         <?php 
         $date_now = date("Y/m/d")
     
@@ -92,6 +64,41 @@
         <div class="row">
             <div class="col-md-12">
                 <x-card>
+                    <x-card-header>
+                        <div class="row my-1">
+                            <div class="col-md-6">
+                                <x-button-group>
+                                    <x-button-link
+                                        class="btn-primary"
+                                        href="/dashboard/stock"
+                                    >
+                                        <i class="bi bi-arrow-left-circle"></i>
+                                        Back
+                                    </x-button-link>
+                                    <x-button-link
+                                        class="btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#invoiceStockModal"
+                                    >
+                                        <i class="bi bi-plus-circle"></i> Add
+                                        Invoice
+                                    </x-button-link>
+                                </x-button-group>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="search-bar">
+                                    <input
+                                        type="month"
+                                        name="search"
+                                        placeholder="Search"
+                                        title="Enter search keyword"
+                                        class="form-control"
+                                        wire:model="search"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </x-card-header>
                     <x-card-title>
                         Invoice List
                         {{ \Carbon\Carbon::parse($date_now)->format('d M Y') }}

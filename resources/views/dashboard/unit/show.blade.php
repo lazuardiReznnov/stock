@@ -1,4 +1,5 @@
 <x-dashboard title="{{ $title }}">
+    @push('csslivewire') @livewireStyles @endpush
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
@@ -202,74 +203,9 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade letter pt-3" id="letter">
-                                <x-card-title
-                                    >Vehicle Registration
-                                    Certificate</x-card-title
-                                >
-                                @if($data->vrc)
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">
-                                        Owner
-                                    </div>
-                                    <div class="col-lg-9 col-md-8">
-                                        {{ $data->vrc->owner }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">
-                                        Address
-                                    </div>
-                                    <div class="col-lg-9 col-md-8">
-                                        {{ $data->vrc->address }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">
-                                        Tax Expire
-                                    </div>
-                                    <div class="col-lg-9 col-md-8">
-                                        {{ \Carbon\Carbon::parse($data->vrc->tax)->format('d/m/Y') }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">
-                                        Expire Date
-                                    </div>
-                                    <div class="col-lg-9 col-md-8">
-                                        {{ \Carbon\Carbon::parse($data->vrc->expire)->format('d/m/Y') }}
-                                    </div>
-                                </div>
-                                <div class="row my-3">
-                                    <div class="col-md">
-                                        @if($data->vrc->image)
-                                        <img
-                                            width="100"
-                                            class="rounded img-fluid mb-2"
-                                            alt=""
-                                            src="{{ asset('storage/'. $data->vrc->image->pic) }}"
-                                        />
-
-                                        @else
-                                        <img
-                                            width="50"
-                                            class="rounded img-fluid mb-2"
-                                            alt=""
-                                            src="http://source.unsplash.com/50x50?smartphones"
-                                        />
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="row my-3">
-                                    <div class="col-md">
-                                        <a
-                                            href="/dashboard/unit/vrc/{{ $data->slug }}"
-                                            class="btn btn-warning"
-                                            >Edit Data</a
-                                        >
-                                    </div>
-                                </div>
-                                @endif
-
+                                <!-- vrc -->
+                                <livewire:unit.vrc-update :unitId="$data->id" />
+                                <!-- endVrc -->
                                 <x-card-title>Inspection Card</x-card-title>
                                 @if($data->vpic)
                                 <div class="row">
@@ -342,4 +278,13 @@
             </div>
         </div>
     </x-section>
+    @push('jslivewire') @livewireScripts
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        window.addEventListener("close-modal", (event) => {
+            $("#updateVrcModal").modal("hide");
+        });
+    </script>
+
+    @endpush
 </x-dashboard>

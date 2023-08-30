@@ -44,7 +44,7 @@ class Index extends Component
 
     public function saveInvoiceStock()
     {
-        $this->rules(['name' => 'required|unique:invoice_stocks']);
+        $this->rules['name'] = 'required|unique:invoice_stocks';
 
         $validatedData = $this->validate();
 
@@ -91,7 +91,7 @@ class Index extends Component
     {
         $invoiceStock = InvoiceStock::find($this->invoiceStockId);
         if ($invoiceStock->name != $this->name) {
-            $this->rules(['name' => 'required|unique:invoice_stocks']);
+            $this->rules['name'] = 'required|unique:invoice_stocks';
         }
 
         $validatedData['slug'] = Str::slug($this->name);

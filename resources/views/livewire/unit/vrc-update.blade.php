@@ -26,7 +26,7 @@
         </div>
     </div>
     <x-card-title>Vehicle Registration Certificate</x-card-title>
-    @if($data)
+
     <div class="row">
         <div class="col-lg-3 col-md-4 label">Owner</div>
         <div class="col-lg-9 col-md-8">
@@ -84,5 +84,4 @@
             >
         </div>
     </div>
-    @endif
 </div>

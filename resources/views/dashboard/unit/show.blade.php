@@ -98,11 +98,12 @@
                                 </button>
                             </li>
                         </ul>
-                        <div class="tab-content pt-2">
+                        <div class="tab-content pt-2" wire:ignore>
                             <div
                                 class="tab-pane fade show active profile-overview"
                                 id="profile-overview"
                             >
+                                <!-- Spesification -->
                                 <x-card-title>About</x-card-title>
                                 <p class="small fst-italic">
                                     {!! $data->description !!}
@@ -126,62 +127,11 @@
                                             {{ $data->type->name }}
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Model
-                                        </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->model }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Vin
-                                        </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->vin }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Engine Number
-                                        </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->en }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Year
-                                        </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->year }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Color
-                                        </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->color }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Fuel
-                                        </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->fuel }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">
-                                            Cylinder
-                                        </div>
-                                        <div class="col-lg-9 col-md-8">
-                                            {{ $data->spesification->cylinder }}
-                                        </div>
-                                    </div>
+                                    <!-- spesification -->
+                                    <livewire:unit.spec-update
+                                        :unitId="$data->id"
+                                    />
+                                    <!-- endSpesification -->
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">
                                             Last Update
@@ -190,16 +140,6 @@
                                             {{ $data->updated_at->diffforhumans() }}
                                         </div>
                                     </div>
-                                    <x-button-link
-                                        href="/dashboard/unit/spesification/{{ $data->slug }}"
-                                        class="btn-warning"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Edit Spesification unit"
-                                        ><i class="bi bi-pencil-square">
-                                            Edit Spesification</i
-                                        >
-                                    </x-button-link>
                                 </div>
                             </div>
                             <div
@@ -226,6 +166,7 @@
         window.addEventListener("close-modal", (event) => {
             $("#updateVrcModal").modal("hide");
             $("#updateVipcModal").modal("hide");
+            $("#updateSpecModal").modal("hide");
         });
     </script>
 

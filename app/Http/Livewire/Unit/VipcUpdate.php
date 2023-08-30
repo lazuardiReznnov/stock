@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Unit;
 
-use App\Models\Vrc;
+use App\Models\Vpic;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\support\Facades\Storage;
 
-class VrcUpdate extends Component
+class VipcUpdate extends Component
 {
     use WithFileUploads;
     public $unitId,
@@ -17,16 +17,16 @@ class VrcUpdate extends Component
         $owner,
         $address,
         $region,
-        $tax,
+        $tgl_reg,
         $expire,
-        $vrcId;
+        $vpicId;
 
     protected $rules = [
         'regnumber' => 'required|min:6',
         'owner' => 'required',
         'address' => 'required',
         'region' => 'required',
-        'tax' => 'required',
+        'tgl_reg' => 'required',
         'expire' => 'required',
     ];
 
@@ -35,41 +35,40 @@ class VrcUpdate extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function editVrc($unitId)
+    public function editVpic($unitId)
     {
-        $vrc = Vrc::where('unit_id', $unitId)->first();
-        if ($vrc) {
-            $this->vrcId = $vrc->id;
-            $this->regnumber = $vrc->regnumber;
-            $this->owner = $vrc->owner;
-            $this->address = $vrc->address;
-            $this->region = $vrc->region;
-            $this->tax = $vrc->tax;
-            $this->expire = $vrc->expire;
-            if ($vrc->image) {
-                $this->oldPic = $vrc->image->pic;
+        $vpic = Vpic::where('unit_id', $unitId)->first();
+        if ($vpic) {
+            $this->vpicId = $vpic->id;
+            $this->regnumber = $vpic->regnumber;
+            $this->owner = $vpic->owner;
+            $this->address = $vpic->address;
+            $this->region = $vpic->region;
+            $this->tgl_reg = $vpic->tgl_reg;
+            $this->expire = $vpic->expire;
+            if ($vpic->image) {
+                $this->oldPic = $vpic->image->pic;
             }
         } else {
-            return redirect()->to('/unit/show/' . $vrc->unit->slug);
+            return redirect()->to('/unit/show/' . $vpic->unit->slug);
         }
     }
 
-    public function updateVrc()
+    public function updateVpic()
     {
-        $vrc = Vrc::find($this->vrcId);
-
+        $vpic = vpic::find($this->vpicId);
         if ($this->pic) {
-            $data = $this->validate(['pic' => 'image|file|max:2048']);
             if ($this->oldPic) {
                 storage::delete($this->oldPic);
-                $vrc->image()->delete();
+                $vpic->image()->delete();
             }
-            $data['pic'] = $this->pic->store('vrc-Pic');
-            $vrc->image()->create($data);
+            $data['pic'] = $this->pic->store('vpic-Pic');
+
+            $vpic->image()->create($data);
         }
         $validatedData = $this->validate();
 
-        $vrc->update($validatedData);
+        $vpic->update($validatedData);
         session()->flash('success', 'Data Has Been Updated');
         $this->resetInput();
 
@@ -78,8 +77,8 @@ class VrcUpdate extends Component
 
     public function render()
     {
-        return view('livewire.unit.vrc-update', [
-            'data' => Vrc::where('unit_id', $this->unitId)->first(),
+        return view('livewire.unit.vipc-update', [
+            'data' => Vpic::where('unit_id', $this->unitId)->first(),
         ]);
     }
 
@@ -95,9 +94,8 @@ class VrcUpdate extends Component
         $this->owner = '';
         $this->address = '';
         $this->region = '';
-        $this->tax = '';
+        $this->tgl_reg = '';
         $this->expire = '';
-
         $this->resetValidation();
     }
 }

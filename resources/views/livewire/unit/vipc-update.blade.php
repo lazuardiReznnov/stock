@@ -1,0 +1,89 @@
+<div>
+    @include('livewire\unit\vipc-modal')
+    <div class="row">
+        <div class="col-md-12">
+            @if(session()->has('success'))
+
+            <!-- pesan -->
+
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
+            @endif
+        </div>
+    </div>
+    <x-card-title>Inspection Card</x-card-title>
+    @if($data)
+    <div class="row">
+        <div class="col-lg-3 col-md-4 label">Owner</div>
+        <div class="col-lg-9 col-md-8">
+            {{ $data->owner }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 label">Address</div>
+        <div class="col-lg-9 col-md-8">
+            {{ $data->address }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 label">Registration Date</div>
+        <div class="col-lg-9 col-md-8">
+            {{ \Carbon\Carbon::parse($data->tgl_reg)->format('d/m/Y') }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 label">Expire Date</div>
+        <div class="col-lg-9 col-md-8">
+            {{ \Carbon\Carbon::parse($data->expire)->format('d/m/Y') }}
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col-md">
+            @if($data->image)
+            <img
+                width="100"
+                class="rounded img-fluid mb-2"
+                alt=""
+                src="{{ asset('storage/'. $data->image->pic) }}"
+            />
+
+            @else
+            <img
+                width="50"
+                class="rounded img-fluid mb-2"
+                alt=""
+                src="http://source.unsplash.com/50x50?smartphones"
+            />
+            @endif
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-md">
+            <a
+                href="#"
+                class="btn btn-warning"
+                data-bs-toggle="modal"
+                data-bs-target="#updateVipcModal"
+                title="Edit Vrc"
+                wire:click="editVpic({{ $data->id }})"
+                >Edit Data</a
+            >
+        </div>
+    </div>
+    @endif
+</div>

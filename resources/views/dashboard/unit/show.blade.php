@@ -210,71 +210,9 @@
                                 <!-- vrc -->
                                 <livewire:unit.vrc-update :unitId="$data->id" />
                                 <!-- endVrc -->
-                                <x-card-title>Inspection Card</x-card-title>
-                                @if($data->vpic)
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">
-                                        Owner
-                                    </div>
-                                    <div class="col-lg-9 col-md-8">
-                                        {{ $data->vpic->owner }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">
-                                        Address
-                                    </div>
-                                    <div class="col-lg-9 col-md-8">
-                                        {{ $data->vpic->address }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">
-                                        Registration Date
-                                    </div>
-                                    <div class="col-lg-9 col-md-8">
-                                        {{ \Carbon\Carbon::parse($data->vpic->tgl_reg)->format('d/m/Y') }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">
-                                        Expire Date
-                                    </div>
-                                    <div class="col-lg-9 col-md-8">
-                                        {{ \Carbon\Carbon::parse($data->vpic->expire)->format('d/m/Y') }}
-                                    </div>
-                                </div>
-
-                                <div class="row my-3">
-                                    <div class="col-md">
-                                        @if($data->vpic->image)
-                                        <img
-                                            width="100"
-                                            class="rounded img-fluid mb-2"
-                                            alt=""
-                                            src="{{ asset('storage/'. $data->vpic->image->pic) }}"
-                                        />
-
-                                        @else
-                                        <img
-                                            width="50"
-                                            class="rounded img-fluid mb-2"
-                                            alt=""
-                                            src="http://source.unsplash.com/50x50?smartphones"
-                                        />
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="row my-3">
-                                    <div class="col-md">
-                                        <a
-                                            href="/dashboard/unit/vpic/{{ $data->slug }}"
-                                            class="btn btn-warning"
-                                            >Edit Data</a
-                                        >
-                                    </div>
-                                </div>
-                                @endif
+                                <livewire:unit.vipc-update
+                                    :unitId="$data->id"
+                                />
                             </div>
                         </div>
                     </x-card-body>
@@ -287,6 +225,7 @@
     <script>
         window.addEventListener("close-modal", (event) => {
             $("#updateVrcModal").modal("hide");
+            $("#updateVipcModal").modal("hide");
         });
     </script>
 

@@ -1,4 +1,30 @@
 <div>
+    @include('livewire\unit\vrc-modal')
+    <div class="row">
+        <div class="col-md-12">
+            @if(session()->has('success'))
+
+            <!-- pesan -->
+
+            <div
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+            >
+                {{ session("success") }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="close"
+                ></button>
+            </div>
+
+            <!-- endpesan -->
+
+            @endif
+        </div>
+    </div>
     <x-card-title>Vehicle Registration Certificate</x-card-title>
     @if($data)
     <div class="row">
@@ -48,8 +74,12 @@
     <div class="row my-3">
         <div class="col-md">
             <a
-                href="/dashboard/unit/vrc/{{ $data->slug }}"
+                href="#"
                 class="btn btn-warning"
+                data-bs-toggle="modal"
+                data-bs-target="#updateVrcModal"
+                title="Edit Vrc"
+                wire:click="editVrc({{ $data->id }})"
                 >Edit Data</a
             >
         </div>

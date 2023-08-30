@@ -202,7 +202,11 @@
                                     </x-button-link>
                                 </div>
                             </div>
-                            <div class="tab-pane fade letter pt-3" id="letter">
+                            <div
+                                class="tab-pane fade letter pt-3"
+                                id="letter"
+                                wire:ignore.self
+                            >
                                 <!-- vrc -->
                                 <livewire:unit.vrc-update :unitId="$data->id" />
                                 <!-- endVrc -->

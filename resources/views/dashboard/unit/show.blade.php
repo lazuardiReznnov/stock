@@ -74,7 +74,7 @@
                     </x-card-body>
                 </x-card2>
             </div>
-            <div class="col-xl-8">
+            <div class="col-xl-8" wire:ignore.self>
                 <x-card2>
                     <x-card-body class="pt-2">
                         <ul class="nav nav-tabs nav-tabs-bordered">
@@ -98,7 +98,7 @@
                                 </button>
                             </li>
                         </ul>
-                        <div class="tab-content pt-2" wire:ignore>
+                        <div class="tab-content pt-2">
                             <div
                                 class="tab-pane fade show active profile-overview"
                                 id="profile-overview"
@@ -142,11 +142,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div
-                                class="tab-pane fade letter pt-3"
-                                id="letter"
-                                wire:ignore.self
-                            >
+                            <div class="tab-pane fade letter pt-3" id="letter">
                                 <!-- vrc -->
                                 <livewire:unit.vrc-update :unitId="$data->id" />
                                 <!-- endVrc -->

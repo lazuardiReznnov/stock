@@ -7,7 +7,8 @@ use Livewire\Component;
 
 class SpecUpdate extends Component
 {
-    public $unitId, $vin, $en, $year, $color, $model, $fuel, $cylinder, $specId;
+    public $unitId;
+    public $vin, $en, $year, $color, $model, $fuel, $cylinder, $specId;
 
     protected $rules = [
         'vin' => 'required|min:3',
@@ -40,6 +41,10 @@ class SpecUpdate extends Component
             $this->specId = $spec->id;
         }
     }
+    public function mount($unitId)
+    {
+        $this->unitId = $unitId;
+    }
 
     public function updateSpec()
     {
@@ -58,7 +63,7 @@ class SpecUpdate extends Component
     public function render()
     {
         return view('livewire.unit.spec-update', [
-            'data' => Spesification::where('unit_id', $this->unitId)->first(),
+            'spec' => Spesification::where('unit_id', $this->unitId)->first(),
         ]);
     }
 
@@ -69,7 +74,6 @@ class SpecUpdate extends Component
 
     public function resetInput()
     {
-        $this->unitId = '';
         $this->vin = '';
         $this->en = '';
         $this->year = null;

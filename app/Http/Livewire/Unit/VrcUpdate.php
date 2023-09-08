@@ -19,7 +19,8 @@ class VrcUpdate extends Component
         $region,
         $tax,
         $expire,
-        $vrcId;
+        $vrcId,
+        $image;
 
     protected $rules = [
         'regnumber' => 'required|min:6',
@@ -76,10 +77,21 @@ class VrcUpdate extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
+    public function showImage($unitId)
+    {
+        $vrc = Vrc::where('unit_id', $unitId)->first();
+
+        if ($vrc->image) {
+            $this->image = $vrc->image->pic;
+        }
+    }
+
     public function render()
     {
         return view('livewire.unit.vrc-update', [
-            'data' => Vrc::where('unit_id', $this->unitId)->first(),
+            'data' => Vrc::where('unit_id', $this->unitId)
+                ->with('image')
+                ->first(),
         ]);
     }
 

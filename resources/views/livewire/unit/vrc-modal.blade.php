@@ -168,3 +168,51 @@
     </div>
 </div>
 <!-- end Edit -->
+
+<div
+    wire:ignore.self
+    class="modal fade"
+    id="showImageModal"
+    tabindex="-1"
+    aria-labelledby="showImageModalLabel"
+    aria-hidden="true"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="showImageModalLabel">Image</h1>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    wire:click="closeModal"
+                ></button>
+            </div>
+
+            <div class="modal-body">
+                @if($image)
+                <img
+                    width="500"
+                    class="img-fluid mb-2"
+                    alt=""
+                    src="{{ asset('storage/'.$image) }}"
+                />
+
+                @endif
+
+                <div wire:loading>Delete...</div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    wire:click="closeModal"
+                >
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

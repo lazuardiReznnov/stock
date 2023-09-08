@@ -161,6 +161,7 @@
     <script>
         window.addEventListener("close-modal", (event) => {
             $("#updateVrcModal").modal("hide");
+            $("#showImageModal").modal("hide");
             $("#updateVipcModal").modal("hide");
             $("#updateSpecModal").modal("hide");
         });

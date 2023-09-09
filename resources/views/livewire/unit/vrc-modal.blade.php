@@ -200,8 +200,6 @@
                 />
 
                 @endif
-
-                <div wire:loading>Delete...</div>
             </div>
             <div class="modal-footer">
                 <button

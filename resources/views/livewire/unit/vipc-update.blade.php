@@ -55,13 +55,20 @@
     <div class="row my-3">
         <div class="col-md">
             @if($data->image)
-            <img
-                width="100"
-                class="rounded img-fluid mb-2"
-                alt=""
-                src="{{ asset('storage/'. $data->image->pic) }}"
-            />
-
+            <a
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#showImageVpicModal"
+                title="Show Image Vrc"
+                wire:click="showImageVpic({{ $data->id }})"
+            >
+                <img
+                    width="100"
+                    class="rounded img-fluid mb-2"
+                    alt=""
+                    src="{{ asset('storage/'. $data->image->pic) }}"
+                />
+            </a>
             @else
             <img
                 width="50"

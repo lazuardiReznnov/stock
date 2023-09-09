@@ -19,7 +19,8 @@ class VipcUpdate extends Component
         $region,
         $tgl_reg,
         $expire,
-        $vpicId;
+        $vpicId,
+        $image;
 
     protected $rules = [
         'regnumber' => 'required|min:6',
@@ -73,6 +74,17 @@ class VipcUpdate extends Component
         $this->resetInput();
 
         $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function showImageVpic($unitId)
+    {
+        $vpic = Vpic::where('unit_id', $unitId)
+            ->with('image')
+            ->first();
+
+        if ($vpic->image) {
+            $this->image = $vpic->image->pic;
+        }
     }
 
     public function render()

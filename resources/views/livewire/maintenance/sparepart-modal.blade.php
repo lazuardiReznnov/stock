@@ -40,7 +40,8 @@
                             <option value="{{ $stock->id }}">
                                 {{ $stock->sparepart->type->brand->name }}
                                 {{ $stock->sparepart->type->name }} -
-                                {{ $stock->sparepart->name }}
+                                {{ $stock->sparepart->name }}-
+                                @currency($stock->price)
                             </option>
 
                             @endforeach

@@ -31,16 +31,13 @@ class CustomerShow extends Component
         $this->resetPage();
     }
 
-    protected function rules()
-    {
-        return [
-            'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'industry' => 'required',
-        ];
-    }
+    protected $rules = [
+        'name' => 'required',
+        'address' => 'required',
+        'phone' => 'required',
+        'email' => 'required',
+        'industry' => 'required',
+    ];
 
     public function updated($propertyName)
     {
@@ -49,6 +46,8 @@ class CustomerShow extends Component
 
     public function saveCustomer()
     {
+        $this->rules['name'] = 'required|unique:customers';
+
         $validatedData = $this->validate();
 
         $validatedData['slug'] = Str::slug($this->name);
@@ -83,9 +82,9 @@ class CustomerShow extends Component
             if ($customer->image) {
                 $this->oldPic = $customer->image->pic;
                 $this->picId = $customer->image->id;
-            } else {
-                return redirect()->to('/transaction/customer');
             }
+        } else {
+            return redirect()->to('/transaction/customer');
         }
     }
 

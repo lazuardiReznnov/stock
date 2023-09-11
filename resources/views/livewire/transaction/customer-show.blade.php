@@ -25,44 +25,45 @@
             @endif
         </div>
     </div>
-    <div class="row my-4 justify-content-center">
-        <div class="col-md-6">
-            <div class="search-bar">
-                <input
-                    type="text"
-                    name="search"
-                    placeholder="Search"
-                    title="Enter search keyword"
-                    wire:model="search"
-                    class="form-control"
-                />
-            </div>
-        </div>
-    </div>
-    <div class="row my-2">
-        <div class="col-md-4">
-            <x-button-group>
-                <x-button-link
-                    class="btn-primary"
-                    href="/dashboard/transaction"
-                >
-                    <i class="bi bi-arrow-left-circle"></i> Back
-                </x-button-link>
-                <x-button-link
-                    class="btn-primary"
-                    href="#"
-                    data-bs-toggle="modal"
-                    data-bs-target="#customerModal"
-                >
-                    <i class="bi bi-plus-circle"></i> Add Customer
-                </x-button-link>
-            </x-button-group>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-12">
             <x-card>
+                <x-card-header>
+                    <div class="row my-4 justify-content-between">
+                        <div class="col-md-4">
+                            <x-button-group>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="/dashboard/transaction"
+                                >
+                                    <i class="bi bi-arrow-left-circle"></i> Back
+                                </x-button-link>
+                                <x-button-link
+                                    class="btn-primary"
+                                    href="#"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#customerModal"
+                                >
+                                    <i class="bi bi-plus-circle"></i> Add
+                                    Customer
+                                </x-button-link>
+                            </x-button-group>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="search-bar">
+                                <input
+                                    type="text"
+                                    name="search"
+                                    placeholder="Search"
+                                    title="Enter search keyword"
+                                    wire:model="search"
+                                    class="form-control"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </x-card-header>
                 <x-card-title> Customer List </x-card-title>
 
                 <table class="table table-striped">
@@ -114,6 +115,7 @@
                                     data-bs-target="#updateCustomerModal"
                                     wire:click="editCustomer({{ $data->id }})"
                                     title="Edit data"
+                                    type="button"
                                 >
                                     <i class="bi bi-pencil-square"></i>
                                 </button>

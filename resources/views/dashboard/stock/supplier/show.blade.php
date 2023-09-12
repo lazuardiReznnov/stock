@@ -1,4 +1,5 @@
 <x-dashboard title="{{ $title }}">
+    @push('csslivewire') @livewireStyles @endpush
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
@@ -54,7 +55,7 @@
             </x-button-group>
         </div>
     </div>
-    <x-section class="profile">
+    <x-section class="profile my-3">
         <div class="row">
             <div class="col-xl-4">
                 <x-card2>
@@ -111,5 +112,25 @@
                 </x-card2>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <x-card>
+                    <x-card-title>Data Transaction</x-card-title>
+                    <livewire:stok.supplier.show :supplierId="$data->id" />
+                </x-card>
+            </div>
+        </div>
     </x-section>
+
+    @push('jslivewire') @livewireScripts
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        window.addEventListener("close-modal", (event) => {
+            $("#supplierInvoiceModal").modal("hide");
+            $("#updateSupplierInvoiceModal").modal("hide");
+            $("#deleteSupplierInvoiceModal").modal("hide");
+        });
+    </script>
+    @endpush
 </x-dashboard>

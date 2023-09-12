@@ -36,7 +36,7 @@
                             <x-button-group>
                                 <x-button-link
                                     class="btn-primary"
-                                    href="/dashboard/stock/invoiceStock"
+                                    href="javascript:history.back()"
                                 >
                                     <i class="bi bi-arrow-left-circle"></i> Back
                                 </x-button-link>

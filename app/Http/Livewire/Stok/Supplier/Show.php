@@ -83,6 +83,76 @@ class Show extends Component
             $this->image = $invoiceStock->image->pic;
         }
     }
+
+    public function editSupplierInvoice($invoiceStockId)
+    {
+        $invoiceStock = InvoiceStock::find($invoiceStockId);
+        if ($invoiceStock) {
+            $this->name = $invoiceStock->name;
+            $this->tgl = $invoiceStock->tgl;
+            $this->method = $invoiceStock->method;
+            if ($invoiceStock->image) {
+                $this->oldPic = $invoiceStock->image->pic;
+            }
+            $this->invoiceStockId = $invoiceStockId;
+        } else {
+            return redirect()->to('/supplier/' . $invoiceStock->supplier->slug);
+        }
+    }
+
+    public function updateSupplierInvoice()
+    {
+        $invoiceStock = InvoiceStock::find($this->invoiceStockId);
+        if ($invoiceStock->name != $this->name) {
+            $this->rules['name'] = 'required|unique:invoice_stocks';
+        }
+
+        $validatedData['slug'] = Str::slug($this->name);
+        $validatedData = $this->validate();
+
+        if ($this->method == 'Cash') {
+            $validatedData['state'] = 'Paid';
+        } elseif ($this->method == 'Debt') {
+            $validatedData['state'] = 'unpaid';
+        }
+
+        if ($this->pic) {
+            $data = $this->validate(['pic' => 'image|file|max:2048']);
+
+            if ($this->oldPic) {
+                storage::delete($this->oldPic);
+                $invoiceStock->image()->delete();
+            }
+            $data['pic'] = $this->pic->store('Invoice-Stock-Pic');
+            $invoiceStock->image()->create($data);
+        }
+
+        $invoiceStock->update($validatedData);
+
+        session()->flash('success', 'Data Has Been Updated');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function deleteSupplierInvoice(int $invoiceStockId)
+    {
+        $this->invoiceStockId = $invoiceStockId;
+    }
+
+    public function destroySupplierInvoice()
+    {
+        $invoiceStock = InvoiceStock::find($this->invoiceStockId);
+        if ($invoiceStock->image) {
+            storage::delete($invoiceStock->image->pic);
+            $invoiceStock->image->delete();
+        }
+        $invoiceStock->delete();
+        session()->flash('success', 'Data Has Been Deleted');
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
     public function render()
     {
         $datey = date('Y');

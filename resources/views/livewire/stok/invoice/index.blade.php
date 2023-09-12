@@ -109,7 +109,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Date</th>
-
+                                <th scope="col">Pic</th>
                                 <th scope="col">Invoice Number</th>
                                 <th scope="col">Supplier Name</th>
                                 <th scope="col" class="text-center">Summary</th>
@@ -126,6 +126,23 @@
                                 </th>
                                 <td>
                                     {{ \Carbon\Carbon::parse($data->tgl)->format('d/m/Y') }}
+                                </td>
+                                <td>
+                                    @if($data->image)
+                                    <a
+                                        href="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#showImageModal"
+                                        title="Show Image Vrc"
+                                        wire:click="showImage({{ $data->id }})"
+                                    >
+                                        <i class="bi bi-tropical-storm"></i>
+                                    </a>
+                                    @else
+                                    <i
+                                        class="bi bi-file-earmark-image-fill"
+                                    ></i>
+                                    @endif
                                 </td>
                                 <td>{{ $data->name }}</td>
                                 <td>{{ $data->supplier->name }}</td>

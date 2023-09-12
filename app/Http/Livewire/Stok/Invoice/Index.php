@@ -18,7 +18,14 @@ class Index extends Component
     protected $paginationTheme = 'bootstrap';
     public $search = '';
     public $suppliers;
-    public $name, $supplier_id, $tgl, $method, $pic, $invoiceStockId, $oldPic;
+    public $name,
+        $supplier_id,
+        $tgl,
+        $method,
+        $pic,
+        $invoiceStockId,
+        $oldPic,
+        $image;
 
     public function mount()
     {
@@ -138,6 +145,15 @@ class Index extends Component
         session()->flash('success', 'Data Has Been Deleted');
 
         $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function showImage($id)
+    {
+        $invoiceStock = InvoiceStock::where('id', $id)->first();
+
+        if ($invoiceStock->image) {
+            $this->image = $invoiceStock->image->pic;
+        }
     }
 
     public function render()

@@ -14,7 +14,7 @@
             <x-button-group>
                 <x-button-link
                     class="btn-primary"
-                    href="/dashboard/maintenance"
+                    href="javascript:history.back()"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Back"

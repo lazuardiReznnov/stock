@@ -97,6 +97,15 @@
                                     Letter
                                 </button>
                             </li>
+                            <li class="nav-item">
+                                <button
+                                    class="nav-link"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#repair"
+                                >
+                                    Repair History
+                                </button>
+                            </li>
                         </ul>
                         <div class="tab-content pt-2">
                             <div
@@ -147,6 +156,11 @@
                                 <livewire:unit.vrc-update :unitId="$data->id" />
                                 <!-- endVrc -->
                                 <livewire:unit.vipc-update
+                                    :unitId="$data->id"
+                                />
+                            </div>
+                            <div class="tab-pane fade repair pt-3" id="repair">
+                                <livewire:unit.unit-maintenance
                                     :unitId="$data->id"
                                 />
                             </div>

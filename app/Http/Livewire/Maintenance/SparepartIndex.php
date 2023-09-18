@@ -70,6 +70,7 @@ class SparepartIndex extends Component
 
     public function updateMaintenanceSparepart()
     {
+        $validatedData = $this->validate();
         $maintenanceSparepart = MaintenancePart::find(
             $this->maintenanceSparepartId
         );
@@ -81,6 +82,10 @@ class SparepartIndex extends Component
         $validatedData['sparepart_id'] = $stock->sparepart_id;
 
         $maintenanceSparepart->update($validatedData);
+
+        session()->flash('success', 'Data Has Been Updated');
+
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function deleteMaintenanceSparepart(int $maintenanceSparepartId)

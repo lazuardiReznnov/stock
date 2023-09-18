@@ -66,7 +66,7 @@
                     {{ \Carbon\Carbon::parse($date_now)->format('d M Y') }}
                 </x-card-title>
 
-                <table class="table table-striped">
+                <table class="table table-striped table-responsive">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -112,7 +112,7 @@
 
                                 @foreach($data->stock as $stock)
                                 <?php 
-                                    $ttl = $stock->qty*$stock->price; $sum =
+                                        $ttl = $stock->qty*$stock->price; $sum =
                                 $sum+$ttl; ?> @endforeach @currency($sum)
                             </td>
                             <td>{{ $data->method }}</td>
@@ -149,8 +149,8 @@
                             <!-- Modal Image -->
                         </tr>
                         <?php 
-                   
-                    ?>
+                       
+                        ?>
                         @endforeach @else
                         <tr>
                             <td colspan="8" class="text-center">
@@ -160,6 +160,7 @@
                         @endif
                     </tbody>
                 </table>
+
                 <div class="row">
                     <div class="col-md-8">
                         {{ $datas->onEachside(2)->links() }}

@@ -91,13 +91,25 @@
 
                         <div class="col-md-6 ms">
                             <div class="search-bar ms-auto">
-                                <input
-                                    type="text"
-                                    name="search"
-                                    class="form-control"
-                                    placeholder="Search"
-                                    title="Enter search keyword"
-                                />
+                                <form
+                                    action="/dashboard/unit"
+                                    method="get"
+                                    class="d-flex"
+                                >
+                                    <input
+                                        type="text"
+                                        name="search"
+                                        class="form-control"
+                                        placeholder="Search"
+                                        title="Enter search keyword"
+                                    />
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary ms-3"
+                                    >
+                                        Search
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

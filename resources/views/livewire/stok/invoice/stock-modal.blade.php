@@ -41,6 +41,7 @@
                             @foreach($spareparts as $sparepart)
 
                             <option value="{{ $sparepart->id }}" selected>
+                                {{ $sparepart->type->name }} -
                                 {{ $sparepart->name }}
                             </option>
                             @endforeach
@@ -176,6 +177,7 @@
                             @foreach($spareparts as $sparepart)
 
                             <option value="{{ $sparepart->id }}" selected>
+                                {{ $sparepart->type->name }} -
                                 {{ $sparepart->name }}
                             </option>
                             @endforeach

@@ -31,7 +31,7 @@ class StockData extends Component
     public function mount($invoiceId)
     {
         $this->invoiceId = $invoiceId;
-        $this->spareparts = Sparepart::all();
+        $this->spareparts = Sparepart::with('type')->get();
         $this->tags = Tag::all();
     }
 

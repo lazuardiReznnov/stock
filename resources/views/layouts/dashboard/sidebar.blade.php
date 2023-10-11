@@ -100,4 +100,20 @@
             </x-nav-content-item>
         </x-nav-content>
     </x-nav-item>
+
+    <x-nav-item>
+        <x-nav-link
+            href="#"
+            data-bs-target="#employee-nav"
+            data-bs-toggle="collapse"
+        >
+            <i class="bi bi-file"></i><span>employee Management</span
+            ><i class="bi bi-chevron-down ms-auto"></i>
+        </x-nav-link>
+        <x-nav-content id="employee-nav">
+            <x-nav-content-item link="/dashboard/employee">
+                Employee
+            </x-nav-content-item>
+        </x-nav-content>
+    </x-nav-item>
 </x-sidebar-nav>

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard\Transaction;
 
-use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class TransactionController extends Controller
 {
@@ -11,6 +12,7 @@ class TransactionController extends Controller
     {
         return view('dashboard.transaction.index', [
             'title' => 'Transaction',
+            'customer' => Customer::All(),
         ]);
     }
 }

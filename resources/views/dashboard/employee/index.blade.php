@@ -1,44 +1,22 @@
 <x-dashboard title="{{ $title }}">
+    @push('csslivewire') @livewireStyles @endpush
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
             <x-breadcrumb-item link="" name="Employee" />
         </x-breadcrumb>
     </x-pagetitle>
-    <section class="section dashboard">
-        <h3 class="card-title">Select Division</h3>
-        <div class="row">
-            @foreach($datas as $d)
-            <div class="col-md">
-                <div class="card info-card revenue-card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            {{ $d->name }}
-                        </h5>
 
-                        <div class="d-flex align-items-center">
-                            <div
-                                class="card-icon rounded-circle d-flex align-items-center justify-content-center"
-                            >
-                                <i class="bi bi-bank"></i>
-                            </div>
+    <livewire:employee.division.index />
 
-                            <div class="ps-3">
-                                <h6>{{ $d->description }}</h6>
-                                <span class="text-success small pt-1 fw-bold"
-                                    ><a
-                                        href="/dashboard/employee/{{
-                                            $d->slug
-                                        }}"
-                                        >Detail</a
-                                    ></span
-                                >
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </section>
+    @push('jslivewire') @livewireScripts
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        window.addEventListener("close-modal", (event) => {
+            $("#divisionkModal").modal("hide");
+            $("#updateDivisionModal").modal("hide");
+            $("#deleteDivisionModal").modal("hide");
+        });
+    </script>
+    @endpush
 </x-dashboard>

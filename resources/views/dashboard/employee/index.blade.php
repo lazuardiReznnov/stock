@@ -13,7 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
         window.addEventListener("close-modal", (event) => {
-            $("#divisionkModal").modal("hide");
+            $("#divisionModal").modal("hide");
             $("#updateDivisionModal").modal("hide");
             $("#deleteDivisionModal").modal("hide");
         });

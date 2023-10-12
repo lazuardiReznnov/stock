@@ -25,33 +25,11 @@
             <form wire:submit.prevent="saveDivision">
                 <div class="modal-body">
                     <div class="col-md-8 mb-3">
-                        @if($pic)
-                        <img
-                            width="200"
-                            class="img-fluid mb-2"
-                            alt=""
-                            src="{{ $pic->temporaryUrl() }}"
-                        />
-                        @endif
-                        <input
-                            type="file"
-                            class="form-control @error('pic') is-invalid @enderror"
-                            placeholder="Image"
-                            name="pic"
-                            wire:model="pic"
-                        />
-                        @error('pic')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-                    <div class="col-md-8 mb-3">
                         <input
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Brand Name"
-                            name="Division Name"
+                            placeholder="Division Name"
+                            name="name"
                             wire:model="name"
                         />
                         @error('name')
@@ -68,6 +46,7 @@
                             name="description"
                             rows="3"
                             wire:model="description"
+                            placeholder="description"
                         ></textarea>
                         @error('description')
                         <span class="invalid-feedback" role="alert">
@@ -121,37 +100,6 @@
             </div>
             <form wire:submit.prevent="updateCategory">
                 <div class="modal-body">
-                    <div class="col-md-8 mb-3">
-                        @if($oldPic)
-                        <img
-                            width="200"
-                            class="img-fluid mb-2"
-                            alt=""
-                            src="{{ asset('storage/'.$oldPic) }}"
-                        />
-                        <input type="hidden" name="" wire:model="oldPic" />
-                        <input type="hidden" name="" wire:model="oldPicId" />
-                        @endif @if($pic)
-                        <img
-                            width="200"
-                            class="img-fluid mb-2"
-                            alt=""
-                            src="{{ $pic->temporaryUrl() }}"
-                        />
-                        @endif
-                        <input
-                            type="file"
-                            class="form-control @error('pic') is-invalid @enderror"
-                            placeholder="Image"
-                            name="pic"
-                            wire:model="pic"
-                        />
-                        @error('pic')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
                     <div class="col-md-8 mb-3">
                         <input
                             type="text"

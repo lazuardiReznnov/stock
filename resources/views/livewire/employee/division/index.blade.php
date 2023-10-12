@@ -29,15 +29,14 @@
         <div class="row my-2">
             <div class="col-md-4">
                 <x-button-group>
-                    <x-button-link
-                        class="btn-primary"
-                        href="onclick='history.back()'"
-                    >
+                    <x-button-link class="btn-primary" href="/dashboard">
                         <i class="bi bi-arrow-left-circle"></i> Back
                     </x-button-link>
                     <x-button-link
                         class="btn-primary"
-                        href="/dashboard/stock/invoiceStock"
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#divisionModal"
                     >
                         <i class="bi bi-plus-circle"></i> Stock-In
                     </x-button-link>

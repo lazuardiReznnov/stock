@@ -1,7 +1,7 @@
 <div>
     <div class="row">
         @include('livewire.employee.division.modal')
-        <div class="col-md-8">
+        <div class="col-md">
             @if(session()->has('success'))
 
             <!-- pesan -->
@@ -38,7 +38,7 @@
                         data-bs-toggle="modal"
                         data-bs-target="#divisionModal"
                     >
-                        <i class="bi bi-plus-circle"></i> Stock-In
+                        <i class="bi bi-plus-circle"></i> Division
                     </x-button-link>
                 </x-button-group>
             </div>
@@ -46,7 +46,7 @@
         <h3 class="card-title">Select Division</h3>
         <div class="row">
             @foreach($datas as $d)
-            <div class="col-md">
+            <div class="col-md-4">
                 <div class="card info-card revenue-card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -67,18 +67,22 @@
                                         href="/dashboard/employee/{{
                                             $d->slug
                                         }}"
-                                        >Detail</a
+                                        >Data</a
                                     >
                                     <a
-                                        href="/dashboard/employee/{{
-                                            $d->slug
-                                        }}"
+                                        href="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#updateDivisionModal"
+                                        title="Edit Division"
+                                        wire:click="editDivision({{ $d->id }})"
                                         >Edit</a
                                     >
                                     <a
-                                        href="/dashboard/employee/{{
-                                        $d->slug
-                                    }}"
+                                        href="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#deleteDivisionModal"
+                                        title="Delete Division"
+                                        wire:click="deleteDivision({{ $d->id }})"
                                         >Delete</a
                                     >
                                 </span>

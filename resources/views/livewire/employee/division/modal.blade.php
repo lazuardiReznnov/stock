@@ -98,7 +98,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="updateCategory">
+            <form wire:submit.prevent="updateDivision">
                 <div class="modal-body">
                     <div class="col-md-8 mb-3">
                         <input
@@ -173,7 +173,7 @@
                     wire:click="closeModal"
                 ></button>
             </div>
-            <form wire:submit.prevent="destroyCategory">
+            <form wire:submit.prevent="destroyDivision">
                 <div class="modal-body">
                     <h4>Are You Sure.??</h4>
                 </div>

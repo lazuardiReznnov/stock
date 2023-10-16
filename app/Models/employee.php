@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class Division extends Model
+class employee extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
@@ -21,8 +21,18 @@ class Division extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function employee()
+    public function division()
     {
-        return $this->hasMany(employee::class);
+        return $this->belongsTo(Division::class);
+    }
+
+    public function employeeEdu()
+    {
+        return $this->hasMany(employeeEdu::class);
+    }
+
+    public function employeeWeh()
+    {
+        return $this->hasMany(employeeWeh::class);
     }
 }

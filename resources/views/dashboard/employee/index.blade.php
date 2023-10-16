@@ -1,5 +1,4 @@
 <x-dashboard title="{{ $title }}">
-    @push('csslivewire') @livewireStyles @endpush
     <x-pagetitle title="{{ $title }}">
         <x-breadcrumb>
             <x-breadcrumb-item link="/dashboard" name="Dashboard" />
@@ -45,7 +44,7 @@
                                 <h6>{{ $d->description }}</h6>
                                 <span class="text-success small pt-1 fw-bold"
                                     ><a
-                                        href="/dashboard/employee/{{
+                                        href="/dashboard/employee/data/{{
                                         $d->slug
                                     }}"
                                         >Data</a

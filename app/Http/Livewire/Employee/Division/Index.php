@@ -5,19 +5,28 @@ namespace App\Http\Livewire\Employee\Division;
 use Livewire\Component;
 use App\Models\Division;
 use Illuminate\Support\Str;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $name;
     public $description;
     public $pic;
     public $oldPic;
     public $division_id;
+    public $search = '';
 
     protected $rules = [
         'name' => 'required|min:6',
         'description' => 'required|min:5',
     ];
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function updated($propertyName)
     {
@@ -89,7 +98,13 @@ class Index extends Component
     public function render()
     {
         return view('livewire.employee.division.index', [
-            'datas' => Division::all(),
+            'datas' => Division::where(
+                'name',
+                'like',
+                '%' . $this->search . '%'
+            )
+                ->latest()
+                ->paginate(10),
         ]);
     }
 

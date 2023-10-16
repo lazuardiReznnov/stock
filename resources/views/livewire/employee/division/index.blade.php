@@ -26,72 +26,104 @@
         </div>
     </div>
     <section class="section dashboard">
-        <div class="row my-2">
-            <div class="col-md-4">
-                <x-button-group>
-                    <x-button-link class="btn-primary" href="/dashboard">
-                        <i class="bi bi-arrow-left-circle"></i> Back
-                    </x-button-link>
-                    <x-button-link
-                        class="btn-primary"
-                        href="#"
-                        data-bs-toggle="modal"
-                        data-bs-target="#divisionModal"
-                    >
-                        <i class="bi bi-plus-circle"></i> Division
-                    </x-button-link>
-                </x-button-group>
-            </div>
-        </div>
-        <h3 class="card-title">Select Division</h3>
-        <div class="row">
-            @foreach($datas as $d)
-            <div class="col-md-4">
-                <div class="card info-card revenue-card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            {{ $d->name }}
-                        </h5>
-
-                        <div class="d-flex align-items-center">
-                            <div
-                                class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+        <x-card>
+            <x-card-header>
+                <div class="row my-3 justify-content-between">
+                    <div class="col-md-4">
+                        <x-button-group>
+                            <x-button-link
+                                class="btn-primary"
+                                href="/dashboard/employee"
                             >
-                                <i class="bi bi-bank"></i>
-                            </div>
-
-                            <div class="ps-3">
-                                <h6>{{ $d->description }}</h6>
-                                <span class="text-success small pt-1 fw-bold"
-                                    ><a
-                                        href="/dashboard/employee/{{
-                                            $d->slug
-                                        }}"
-                                        >Data</a
-                                    >
-                                    <a
-                                        href="#"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#updateDivisionModal"
-                                        title="Edit Division"
-                                        wire:click="editDivision({{ $d->id }})"
-                                        >Edit</a
-                                    >
-                                    <a
-                                        href="#"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#deleteDivisionModal"
-                                        title="Delete Division"
-                                        wire:click="deleteDivision({{ $d->id }})"
-                                        >Delete</a
-                                    >
-                                </span>
-                            </div>
+                                <i class="bi bi-arrow-left-circle"></i> Back
+                            </x-button-link>
+                            <x-button-link
+                                class="btn-primary"
+                                href="#"
+                                data-bs-toggle="modal"
+                                data-bs-target="#divisionModal"
+                            >
+                                <i class="bi bi-plus-circle"></i> Division
+                            </x-button-link>
+                        </x-button-group>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="search-bar">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="search"
+                                placeholder="Search"
+                                title="Enter search keyword"
+                                wire:model="search"
+                            />
                         </div>
                     </div>
                 </div>
-            </div>
-            @endforeach
-        </div>
+            </x-card-header>
+            <x-card-body>
+                <table class="table table-striped my-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Descrption</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if($datas->count()) @foreach($datas as $data)
+                        <tr>
+                            <th scope="row">
+                                {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
+                            </th>
+
+                            <td width="50px">{{ $data->name }}</td>
+
+                            <td width="300px">{!! $data->description !!}</td>
+
+                            <td>
+                                <a
+                                    class="badge bg-warning border-0"
+                                    href="#"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#updateDivisionModal"
+                                    title="Edit Division"
+                                    wire:click="editDivision({{ $data->id }})"
+                                    ><i class="bi bi-pencil-square"></i
+                                ></a>
+                                <a
+                                    class="badge bg-danger border-0"
+                                    href="#"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteDivisionModal"
+                                    title="Delete Division"
+                                    wire:click="deleteDivision({{ $data->id }})"
+                                >
+                                    <i class="bi bi-x-lg"></i
+                                ></a>
+                            </td>
+                            <!-- Modal Image -->
+                        </tr>
+                        @endforeach
+                        <!-- Modal -->
+
+                        <!-- End Modal Image -->
+                        @else
+                        <tr>
+                            <td colspan="4" class="text-center">
+                                Data Not Found
+                            </td>
+                        </tr>
+                        @endif
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ $datas->links() }}
+                    </div>
+                </div>
+            </x-card-body>
+        </x-card>
     </section>
 </div>

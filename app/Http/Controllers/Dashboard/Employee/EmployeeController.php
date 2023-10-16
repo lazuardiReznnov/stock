@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Employee;
+namespace App\Http\Controllers\Dashboard\Employee;
 
 use App\Models\Division;
 use Illuminate\Http\Request;

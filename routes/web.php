@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\Unit\TypeController;
 use App\Http\Controllers\Dashboard\Unit\UnitController;
@@ -12,6 +11,8 @@ use App\Http\Controllers\Dashboard\Report\ReportController;
 use App\Http\Controllers\Dashboard\stock\CategoryController;
 use App\Http\Controllers\Dashboard\stock\SupplierController;
 use App\Http\Controllers\Dashboard\stock\SparepartController;
+use App\Http\Controllers\Dashboard\Employee\DivisionController;
+use App\Http\Controllers\Dashboard\Employee\EmployeeController;
 use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
 use App\Http\Controllers\Dashboard\Transaction\CustomerController;
@@ -188,5 +189,9 @@ Route::controller(TransactionController::class)->group(function () {
 
 Route::controller(EmployeeController::class)->group(function () {
     Route::get('/dashboard/employee', 'index');
+});
+
+Route::controller(DivisionController::class)->group(function () {
+    Route::get('/dashboard/employee/division', 'index');
 });
 // endtransaction

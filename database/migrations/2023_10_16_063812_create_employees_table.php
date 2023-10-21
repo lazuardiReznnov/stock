@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->string('identity')->unique();
             $table->text('address')->nullable();
             $table->string('email')->unique();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->date('birth')->nullable();
             $table->string('born')->nullable();
             $table->string('gender')->nullable();

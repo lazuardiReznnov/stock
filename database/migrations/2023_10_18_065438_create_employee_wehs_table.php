@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('empployee_wehs', function (Blueprint $table) {
+        Schema::create('employee_wehs', function (Blueprint $table) {
             $table->id();
             $table
                 ->foreignId('employee_id')
@@ -30,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('empployee_wehs');
+        Schema::dropIfExists('employee_wehs');
     }
 };

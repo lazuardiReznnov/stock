@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmpployeeWeh extends Model
+class employeeWeh extends Model
 {
     use HasFactory;
+
     protected $guarded = ['id'];
 
     public function employee()

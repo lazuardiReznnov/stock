@@ -11,16 +11,15 @@ class EmployeeController extends Controller
     public function index()
     {
         return view('dashboard.employee.index', [
-            'title' => 'Employee Data',
-            'datas' => Division::all(),
+            'title' => 'Employee Management',
         ]);
     }
 
-    public function data(Division $division)
+    public function data()
     {
         return view('dashboard.employee.data', [
-            'title' => 'Division - ' . $division->name,
-            'data' => $division,
+            'title' => 'employee Data',
+            'datas' => Division::all(),
         ]);
     }
 }

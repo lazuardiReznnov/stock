@@ -19,7 +19,7 @@ return new class extends Migration {
                 ->cascadeOnDelete();
             $table->string('certificate')->nullable();
             $table->string('school')->nullable();
-            $table->string('date');
+            $table->string('date')->nullable();
             $table->timestamps();
         });
     }

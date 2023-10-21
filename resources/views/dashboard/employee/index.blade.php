@@ -25,13 +25,10 @@
 
     <section class="section dashboard">
         <div class="row">
-            @foreach($datas as $d)
             <div class="col-md-4">
                 <div class="card info-card revenue-card">
                     <div class="card-body">
-                        <h5 class="card-title">
-                            {{ $d->name }}
-                        </h5>
+                        <h5 class="card-title">Employee Data</h5>
 
                         <div class="d-flex align-items-center">
                             <div
@@ -41,13 +38,10 @@
                             </div>
 
                             <div class="ps-3">
-                                <h6>{{ $d->description }}</h6>
+                                <h6></h6>
                                 <span class="text-success small pt-1 fw-bold"
-                                    ><a
-                                        href="/dashboard/employee/data/{{
-                                        $d->slug
-                                    }}"
-                                        >Data</a
+                                    ><a href="/dashboard/employee/data/"
+                                        >Detail</a
                                     >
                                 </span>
                             </div>
@@ -55,7 +49,31 @@
                     </div>
                 </div>
             </div>
-            @endforeach
+
+            <div class="col-md-4">
+                <div class="card info-card revenue-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Sallary Data</h5>
+
+                        <div class="d-flex align-items-center">
+                            <div
+                                class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                            >
+                                <i class="bi bi-bank"></i>
+                            </div>
+
+                            <div class="ps-3">
+                                <h6></h6>
+                                <span class="text-success small pt-1 fw-bold"
+                                    ><a href="/dashboard/employee/data/"
+                                        >Detail</a
+                                    >
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 </x-dashboard>

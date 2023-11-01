@@ -24,19 +24,12 @@ class UnitMaintenance extends Component
     }
     public function render()
     {
-        $datey = date('Y');
-        $datem = date('m');
-        $maintenance = Maintenance::latest();
-
-        if ($this->search) {
-            $maintenance->where('tgl', 'like', '%' . $this->search . '%');
-        } else {
-            $maintenance
-                ->whereMonth('tgl', '=', $datem)
-                ->whereYear('tgl', '=', $datey);
-        }
         return view('livewire.unit.unit-maintenance', [
-            'datas' => $maintenance
+            'datas' => Maintenance::where(
+                'tgl',
+                'like',
+                '%' . $this->search . '%'
+            )
                 ->with('unit')
                 ->where(['unit_id' => $this->unitId])
                 ->paginate(10),

@@ -29,7 +29,7 @@
                                 <h6>{{ $d->description }}</h6>
                                 <span class="text-success small pt-1 fw-bold"
                                     ><a
-                                        href="/dashboard/employee/data/{{
+                                        href="/dashboard/employee/{{
                                         $d->slug
                                     }}"
                                         >Data</a

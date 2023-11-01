@@ -190,6 +190,7 @@ Route::controller(TransactionController::class)->group(function () {
 Route::controller(EmployeeController::class)->group(function () {
     Route::get('/dashboard/employee', 'index');
     Route::get('/dashboard/employee/data', 'data');
+    Route::get('/dashboard/employee/{division}', 'show');
 });
 
 Route::controller(DivisionController::class)->group(function () {

@@ -22,4 +22,12 @@ class EmployeeController extends Controller
             'datas' => Division::all(),
         ]);
     }
+
+    public function show(Division $division)
+    {
+        return view('dashboard.employee.show', [
+            'title' => 'Detail Division',
+            'data' => $division,
+        ]);
+    }
 }

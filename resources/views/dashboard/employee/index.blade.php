@@ -65,7 +65,7 @@
                             <div class="ps-3">
                                 <h6></h6>
                                 <span class="text-success small pt-1 fw-bold"
-                                    ><a href="/dashboard/employee/data/"
+                                    ><a href="/dashboard/employee/salarty/"
                                         >Detail</a
                                     >
                                 </span>

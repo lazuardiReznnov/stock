@@ -55,7 +55,7 @@
                                             class="text-muted small pt-2 ps-1"
                                         >
                                             <a
-                                                href="/dashboard/transaction/rate/detail"
+                                                href="/dashboard/transaction/rate/customer/{{ $data->slug }}"
                                                 class="fw-bold"
                                                 >Detail</a
                                             >

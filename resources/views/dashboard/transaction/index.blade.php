@@ -126,7 +126,7 @@
                                             class="text-muted small pt-2 ps-1"
                                         >
                                             <a
-                                                href="/dashboard/transaction/customer/rates"
+                                                href="/dashboard/transaction/rate"
                                                 class="fw-bold"
                                                 >Detail</a
                                             >

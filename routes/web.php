@@ -202,5 +202,6 @@ Route::controller(DivisionController::class)->group(function () {
 Route::controller(RateController::class)->group(function () {
     Route::get('/dashboard/transaction/rate', 'index');
     Route::get('/dashboard/transaction/{rate}', 'show');
+    Route::get('/dashboard/transaction/rate/customer/{customer}', 'data');
 });
 // endtransaction

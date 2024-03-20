@@ -17,6 +17,7 @@ use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
 use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
 use App\Http\Controllers\Dashboard\Transaction\CustomerController;
 use App\Http\Controllers\Dashboard\Maintenance\MaintenanceController;
+use App\Http\Controllers\Dashboard\Transaction\RateController;
 use App\Http\Controllers\Dashboard\Transaction\TransactionController;
 
 /*
@@ -196,5 +197,10 @@ Route::controller(EmployeeController::class)->group(function () {
 
 Route::controller(DivisionController::class)->group(function () {
     Route::get('/dashboard/employee/division', 'index');
+});
+
+Route::controller(RateController::class)->group(function () {
+    Route::get('/dashboard/transaction/rate', 'index');
+    Route::get('/dashboard/transaction/{rate}', 'show');
 });
 // endtransaction

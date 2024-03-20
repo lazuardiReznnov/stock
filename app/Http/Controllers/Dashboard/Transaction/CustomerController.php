@@ -26,6 +26,9 @@ class CustomerController extends Controller
 
     public function show(Customer $customer)
     {
-        //
+        return view('dashboard.transaction.customer.show', [
+            'title' => 'Detail Customer',
+            'data' => $customer,
+        ]);
     }
 }

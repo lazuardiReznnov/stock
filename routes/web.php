@@ -181,6 +181,7 @@ Route::controller(ReportController::class)->group(function () {
 // Transaction
 Route::controller(CustomerController::class)->group(function () {
     Route::get('/dashboard/transaction/customer', 'index');
+    Route::get('/dashboard/transaction/customer/{customer}', 'show');
 });
 
 Route::controller(TransactionController::class)->group(function () {

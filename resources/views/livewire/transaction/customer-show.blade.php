@@ -109,6 +109,14 @@
                             <!-- <td>{{ $data->address }}</td> -->
 
                             <td>
+                                <a
+                                    href="/dashboard/transaction/customer/{{ $data->slug }}"
+                                    class="badge bg-success"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Detail Unit"
+                                    ><i class="bi bi-eye"></i
+                                ></a>
                                 <button
                                     class="badge bg-warning"
                                     data-bs-toggle="modal"

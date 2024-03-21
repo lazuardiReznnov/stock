@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Transaction\Rate;
 
 use App\Models\Rate;
+use App\Models\region;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
@@ -15,23 +16,57 @@ class Index extends Component
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $customerId, $regionId, $name, $fare, $type;
+    public $customerId, $region_id, $name, $fare, $type;
+    public $regions;
 
+    public function mount($customerId)
+    {
+        $this->customerId = $customerId;
+        $this->regions = region::all();
+    }
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function mount($customerId)
+    protected $rules = [
+        'region_id' => 'required',
+        'name' => 'required',
+        'fare' => 'required',
+        'type' => 'required',
+    ];
+
+    public function updated($propertyName)
     {
-        $this->customerId = $customerId;
+        $this->validateOnly($propertyName);
     }
+
+    public function saveRate()
+    {
+        $this->rules['name'] = 'required|unique:rates';
+
+        $validatedData = $this->validate();
+
+        $validatedData['slug'] = Str::slug($this->name);
+        $validatedData['customer_id'] = $this->customerId;
+
+        rate::create($validatedData);
+
+        session()->flash('success', 'Data Has Been Added');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
     public function render()
     {
+        $rate = Rate::where('customer_id', '=', $this->customerId)->latest();
         return view('livewire.transaction.rate.index', [
-            'datas' => Rate::where('customer_id', $this->customerId)
+            'datas' => $rate
+                ->with('region')
+
                 ->where('name', 'like', '%' . $this->search . '%')
-                ->latest()
+
                 ->paginate(10),
         ]);
     }
@@ -45,7 +80,7 @@ class Index extends Component
     {
         $this->customerId = '';
         $this->name = '';
-        $this->regionId = '';
+        $this->region_id = null;
         $this->name = '';
         $this->fare = '';
         $this->type = '';

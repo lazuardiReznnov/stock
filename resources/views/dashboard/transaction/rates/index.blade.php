@@ -6,7 +6,7 @@
                 link="/dashboard/transaction"
                 name="transaction"
             />
-            <x-breadcrumb-item link="" name="Rates" />
+
             <x-breadcrumb-item link="" name="{{ $title }}" />
         </x-breadcrumb>
     </x-pagetitle>

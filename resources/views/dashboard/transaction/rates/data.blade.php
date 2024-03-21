@@ -21,9 +21,9 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
         window.addEventListener("close-modal", (event) => {
-            $("#rateStockModal").modal("hide");
-            $("#updateRateStockModal").modal("hide");
-            $("#deleteRateStockModal").modal("hide");
+            $("#rateModal").modal("hide");
+            $("#updateRateModal").modal("hide");
+            $("#deleteRateModal").modal("hide");
         });
     </script>
     @endpush

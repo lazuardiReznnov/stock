@@ -1,4 +1,5 @@
 <div>
+    @include('livewire.transaction.rate.rate-modal')
     <div class="row">
         <div class="col-md-12">
             @if(session()->has('success'))
@@ -42,7 +43,7 @@
                                     class="btn-primary"
                                     href="#"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#customerModal"
+                                    data-bs-target="#rateModal"
                                 >
                                     <i class="bi bi-plus-circle"></i> Add Rates
                                 </x-button-link>

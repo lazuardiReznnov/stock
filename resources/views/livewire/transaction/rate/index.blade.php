@@ -104,7 +104,7 @@
                                     class="badge bg-warning"
                                     data-bs-toggle="modal"
                                     data-bs-target="#updateRateModal"
-                                    wire:click="editrate({{ $data->id }})"
+                                    wire:click="editRate({{ $data->id }})"
                                     title="Edit data"
                                     type="button"
                                 >
@@ -144,4 +144,13 @@
             </x-card>
         </div>
     </div>
+
+    @push('script2')
+
+    <script
+        src="https://code.jquery.com/jquery-3.6.1.slim.js"
+        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk="
+        crossorigin="anonymous"
+    ></script>
+    @endpush
 </div>

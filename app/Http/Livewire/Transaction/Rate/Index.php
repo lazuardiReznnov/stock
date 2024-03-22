@@ -16,17 +16,18 @@ class Index extends Component
     use WithFileUploads;
     protected $paginationTheme = 'bootstrap';
     public $search = '';
-    public $customerId, $region_id, $name, $fare, $type;
+    public $region_id, $name, $fare, $type, $rateId;
     public $regions;
+    public $customerId;
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
     public function mount($customerId)
     {
         $this->customerId = $customerId;
         $this->regions = region::all();
-    }
-    public function updatingSearch()
-    {
-        $this->resetPage();
     }
 
     protected $rules = [
@@ -58,9 +59,27 @@ class Index extends Component
         $this->dispatchBrowserEvent('close-modal');
     }
 
+    public function editRate($rateId)
+    {
+        $rate = rate::find($rateId);
+        if ($rate) {
+            $this->customerId = $rate->customer_id;
+            $this->region_id = $rate->region_id;
+            $this->name = $rate->name;
+            $this->fare = $rate->fare;
+            $this->type = $rate->type;
+            $this->rateId = $rate->id;
+        } else {
+            return redirect()->to('/transaction/rate/');
+        }
+    }
+
     public function render()
     {
-        $rate = Rate::where('customer_id', '=', $this->customerId)->latest();
+        if ($this->customerId == '') {
+            dd($this->customerId);
+        }
+        $rate = Rate::where('customer_id', $this->customerId)->latest();
         return view('livewire.transaction.rate.index', [
             'datas' => $rate
                 ->with('region')
@@ -78,13 +97,12 @@ class Index extends Component
 
     public function resetInput()
     {
-        $this->customerId = '';
         $this->name = '';
         $this->region_id = null;
         $this->name = '';
         $this->fare = '';
         $this->type = '';
-        $this->reset();
+
         $this->resetValidation();
     }
 }

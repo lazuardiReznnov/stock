@@ -21,7 +21,7 @@ class RateController extends Controller
     {
         return view('dashboard.transaction.rates.data', [
             'title' => $customer->name,
-            'data' => $customer,
+            'data' => $customer->id,
         ]);
     }
 }

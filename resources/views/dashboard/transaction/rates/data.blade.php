@@ -16,7 +16,6 @@
     </x-pagetitle>
 
     <livewire:transaction.rate.index :customerId="$data->id" . />
-
     @push('jslivewire') @livewireScripts
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>

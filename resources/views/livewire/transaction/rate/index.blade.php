@@ -92,14 +92,6 @@
                             <!-- <td>{{ $data->address }}</td> -->
 
                             <td>
-                                <a
-                                    href="/dashboard/transaction/rate/{{ $data->slug }}"
-                                    class="badge bg-success"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Detail Unit"
-                                    ><i class="bi bi-eye"></i
-                                ></a>
                                 <button
                                     class="badge bg-warning"
                                     data-bs-toggle="modal"
@@ -116,7 +108,7 @@
                                     data-bs-toggle="modal"
                                     data-bs-target="#deleteRateModal"
                                     title="Delete rate"
-                                    wire:click="deleterate({{ $data->id }})"
+                                    wire:click="deleteRate({{ $data->id }})"
                                 >
                                     <i class="bi bi-x-lg"></i>
                                 </button>

@@ -74,6 +74,38 @@ class Index extends Component
         }
     }
 
+    public function updateRate()
+    {
+        $rate = rate::find($this->rateId);
+
+        if ($this->name != $rate->name) {
+            $this->rules['name'] = 'required|unique:rates';
+        }
+        $validatedData = $this->validate();
+        $validatedData['slug'] = Str::slug($this->name);
+
+        $rate->update($validatedData);
+
+        session()->flash('success', 'Data Has Been Updated');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function deleteRate(int $rateId)
+    {
+        $this->rateId = $rateId;
+    }
+
+    public function destroyRate()
+    {
+        $rate = rate::find($this->rateId);
+        $rate->delete();
+        session()->flash('success', 'Data Has Been Deleted');
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
     public function render()
     {
         if ($this->customerId == '') {

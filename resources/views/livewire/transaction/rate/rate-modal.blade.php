@@ -240,7 +240,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="deleteRateModalLabel">
-                    Delete Maintenance Data
+                    Delete Rate Data
                 </h1>
                 <button
                     type="button"

@@ -19,7 +19,10 @@
             <div class="col-md">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"
+                        <a
+                            class="nav-link active"
+                            aria-current="page"
+                            href="/dashboard/transaction/rate/region"
                             >Regions</a
                         >
                     </li>

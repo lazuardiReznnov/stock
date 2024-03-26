@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
 use App\Http\Controllers\Dashboard\Transaction\CustomerController;
 use App\Http\Controllers\Dashboard\Maintenance\MaintenanceController;
 use App\Http\Controllers\Dashboard\Transaction\RateController;
+use App\Http\Controllers\Dashboard\Transaction\RegionsController;
 use App\Http\Controllers\Dashboard\Transaction\TransactionController;
 
 /*
@@ -203,5 +204,9 @@ Route::controller(RateController::class)->group(function () {
     Route::get('/dashboard/transaction/rate', 'index');
     Route::get('/dashboard/transaction/{rate}', 'show');
     Route::get('/dashboard/transaction/rate/customer/{customer}', 'data');
+});
+
+Route::controller(RegionsController::class)->group(function () {
+    Route::get('dashboard/transaction/rate/region', 'index');
 });
 // endtransaction

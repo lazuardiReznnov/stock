@@ -1,5 +1,5 @@
 <div>
-    @include('livewire.transaction.rate.rate-modal')
+    @include('livewire.transaction.rate.region.modal')
     <div class="row">
         <div class="col-md-12">
             @if(session()->has('success'))
@@ -69,10 +69,8 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Region</th>
                             <th scope="col">Name</th>
-                            <th scope="col">type</th>
-                            <th scope="col">fare</th>
+                            <th scope="col">Description</th>
                             <!-- <th scope="col">address</th> -->
                             <th scope="col">Action</th>
                         </tr>
@@ -83,28 +81,18 @@
                             <th scope="row">
                                 {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
                             </th>
-                            <td>{{ $data->region->name }}</td>
-
                             <td>{{ $data->name }}</td>
 
-                            <td>{{ $data->type }}</td>
-                            <td>{{ $data->fare }}</td>
+                            <td>{{ $data->description }}</td>
+
                             <!-- <td>{{ $data->address }}</td> -->
 
                             <td>
-                                <a
-                                    href="/dashboard/transaction/rate/{{ $data->slug }}"
-                                    class="badge bg-success"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Detail Unit"
-                                    ><i class="bi bi-eye"></i
-                                ></a>
                                 <button
                                     class="badge bg-warning"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#updateRateModal"
-                                    wire:click="editRate({{ $data->id }})"
+                                    data-bs-target="#updateRegionModal"
+                                    wire:click="editRegion({{ $data->id }})"
                                     title="Edit data"
                                     type="button"
                                 >
@@ -114,9 +102,9 @@
                                 <button
                                     class="badge bg-danger border-0"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#deleteRateModal"
-                                    title="Delete rate"
-                                    wire:click="deleteRate({{ $data->id }})"
+                                    data-bs-target="#deleteRegionModal"
+                                    title="Delete Region"
+                                    wire:click="deleteRegion({{ $data->id }})"
                                 >
                                     <i class="bi bi-x-lg"></i>
                                 </button>

@@ -43,7 +43,7 @@
                                     class="btn-primary"
                                     href="#"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#rateModal"
+                                    data-bs-target="#regionModal"
                                 >
                                     <i class="bi bi-plus-circle"></i> Add Rates
                                 </x-button-link>

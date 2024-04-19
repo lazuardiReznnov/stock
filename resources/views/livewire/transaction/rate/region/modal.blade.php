@@ -132,21 +132,6 @@
                         </span>
                         @enderror
                     </div>
-                    <div class="col-md-8 mb-3">
-                        <input
-                            id="fare"
-                            type="fare"
-                            class="form-control @error('fare') is-invalid @enderror"
-                            placeholder="fare"
-                            name="fare"
-                            wire:model="fare"
-                        />
-                        @error('fare')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button

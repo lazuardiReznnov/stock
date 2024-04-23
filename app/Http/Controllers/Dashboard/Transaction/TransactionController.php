@@ -15,4 +15,11 @@ class TransactionController extends Controller
             'customer' => Customer::All(),
         ]);
     }
+
+    public function track()
+    {
+        return view('dashboard.transaction.track.index', [
+            'title' => 'Track',
+        ]);
+    }
 }

@@ -188,6 +188,7 @@ Route::controller(CustomerController::class)->group(function () {
 
 Route::controller(TransactionController::class)->group(function () {
     Route::get('/dashboard/transaction', 'index');
+    Route::get('/dashboard/transaction/track', 'track');
 });
 
 Route::controller(EmployeeController::class)->group(function () {

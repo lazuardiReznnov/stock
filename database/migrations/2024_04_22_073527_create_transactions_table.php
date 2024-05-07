@@ -18,11 +18,7 @@ return new class extends Migration {
                 ->constrained('invoicings')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table
-                ->foreignId('region_id')
-                ->constrained('regions')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+
             $table
                 ->foreignId('unit_id')
                 ->constrained('units')
@@ -36,6 +32,7 @@ return new class extends Migration {
                 ->nullable();
             $table->string('recipient');
             $table->string('address');
+            $table->string('region');
             $table->string('type');
             $table->integer('weight');
             $table->integer('cost');

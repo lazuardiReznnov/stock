@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table
-                ->foreignId('invoicing_id')
+                ->foreignId('customer_id')
                 ->nullable()
-                ->constrained('invoicings')
+                ->constrained('customers')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
 
@@ -30,16 +30,18 @@ return new class extends Migration {
                 ->string('letter_number')
                 ->unique()
                 ->nullable();
-            $table->string('recipient');
-            $table->string('address');
+            $table->string('recipient')->nullable();
+            $table->string('address')->nullable();
+            $table->integer('area');
             $table->string('region');
             $table->string('type');
-            $table->integer('weight');
-            $table->integer('cost');
-            $table->integer('transport');
-            $table->integer('driver_fee');
-            $table->integer('mark_fee');
-            $table->integer('inline_fee');
+            $table->string('fare');
+            $table->integer('weight')->nullable();
+            $table->integer('cost')->nullable();
+            $table->integer('transport')->nullable();
+            $table->integer('driver_fee')->nullable();
+            $table->integer('mark_fee')->nullable();
+            $table->integer('inline_fee')->nullable();
             $table->timestamps();
         });
     }

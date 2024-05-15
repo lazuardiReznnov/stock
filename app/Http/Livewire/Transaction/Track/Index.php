@@ -8,6 +8,7 @@ use App\Models\Rate;
 use App\Models\region;
 use App\Models\transaction;
 use App\Models\Unit;
+use Database\Seeders\RegionSeeder;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Livewire\WithPagination;
@@ -37,17 +38,22 @@ class Index extends Component
         $mark_fee,
         $inline_fee,
         $trackId,
-        $region_id,
+        $region,
         $unit_id,
         $customer_id,
         $rates,
-        $selectedRegions;
+        $selectedRegions,
+        $selectedCustomers,
+        $rate_id,
+        $rateId,
+        $fare,
+        $area;
 
     protected $rules = [
-        'region_id' => 'required',
+        'region' => 'required',
         'unit_id' => 'required',
-        'customer_id' => 'required',
         'type' => 'required',
+        'fare' => 'required',
     ];
     public function mount()
     {
@@ -63,21 +69,67 @@ class Index extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function updatedSelectedRegions($regionId, $customerId)
+    public function updatedSelectedCustomers($customerId)
     {
-        dd($customerId);
+        return $this->rates = Rate::where('customer_id', $customerId)->get();
+    }
+
+    public function updatedRateId($rate_id)
+    {
+        $type = Rate::find($rate_id);
+        $region = Region::find($type->region_id);
+        $this->region = $region->name;
+        $this->type = $type->type;
+        $this->fare = $type->fare;
     }
     public function render()
     {
         $track = transaction::latest();
         return view('livewire.transaction.track.index', [
             'datas' => $track
-                ->with('region', 'unit', 'invoicing', 'customer')
+                ->with('customer', 'unit')
 
                 ->where('name', 'like', '%' . $this->search . '%')
 
                 ->paginate(10),
         ]);
+    }
+
+    public function saveTrack()
+    {
+        $validatedData = $this->validate();
+        $validatedData['name'] =
+            rand(10, 100) .
+            $this->selectedCustomers .
+            $this->unit_id .
+            date('Y-m-d H:i:s');
+        $validatedData['slug'] = str::slug($validatedData['name']);
+        $validatedData['customer_id'] = $this->selectedCustomers;
+        $validatedData['area'] = $this->rateId;
+        transaction::create($validatedData);
+        session()->flash('success', 'Data Has Been Added');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function editTrack($trackId)
+    {
+        $track = transaction::find($trackId);
+        if ($track) {
+            $this->rates = Rate::where(
+                'customer_id',
+                $track->customer_id
+            )->get();
+            $this->rateId = $track->area;
+            $this->unit_id = $track->unit_id;
+            $this->selectedCustomers = $track->customer_id;
+            $this->region = $track->region;
+            $this->type = $track->type;
+            $this->fare = $track->fare;
+        } else {
+            return redirect()->to('/transaction/tack/');
+        }
     }
 
     public function closeModal()
@@ -88,20 +140,22 @@ class Index extends Component
     public function resetInput()
     {
         $this->name = '';
-        $this->region_id = null;
+        $this->region = '';
         $this->name = '';
-        $this->letter_number;
-        $this->recipient;
-        $this->address;
-        $this->type;
-        $this->weight;
-        $this->cos;
-        $this->transport;
-        $this->driver_fee;
-        $this->mark_fee;
-        $this->inline_fee;
-        $this->trackId;
-        $this->customer_id;
+        $this->letter_number = '';
+        $this->recipient = '';
+        $this->address = '';
+        $this->type = '';
+        $this->weight = '';
+        $this->cos = '';
+        $this->transport = '';
+        $this->driver_fee = '';
+        $this->mark_fee = '';
+        $this->inline_fee = '';
+        $this->trackId = '';
+        $this->unit_id = '';
+        $this->selectedCustomers = null;
+        $this->rateId = null;
 
         $this->resetValidation();
     }

@@ -20,17 +20,13 @@ class transaction extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function invoicing()
-    {
-        return $this->belongsTo(Invoicing::class);
-    }
-
     public function unit()
     {
         return $this->belongsTo(unit::class);
     }
-    public function region()
+
+    public function customer()
     {
-        return $this->belongsTo(region::class);
+        return $this->belongsTo(customer::class);
     }
 }

@@ -36,4 +36,13 @@ class Customer extends Model
     {
         return $this->hasMany(Rate::class);
     }
+
+    public function transaction()
+    {
+        $this->hasMany(transaction::class);
+    }
+    public function invoicing()
+    {
+        $this->hasMany(invoicing::class);
+    }
 }

@@ -34,6 +34,7 @@ return new class extends Migration {
             $table->string('address')->nullable();
             $table->integer('area');
             $table->string('region');
+            $table->string('driver')->nullable();
             $table->string('type');
             $table->string('fare');
             $table->integer('weight')->nullable();

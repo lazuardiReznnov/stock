@@ -98,10 +98,12 @@ class Index extends Component
     public function saveTrack()
     {
         $validatedData = $this->validate();
+        $cusName = Customer::find($this->selectedCustomers);
+        $unitName = Unit::find($this->unit_id);
         $validatedData['name'] =
             rand(10, 100) .
-            $this->selectedCustomers .
-            $this->unit_id .
+            $cusName->name .
+            $unitName->name .
             date('Y-m-d H:i:s');
         $validatedData['slug'] = str::slug($validatedData['name']);
         $validatedData['customer_id'] = $this->selectedCustomers;
@@ -127,9 +129,40 @@ class Index extends Component
             $this->region = $track->region;
             $this->type = $track->type;
             $this->fare = $track->fare;
+            $this->trackId = $trackId;
         } else {
             return redirect()->to('/transaction/tack/');
         }
+    }
+
+    public function updateTrack()
+    {
+        $validatedData = $this->validate();
+        $transaction = transaction::find($this->trackId);
+
+        $validatedData['customer_id'] = $this->selectedCustomers;
+        $validatedData['area'] = $this->rateId;
+
+        $transaction->update($validatedData);
+
+        session()->flash('success', 'Data Has Been Updated');
+        $this->resetInput();
+
+        $this->dispatchBrowserEvent('close-modal');
+    }
+
+    public function deleteTrack(int $trackId)
+    {
+        $this->trackId = $trackId;
+    }
+
+    public function destroyTrack()
+    {
+        $track = transaction::find($this->trackId);
+        $track->delete();
+        session()->flash('success', 'Data Has Been Deleted');
+
+        $this->dispatchBrowserEvent('close-modal');
     }
 
     public function closeModal()

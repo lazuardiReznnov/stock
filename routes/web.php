@@ -190,6 +190,8 @@ Route::controller(TransactionController::class)->group(function () {
     Route::get('/dashboard/transaction', 'index');
     Route::get('/dashboard/transaction/track', 'track');
     Route::get('/dashboard/transaction/track/{transaction:slug}', 'show');
+    Route::get('/dashboard/transaction/track/{transaction:slug}/edit', 'edit');
+    Route::put('/dashboard/transaction/track/{transaction:slug}', 'update');
 });
 
 Route::controller(EmployeeController::class)->group(function () {

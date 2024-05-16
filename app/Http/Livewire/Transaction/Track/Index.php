@@ -47,9 +47,11 @@ class Index extends Component
         $rate_id,
         $rateId,
         $fare,
-        $area;
+        $area,
+        $driver;
 
     protected $rules = [
+        'driver' => 'required',
         'region' => 'required',
         'unit_id' => 'required',
         'type' => 'required',

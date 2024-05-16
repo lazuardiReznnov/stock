@@ -33,6 +33,16 @@
 						@enderror
 					</div>
 
+					<div class="col-md-8 mb-3">
+						<input id="driver" type="text" class="form-control @error('driver') is-invalid @enderror"
+							placeholder="driver" name="driver" wire:model="driver" />
+						@error('driver')
+							<span class="invalid-feedback" role="alert">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
+					</div>
+
 					<div class="col-md-8 mb-3" wire:ignore>
 						<select id="customer" class="form-select @error('selectedCustomers') is-invalid @enderror"
 							name="selectedCustomers" wire:model="selectedCustomers">
@@ -148,7 +158,15 @@
 						@enderror
 					</div>
 
-
+					<div class="col-md-8 mb-3">
+						<input id="driver" type="text" class="form-control @error('driver') is-invalid @enderror"
+							placeholder="driver" name="driver" wire:model="driver" />
+						@error('driver')
+							<span class="invalid-feedback" role="alert">
+								<strong>{{ $message }}</strong>
+							</span>
+						@enderror
+					</div>
 					<div class="col-md-8 mb-3" wire:ignore>
 						<select id="customer" class="form-select @error('selectedCustomers') is-invalid @enderror"
 							name="selectedCustomers" wire:model="selectedCustomers">
@@ -234,6 +252,8 @@
 		</div>
 	</div>
 </div>
+
+
 
 <!-- modal Delete -->
 <div wire:ignore.self class="modal fade" id="deleteTrackModal" tabindex="-1"

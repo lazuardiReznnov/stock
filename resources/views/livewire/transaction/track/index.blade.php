@@ -61,11 +61,19 @@
 									<th scope="row">
 										{{ ($datas->currentpage() - 1) * $datas->perpage() + $loop->index + 1 }}
 									</th>
-									<td>{{ $data->letter_number }}</td>
+									<td>
+										@if ($data->letter_number == 0)
+											<button class="badge bg-warning" data-bs-toggle="modal" data-bs-target="#editTransactionLetterModal"
+												wire:click="editTransactionTrack({{ $data->id }})" title="Edit data" type="button">
+												Edit Letter Dll
+											</button>
+										@else
+											<a href="#">{{ $data->letter_number }}</a>
+										@endif
+
+									</td>
 									<td>{{ $data->unit->name }}</td>
-
 									<td>{{ $data->customer->name }}</td>
-
 									<td>{{ $data->region }}</td>
 									<td>{{ $data->type }}</td>
 									<!-- <td>{{ $data->address }}</td> -->

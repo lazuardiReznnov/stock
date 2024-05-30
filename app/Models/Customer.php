@@ -45,4 +45,9 @@ class Customer extends Model
     {
         $this->hasMany(invoicing::class);
     }
+
+    public function postmail()
+    {
+        $this->hasMany(Postmail::class);
+    }
 }

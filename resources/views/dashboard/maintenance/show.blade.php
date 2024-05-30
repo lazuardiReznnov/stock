@@ -206,7 +206,8 @@
 	</x-section>
 	@push('csslivewire')
 		<livewire:styles />
-		@endpush @push('jslivewire')
+	@endpush
+	@push('jslivewire')
 		<livewire:scripts />
 
 		<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Dashboard\Transaction;
 
 use App\Models\Customer;
+use App\Models\Postmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\support\Facades\Storage;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class CustomerController extends Controller
 {
@@ -29,6 +30,13 @@ class CustomerController extends Controller
         return view('dashboard.transaction.customer.show', [
             'title' => 'Detail Customer',
             'data' => $customer,
+        ]);
+    }
+
+    public function postmail(PostMail $postmail)
+    {
+        return view('dashboard.transaction.customer.postmail', [
+            'data' => $postmail->load('customer'),
         ]);
     }
 }

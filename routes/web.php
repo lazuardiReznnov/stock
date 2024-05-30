@@ -184,6 +184,10 @@ Route::controller(ReportController::class)->group(function () {
 Route::controller(CustomerController::class)->group(function () {
     Route::get('/dashboard/transaction/customer', 'index');
     Route::get('/dashboard/transaction/customer/{customer}', 'show');
+    Route::get(
+        '/dashboard/transaction/customer/postmail/{postmail:id}',
+        'postmail'
+    )->name('postmail');
 });
 
 Route::controller(TransactionController::class)->group(function () {

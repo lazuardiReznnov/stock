@@ -12,7 +12,7 @@
 
 <body>
 	<div class="container">
-		<div class="card p-2 mt-3 col-6">
+		<div class="card p-2 mt-3 col-6 border  border-3">
 			<div class="row d-flex">
 
 				<div class="col-sm align-self-center">
@@ -30,7 +30,7 @@
 
 		</div>
 
-		<div class="card p-2 mt-3 col-6">
+		<div class="card p-2 mt-3 col-6 border border-black border-3">
 			<div class="row d-flex">
 
 				<div class="col-sm align-self-center">

@@ -1,25 +1,17 @@
 <?php
 
+use App\http\Controllers;
+
+use App\http\Controllers\Dashboard;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\Unit\TypeController;
-use App\Http\Controllers\Dashboard\Unit\UnitController;
-use App\Http\Controllers\Dashboard\Unit\BrandController;
-use App\Http\Controllers\Dashboard\Unit\GroupController;
-use App\Http\Controllers\Dashboard\stock\stockController;
-use App\Http\Controllers\Dashboard\Report\ReportController;
-use App\Http\Controllers\Dashboard\stock\CategoryController;
-use App\Http\Controllers\Dashboard\stock\SupplierController;
-use App\Http\Controllers\Dashboard\stock\SparepartController;
-use App\Http\Controllers\Dashboard\Employee\DivisionController;
-use App\Http\Controllers\Dashboard\Employee\EmployeeController;
-use App\Http\Controllers\Dashboard\Unit\CategoryUnitController;
-use App\Http\Controllers\Dashboard\stock\InvoiceStockController;
-use App\Http\Controllers\Dashboard\Transaction\CustomerController;
-use App\Http\Controllers\Dashboard\Maintenance\MaintenanceController;
-use App\Http\Controllers\Dashboard\Transaction\RateController;
-use App\Http\Controllers\Dashboard\Transaction\RegionsController;
-use App\Http\Controllers\Dashboard\Transaction\TransactionController;
+
+use App\Http\Controllers\Dashboard\Unit;
+use App\Http\Controllers\Dashboard\stock;
+use App\Http\Controllers\Dashboard\Maintenance;
+use App\Http\Controllers\Dashboard\Transaction;
+use App\Http\Controllers\Dashboard\Employee;
+use App\Http\Controllers\Dashboard\report;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,45 +24,48 @@ use App\Http\Controllers\Dashboard\Transaction\TransactionController;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('auth.login');
+// });
+
+Route::get('/', Controllers\HomeController::class)->name('home');
 
 Auth::routes();
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name(
+Route::get('/dashboard', [Dashboard\DashboardController::class, 'index'])->name(
     'dashboard'
 );
 
 // sparepart
-Route::controller(SparepartController::class)->group(function () {
+Route::controller(Stock\SparepartController::class)->group(function () {
     Route::get('/dashboard/stock/sparepart/checkSlug', 'checkSlug');
     Route::get('/dashboard/stock/sparepart/create-excl', 'createexcl');
     Route::post('/dashboard/stock/sparepart/store-excl', 'storeexcl');
 });
 
-Route::resource('/dashboard/stock/sparepart', SparepartController::class);
+Route::resource('/dashboard/stock/sparepart', Stock\SparepartController::class);
 // endsparepart
 
 // category
-Route::controller(CategoryController::class)->group(function () {
+Route::controller(Stock\CategoryController::class)->group(function () {
     route::get('/dashboard/stock/category/checkSlug', 'checkSlug');
 });
 
-Route::resource('/dashboard/stock/category', CategoryController::class)->except(
-    'show'
-);
+Route::resource(
+    '/dashboard/stock/category',
+    Stock\CategoryController::class
+)->except('show');
 // end Category
 
 // Supplier
-Route::controller(SupplierController::class)->group(function () {
+Route::controller(Stock\SupplierController::class)->group(function () {
     route::get('/dashboard/stock/supplier/checkSlug', 'checkSlug');
 });
 
-Route::resource('/dashboard/stock/supplier', SupplierController::class);
+Route::resource('/dashboard/stock/supplier', Stock\SupplierController::class);
 // end Supplier
 
-Route::controller(InvoiceStockController::class)->group(function () {
+Route::controller(Stock\InvoiceStockController::class)->group(function () {
     Route::get('/dashboard/stock/invoiceStock/stock-in/checkSlug', 'slug');
     Route::post('/dashboard/stock/invoiceStock/stock-in', 'storestock');
     Route::get(
@@ -88,43 +83,46 @@ Route::controller(InvoiceStockController::class)->group(function () {
         'stockin'
     );
 });
-Route::resource('/dashboard/stock/invoiceStock', InvoiceStockController::class);
+Route::resource(
+    '/dashboard/stock/invoiceStock',
+    Stock\InvoiceStockController::class
+);
 
-Route::controller(stockController::class)->group(function () {
+Route::controller(Stock\stockController::class)->group(function () {
     Route::get('/dashboard/stock', 'index');
     Route::get('/dashboard/stock/report', 'report');
 });
 
 // Unit
 // Group
-Route::controller(GroupController::class)->group(function () {
+Route::controller(Unit\GroupController::class)->group(function () {
     Route::get('/dashboard/unit/group/checkSlug', 'checkSlug');
 });
 
-Route::resource('/dashboard/unit/group', GroupController::class);
+Route::resource('/dashboard/unit/group', Unit\GroupController::class);
 
 // category Unit
-Route::controller(CategoryUnitController::class)->group(function () {
+Route::controller(Unit\CategoryUnitController::class)->group(function () {
     Route::get('/dashboard/unit/categoryUnit', 'index');
 });
 
 // End Category Unit
 
 // type
-Route::controller(TypeController::class)->group(function () {
+Route::controller(Unit\TypeController::class)->group(function () {
     Route::get('/dashboard/unit/type/checkSlug', 'checkSlug');
 });
 
-Route::resource('/dashboard/unit/type', TypeController::class);
+Route::resource('/dashboard/unit/type', Unit\TypeController::class);
 // endType
 // Brand
-Route::controller(BrandController::class)->group(function () {
+Route::controller(Unit\BrandController::class)->group(function () {
     Route::get('/dashboard/unit/brand', 'index');
 });
 
 // end Brand
 //Group
-Route::controller(UnitController::class)->group(function () {
+Route::controller(Unit\UnitController::class)->group(function () {
     Route::get('/dashboard/unit/checkSlug', 'checkSlug');
     route::get('dashboard/unit/getType', 'getType');
     Route::get('/dashboard/unit/spesification/{unit}', 'editspesification');
@@ -135,11 +133,11 @@ Route::controller(UnitController::class)->group(function () {
     Route::put('/dashboard/unit/vrc/{unit}', 'updatevrc');
 });
 
-Route::resource('/dashboard/unit', UnitController::class);
+Route::resource('/dashboard/unit', Unit\UnitController::class);
 // end Unit
 
 // Maintenance
-Route::controller(MaintenanceController::class)->group(function () {
+Route::controller(Maintenance\MaintenanceController::class)->group(function () {
     Route::get('/dashboard/maintenance/sparepart/{maintenance}', 'createpart');
     Route::post('/dashboard/maintenance/sparepart/{maintenance}', 'storepart');
     Route::get(
@@ -166,7 +164,7 @@ Route::controller(MaintenanceController::class)->group(function () {
     Route::get('/dashboard/maintenance/print/{maintenance}', 'print');
 });
 
-Route::controller(ReportController::class)->group(function () {
+Route::controller(Report\ReportController::class)->group(function () {
     Route::get('/dashboard/report', 'index');
     Route::get('/dashboard/report/vrc', 'vrc');
     Route::get('/dashboard/report/vpic', 'vpic');
@@ -181,7 +179,7 @@ Route::controller(ReportController::class)->group(function () {
 // end Maintenance
 
 // Transaction
-Route::controller(CustomerController::class)->group(function () {
+Route::controller(Transaction\CustomerController::class)->group(function () {
     Route::get('/dashboard/transaction/customer', 'index');
     Route::get('/dashboard/transaction/customer/{customer}', 'show');
     Route::get(
@@ -190,7 +188,7 @@ Route::controller(CustomerController::class)->group(function () {
     )->name('postmail');
 });
 
-Route::controller(TransactionController::class)->group(function () {
+Route::controller(Transaction\TransactionController::class)->group(function () {
     Route::get('/dashboard/transaction', 'index');
     Route::get('/dashboard/transaction/track', 'track');
     Route::get('/dashboard/transaction/track/{transaction:slug}', 'show');
@@ -198,23 +196,23 @@ Route::controller(TransactionController::class)->group(function () {
     Route::put('/dashboard/transaction/track/{transaction:slug}', 'update');
 });
 
-Route::controller(EmployeeController::class)->group(function () {
+Route::controller(Employee\EmployeeController::class)->group(function () {
     Route::get('/dashboard/employee', 'index');
     Route::get('/dashboard/employee/data', 'data');
     Route::get('/dashboard/employee/{division}', 'show');
 });
 
-Route::controller(DivisionController::class)->group(function () {
+Route::controller(Employee\DivisionController::class)->group(function () {
     Route::get('/dashboard/employee/division', 'index');
 });
 
-Route::controller(RateController::class)->group(function () {
+Route::controller(Transaction\RateController::class)->group(function () {
     Route::get('/dashboard/transaction/rate', 'index');
     Route::get('/dashboard/transaction/{rate}', 'show');
     Route::get('/dashboard/transaction/rate/customer/{customer}', 'data');
 });
 
-Route::controller(RegionsController::class)->group(function () {
+Route::controller(Transaction\RegionsController::class)->group(function () {
     Route::get('dashboard/transaction/rate/region', 'index');
 });
 // endtransaction

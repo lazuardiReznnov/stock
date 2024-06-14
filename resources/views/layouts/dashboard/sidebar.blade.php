@@ -5,6 +5,12 @@
 			<span>Home</span>
 		</x-nav-link>
 	</x-nav-item>
+	<x-nav-item>
+		<x-nav-link href="{{ route('blog') }}">
+			<i class="bi bi-grid"></i>
+			<span>Blog</span>
+		</x-nav-link>
+	</x-nav-item>
 	@auth
 		<x-nav-item>
 			<x-nav-link href="#" data-bs-target="#user-nav" data-bs-toggle="collapse">

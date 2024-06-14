@@ -29,6 +29,7 @@ use App\Http\Controllers\Dashboard\report;
 // });
 
 Route::get('/', Controllers\HomeController::class)->name('home');
+Route::get('/blog', [Controllers\BlogController::class, 'index'])->name('blog');
 
 Auth::routes();
 

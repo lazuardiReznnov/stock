@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -10,6 +11,9 @@ class BlogController extends Controller
     {
         return view('blog.index', [
             'title' => 'Blog',
+            'datas' => Blog::with(['categoryblog', 'user'])
+                ->latest()
+                ->get(),
         ]);
     }
 }

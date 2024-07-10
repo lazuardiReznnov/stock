@@ -1,4 +1,3 @@
-<div {{ $attributes->
-    class('btn-group') }} >
-    {{ $slot }}
+<div {{ $attributes->merge(['class' => 'btn-group']) }}>
+	{{ $slot }}
 </div>

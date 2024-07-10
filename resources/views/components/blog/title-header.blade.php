@@ -1,1 +1,1 @@
-<h1 {{ $attributes->class('display-4 fst-italic') }}>{{ $slot }}</h1>
+<h1 {{ $attributes->merge(['class' => 'display-4 fst-italic']) }}>{{ $slot }}</h1>

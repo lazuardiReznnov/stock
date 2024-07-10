@@ -1,4 +1,3 @@
-<section {{ $attributes->
-    class('section') }}>
-    {{ $slot }}
+<section {{ $attributes->class('section') }}>
+	{{ $slot }}
 </section>

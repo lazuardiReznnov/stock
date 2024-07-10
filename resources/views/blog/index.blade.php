@@ -11,63 +11,57 @@
 	<x-section>
 
 		<x-blog.header>
-			<x-blog.title-header>Judul Blog</x-blog.title-header>
-			<x-blog.body-header>Multiple lines of text that form the lede, informing new readers quickly and efficiently about
-				what’s most interesting in this post’s contents.</x-blog.body-header>
+			<x-blog.title-header>{{ $datas[0]->title }}</x-blog.title-header>
+			<x-slot name="smalltitle">
+				<a href="{{ $datas[0]->categoryblog->slug }}">{{ $datas[0]->categoryblog->name }}</a>
+			</x-slot>
+			<x-slot name="date">
+				Created By <a href="{{ $datas[0]->user_id }}">{{ $datas[0]->user->name }}
+					at {{ $datas[0]->created_at->diffForHumans() }}
+				</a>
+			</x-slot>
+			<x-blog.body-header>
+
+				{{ Str::limit($datas[0]->body, 200) }}
+			</x-blog.body-header>
 			<x-blog.link-header><a href="#" class="text-body-emphasis fw-bold">Continue reading...</a></x-blog.link-header>
 		</x-blog.header>
 
-		<div class="row mb-2">
-			<div class="col-md-6">
-				<x-blog.future-body>
-					<x-blog.future-body-card>
-						<strong class="d-inline-block mb-2 text-primary-emphasis">World</strong>
-						<h3 class="mb-0">Featured post</h3>
-						<div class="mb-1 text-body-secondary">Nov 12</div>
-						<p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional
-							content.</p>
-						<a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-							Continue reading
-							<svg class="bi">
-								<use xlink:href="#chevron-right" />
-							</svg>
-						</a>
-					</x-blog.future-body-card>
-					<div class="col-auto d-none d-lg-block">
-						<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
-							aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-							<title>Placeholder</title>
-							<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-								dy=".3em">Thumbnail</text>
-						</svg>
-					</div>
-				</x-blog.future-body>
-			</div>
-			<div class="col-md-6">
-				<x-blog.future-body>
-					<x-blog.future-body-card>
-						<strong class="d-inline-block mb-2 text-success-emphasis">Design</strong>
-						<h3 class="mb-0">Post title</h3>
-						<div class="mb-1 text-body-secondary">Nov 11</div>
-						<p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-						<a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
-							Continue reading
-							<svg class="bi">
-								<use xlink:href="#chevron-right" />
-							</svg>
-						</a>
-					</x-blog.future-body-card>
-					<div class="col-auto d-none d-lg-block">
-						<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
-							aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
-							<title>Placeholder</title>
-							<rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-								dy=".3em">Thumbnail</text>
-						</svg>
-					</div>
-				</x-blog.future-body>
-			</div>
+		<div class="row mb-3">
+			@foreach ($datas->skip(1) as $data)
+				<div class="col-lg-6">
+					<x-blog.future>
+						<x-blog.future.card>
+							<x-slot name="smalltitle">
+								<a href="{{ $data->categoryblog->slug }}">{{ $data->categoryblog->name }}</a>
+							</x-slot>
+
+							@slot('title', $data->title)
+							<x-slot name="date">
+								Created By <a href="{{ $data->user_id }}">{{ $data->user->name }}
+									at {{ $data->created_at->diffForHumans() }}
+								</a>
+							</x-slot>
+
+							<x-slot name="text">
+								{{ Str::limit($data->body, 75) }}
+							</x-slot>
+							<x-blog.future.link href="#">
+								Continue reading
+							</x-blog.future.link>
+						</x-blog.future.card>
+						<x-blog.future.tumb>
+							@slot('title', $data->title)
+							@slot('thumb', $data->categoryblog->name)
+						</x-blog.future.tumb>
+					</x-blog.future>
+
+				</div>
+			@endforeach
+
 		</div>
+
+
 
 	</x-section>
 </x-dashboard>

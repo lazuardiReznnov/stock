@@ -29,7 +29,10 @@ use App\Http\Controllers\Dashboard\report;
 // });
 
 Route::get('/', Controllers\HomeController::class)->name('home');
-Route::get('/blog', [Controllers\BlogController::class, 'index'])->name('blog');
+Route::controller(Controllers\BlogController::class)->group(function () {
+    Route::get('/blog', 'index')->name('blog');
+    Route::get('/blog/{category:slug}', 'categories')->name('categories');
+});
 
 Auth::routes();
 
